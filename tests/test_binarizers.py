@@ -14,7 +14,7 @@ class ThresholdBinarizerTester(unittest.TestCase):
             os.path.join(
                 os.path.dirname(
                     os.path.abspath(__file__)),
-                '../../../TestData/Gray/'))
+                'images/Gray/'))
         self.image = cv2.imread(os.path.join(testdata_path, 'Gray_scale.png'))
         self.binarized_true_175 = cv2.imread(
                 os.path.join(

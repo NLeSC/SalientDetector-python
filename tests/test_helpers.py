@@ -29,7 +29,7 @@ class HelpersEllipseTester(unittest.TestCase):
             os.path.join(
                 os.path.dirname(
                     os.path.abspath(__file__)),
-                '../../../TestData/Binary/'))
+                'images/Binary/'))
 
         self.ellipse1_mask = np.array(
                 cv2.imread(

@@ -21,7 +21,7 @@ class BinaryDetectorTester(unittest.TestCase):
             os.path.join(
                 os.path.dirname(
                     os.path.abspath(__file__)),
-                '../../../TestData/Binary/'))
+                'images/Binary/'))
         self.image_noise = cv2.imread(
                 os.path.join(
                     testdata_path,
