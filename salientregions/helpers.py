@@ -12,7 +12,7 @@ def show_image(img, window_name='image'):
 
     Parameters
     ----------
-    img : multidimensional numpy array)
+    img :  numpy array
         image
     window_name : str, optional
         name of the window
@@ -35,19 +35,19 @@ def visualize_elements(img,
                        visualize=True,
                        display_name='salient regions'):
     """Display the image with the salient regions provided.
-    
+
     Parameters
     ----------
-    img : multidimensional numpy array
+    img : numpy array
         image
-    holes :  2-dimensional numpy array with values 0/255, optional
-        The holes, to display in blue
-    islands :  2-dimensional numpy array with values 0/255, optional
-        The islands, to display in yellow
-    indentations :  2-dimensional numpy array with values 0/255, optional
-        The indentations, to display in green
-    protrusions :  2-dimensional numpy array with values 0/255, optional
-        The protrusions, to display in red
+    holes : numpy array
+        Binary mask of the holes, to display in blue
+    islands :  numpy array
+        Binary mask of the islands, to display in yellow
+    indentations : numpy array
+        Binary mask of the indentations, to display in green
+    protrusions :  numpy array
+        Binary mask of the protrusions, to display in red
     visualize:  bool, optional
         visualizations flag
     display_name : str, optional
@@ -56,7 +56,7 @@ def visualize_elements(img,
 
     Returns
     ----------
-    img_to_show : 3-dimensional numpy array
+    img_to_show : numpy array
         image with the colored regions
     """
     # colormap bgr
@@ -85,7 +85,6 @@ def visualize_elements(img,
     return img_to_show
 
 
-
 def read_matfile(filename, visualize=True):
     """Read a matfile with the binary masks for the salient regions.
     Returns the masks with 0/255 values for the 4 salient types
@@ -99,13 +98,13 @@ def read_matfile(filename, visualize=True):
 
     Returns
     ----------
-    holes:  2-dimensional numpy array with values 0/255
+    holes:  numpy array
         Binary image with holes as foreground
-    islands:  2-dimensional numpy array with values 0/255
+    islands: numpy array
         Binary image with islands as foreground
-    protrusions:  2-dimensional numpy array with values 0/255
+    protrusions: numpy array
         Binary image with protrusions as foreground
-    indentations:  2-dimensional numpy array with values 0/255
+    indentations: numpy array
         Binary image with indentations as foreground
     """
     matfile = sio.loadmat(filename)
@@ -162,7 +161,6 @@ def array_diff(arr1, arr2, rtol=1e-05, atol=1e-08):
     return np.allclose(arr1, arr2, rtol, atol)
 
 
-
 def region2ellipse(half_major_axis, half_minor_axis, theta):
     """ Conversion of elliptic parameters to polynomial coefficients.
 
@@ -178,7 +176,7 @@ def region2ellipse(half_major_axis, half_minor_axis, theta):
     Returns
     ----------
     A, B, C: floats
-        The coefficients of the polynomial equation of an ellipse Ax^2 + Bxy + Cy^2 = 1
+        The coefficients of the polynomial equation of an ellipse :math:`Ax^2 + Bxy + Cy^2 = 1`
     """
 
     # trigonometric functions
@@ -223,11 +221,16 @@ def binary_mask2ellipse_features(binary_mask, connectivity=4, saliency_type=1):
     ----------
     num_regions: int
         The number of saleint regions of saliency_type
-    features: 2-D numpy array with he equivalnet ellipse features
-        Every row corresponds to a single region/ellipse ans is of format
-        x0 y0 A B C saliency_type ,
-        where (x0,y0) are the coordinates of the ellipse centroid and A, B and C
-        are the polynomial coefficients from the ellipse equation Ax^2 + Bxy + Cy^2 = 1
+    features: numpy array
+        array with ellipse features for each of the ellipses
+
+    Note
+    ----------
+    Every row in the resulting feature array corresponds to a single
+    region/ellipse and is of format:
+    ``x0 y0 A B C saliency_type`` ,
+    where ``(x0,y0)`` are the coordinates of the ellipse centroid and ``A``, ``B`` and ``C``
+    are the polynomial coefficients from the ellipse equation :math:`Ax^2 + Bxy + Cy^2 = 1`.
     """
 
     #num_regions, labels, stats, centroids = cv2.connectedComponentsWithStats(binary_mask, connectivity=connectivity)

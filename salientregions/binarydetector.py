@@ -14,7 +14,7 @@ class BinaryDetector(object):
     lam : float
         lambda, minimumm area of a connected component
     area_factor: float
-        factor that describes the minimum area of a significent CC    
+        factor that describes the minimum area of a significent CC
     connectivity: int
         What connectivity to use to define CCs
 
@@ -28,14 +28,15 @@ class BinaryDetector(object):
         binary mask of the indentations
     protrusions : numpy array
         binary mask of the protrusions
-        
+
     Note
     ------
-    The methods `detect`, `get_holes`, `get_islands`, `get_indentations` 
-    and `get_protrusions` invoke the calculation of the regions. After that, the 
-    regions are also available as attributes `holes`, `islands`, `indentations` 
+    The methods `detect`, `get_holes`, `get_islands`, `get_indentations`
+    and `get_protrusions` invoke the calculation of the regions. After that, the
+    regions are also available as attributes `holes`, `islands`, `indentations`
     and `protrusions`.
     """
+
     def __init__(self, SE, lam, area_factor, connectivity):
         self.SE = SE
         self.lam = lam
@@ -53,7 +54,7 @@ class BinaryDetector(object):
     def detect(self, img, find_holes=True, find_islands=True,
                find_indentations=True, find_protrusions=True, visualize=True):
         """Find salient regions of the types specified.
-        
+
         Parameters
         ------
         img: numpy array
@@ -68,10 +69,10 @@ class BinaryDetector(object):
             Whether to detect regions of type protrusion
         visualize: bool, optional
             option for visualizing the process
-            
+
         Returns
         ------
-        regions: dict 
+        regions: dict
             For each type of region, the maks with detected regions.
         """
         regions = {}

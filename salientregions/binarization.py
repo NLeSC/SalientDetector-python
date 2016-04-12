@@ -19,7 +19,7 @@ class Binarizer(object):
 class ThresholdBinarizer(Binarizer):
     """
     Binarizes the image with a given threshold.
-    
+
     Parameters
     ------
     threshold :  int, optional
@@ -32,14 +32,14 @@ class ThresholdBinarizer(Binarizer):
     def binarize(self, img, visualize=True):
         """
         Binarizes the image according to the threshold.
-    
+
         Parameters
         ------
         img : numpy array
             grayscale image to be binarized.
         visualize: bool, optional
             Option for visualizing the process
-            
+
         Returns
         ------
         binarized : numpy array
@@ -61,17 +61,18 @@ class OtsuBinarizer(Binarizer):
     """
     Binarizes the image with the Otsu method.
     """
+
     def binarize(self, img, visualize=True):
         """
         Binarizes the image with the Otsu method.
-    
+
         Parameters
         ------
         img : numpy array
             grayscale image to be binarized.
         visualize: bool, optional
             Option for visualizing the process
-            
+
         Returns
         ------
         binarized : numpy array
@@ -134,14 +135,14 @@ class DatadrivenBinarizer(Binarizer):
         """
         Binarizes the image  such that the desired number of (large) connected
         components is maximized. Also returns the optimal threshold.
-    
+
         Parameters
         ------
         img : numpy array
             grayscale image to be binarized.
         visualize: bool, optional
             Option for visualizing the process
-            
+
         Returns
         ------
         t_opt : int
@@ -206,14 +207,14 @@ class DatadrivenBinarizer(Binarizer):
         """
         Binarizes the image  such that the desired number of (large) connected
         components is maximized.
-    
+
         Parameters
         ------
         img : numpy array
             grayscale image to be binarized.
         visualize: bool, optional
             Option for visualizing the process
-            
+
         Returns
         ------
         binarized : numpy array

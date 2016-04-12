@@ -44,11 +44,11 @@ class Detector(object):
         dictionary with the salientregions.
         Calling this function from the superclass makes sure the
         structuring element and lamda are created.
-        
+
         Parameters
         ------
         img: numpy arrary
-            grayscale or color image to detect regions   
+            grayscale or color image to detect regions
         """
         nrows, ncols = img.shape[0], img.shape[1]
         self.get_SE(nrows * ncols)
@@ -57,8 +57,8 @@ class Detector(object):
         """Get the structuring element en minimum salient region area for this image.
         The standard type of binarization is Datadriven (as in DMSR),
         but it is possible to pass a different Binarizer.
-        
-        Parameters        
+
+        Parameters
         ------
         imgsize: int
             size (nr of pixels) of the image
@@ -91,7 +91,7 @@ class SalientDetector(Detector):
         By default, we use datadriven binarization
     **kwargs
         Other arguments to pass along to the constructor of the superclass Detector
-        
+
     Attributes
     ------
     gray : numpy array
@@ -115,7 +115,7 @@ class SalientDetector(Detector):
             find_protrusions=True,
             visualize=True):
         """Find salient regions of the types specified.
-        
+
         Parameters
         ------
         img: numpy arrary
@@ -130,10 +130,10 @@ class SalientDetector(Detector):
             Whether to detect regions of type protrusion
         visualize: bool, optional
             Option for visualizing the process
-            
+
         Returns
         ------
-        regions: dict 
+        regions: dict
             For each type of region, the maks with detected regions.
         """
         super(
@@ -182,7 +182,7 @@ class MSSRDetector(Detector):
         The percentile at which the threshold is taken
     **kwargs
         Other arguments to pass along to the constructor of the superclass `Detector`
-        
+
     Attributes
     ------
     gray : numpy array
@@ -209,7 +209,7 @@ class MSSRDetector(Detector):
             find_protrusions=True,
             visualize=True):
         """Find salient regions of the types specified.
-        
+
         Parameters
         ------
         img: numpy arrary
@@ -224,10 +224,10 @@ class MSSRDetector(Detector):
             Whether to detect regions of type protrusion
         visualize: bool, optional
             Option for visualizing the process
-        
+
         Returns
         ------
-        regions: dict 
+        regions: dict
             For each type of region, the maks with detected regions.
         """
         super(
@@ -293,7 +293,7 @@ class MSSRDetector(Detector):
 
     def threshold_cumsum(self, data):
         """Thresholds an image based on a percentile of the non-zero pixel values.
-        
+
         Parameters
         ------
         data: 2-dimensional numpy array

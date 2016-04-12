@@ -23,22 +23,22 @@ class BinaryDetectorTester(unittest.TestCase):
                     os.path.abspath(__file__)),
                 'images/Binary/'))
         self.image_noise = cv2.imread(
-                os.path.join(
-                    testdata_path,
-                    'Binary_all_types_noise.png'), cv2.IMREAD_GRAYSCALE)
-        self.image_nested =  cv2.imread( os.path.join(
-                    testdata_path,
-                    'Binary_nested.png'), cv2.IMREAD_GRAYSCALE)
+            os.path.join(
+                testdata_path,
+                'Binary_all_types_noise.png'), cv2.IMREAD_GRAYSCALE)
+        self.image_nested = cv2.imread(os.path.join(
+            testdata_path,
+            'Binary_nested.png'), cv2.IMREAD_GRAYSCALE)
         self.holes_true, self.islands_true, self.indents_true, self.prots_true = sr.read_matfile(
             os.path.join(testdata_path, 'Binary_all_types_noise_binregions.mat'), visualize=False)
         self.filled_image_noise_true = cv2.imread(
-                os.path.join(
-                    testdata_path,
-                    'Binary_all_types_noise_filled.png'), cv2.IMREAD_GRAYSCALE)
+            os.path.join(
+                testdata_path,
+                'Binary_all_types_noise_filled.png'), cv2.IMREAD_GRAYSCALE)
         self.filled_image_nested_true = cv2.imread(
-                os.path.join(
-                    testdata_path,
-                    'Binary_nested_filled.png'), cv2.IMREAD_GRAYSCALE)
+            os.path.join(
+                testdata_path,
+                'Binary_nested_filled.png'), cv2.IMREAD_GRAYSCALE)
 
         SE = sio.loadmat(
             os.path.join(
@@ -93,7 +93,7 @@ class BinaryDetectorTester(unittest.TestCase):
             visualize=False)
         indents_my = results['indentations']
         assert sr.image_diff(self.indents_true, indents_my, visualize=False)
-        
+
     def test_holesislands(self):
         results = self.binarydetector.detect(
             self.image_noise,
@@ -106,7 +106,7 @@ class BinaryDetectorTester(unittest.TestCase):
         islands_my = results['islands']
         assert sr.image_diff(self.holes_true, holes_my, visualize=False)
         assert sr.image_diff(self.islands_true, islands_my, visualize=False)
-        
+
     def test_protsindents(self):
         results = self.binarydetector.detect(
             self.image_noise,
@@ -115,9 +115,15 @@ class BinaryDetectorTester(unittest.TestCase):
             find_indentations=True,
             find_protrusions=True,
             visualize=False)
-        assert sr.image_diff(self.indents_true, results['indentations'], visualize=False)
-        assert sr.image_diff(self.prots_true, results['protrusions'], visualize=False)
-        
+        assert sr.image_diff(
+            self.indents_true,
+            results['indentations'],
+            visualize=False)
+        assert sr.image_diff(
+            self.prots_true,
+            results['protrusions'],
+            visualize=False)
+
     def test_detect(self):
         results = self.binarydetector.detect(
             self.image_noise,
@@ -126,10 +132,22 @@ class BinaryDetectorTester(unittest.TestCase):
             find_indentations=True,
             find_protrusions=True,
             visualize=False)
-        assert sr.image_diff(self.holes_true, results['holes'], visualize=False)
-        assert sr.image_diff(self.islands_true, results['islands'], visualize=False)
-        assert sr.image_diff(self.indents_true, results['indentations'], visualize=False)
-        assert sr.image_diff(self.prots_true, results['protrusions'], visualize=False)
+        assert sr.image_diff(
+            self.holes_true,
+            results['holes'],
+            visualize=False)
+        assert sr.image_diff(
+            self.islands_true,
+            results['islands'],
+            visualize=False)
+        assert sr.image_diff(
+            self.indents_true,
+            results['indentations'],
+            visualize=False)
+        assert sr.image_diff(
+            self.prots_true,
+            results['protrusions'],
+            visualize=False)
 
     def test_fill_image_noise(self):
         filled = sr.BinaryDetector.fill_image(self.image_noise)

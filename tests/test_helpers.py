@@ -11,9 +11,6 @@ import os
 import numpy as np
 
 
-
-
-
 class HelpersEllipseTester(unittest.TestCase):
     '''
     Tests for the helper functions related to ellipses
@@ -32,18 +29,18 @@ class HelpersEllipseTester(unittest.TestCase):
                 'images/Binary/'))
 
         self.ellipse1_mask = np.array(
-                cv2.imread(
-                    os.path.join(
-                        testdata_path,
-                        'Binary_ellipse1.png'), cv2.IMREAD_GRAYSCALE))
+            cv2.imread(
+                os.path.join(
+                    testdata_path,
+                    'Binary_ellipse1.png'), cv2.IMREAD_GRAYSCALE))
         self.features_ellipse1 = 100.00 * \
             np.array([2.000000000000000, 1.750000000000000, 0.000008650519031, -0.000000000000000, 0.000051020408163, 0.020000000000000])
 
         self.ellipse2_mask = np.array(
-                cv2.imread(
-                    os.path.join(
-                        testdata_path,
-                        'Binary_ellipse2.png'), cv2.IMREAD_GRAYSCALE))
+            cv2.imread(
+                os.path.join(
+                    testdata_path,
+                    'Binary_ellipse2.png'), cv2.IMREAD_GRAYSCALE))
         self.features_ellipse2 = 100.00 * np.array([1.870000000000000,
                                                     0.385000000000000,
                                                     0.000400000000000,
@@ -53,17 +50,17 @@ class HelpersEllipseTester(unittest.TestCase):
 
         self.ellipse3_mask = np.array(
             cv2.imread(
-                    os.path.join(
-                        testdata_path,
-                        'Binary_ellipse3.png'), cv2.IMREAD_GRAYSCALE))
+                os.path.join(
+                    testdata_path,
+                    'Binary_ellipse3.png'), cv2.IMREAD_GRAYSCALE))
         self.features_ellipse3 = 100.00 * \
             np.array([1.019717800289436, 0.904095513748191, 0.000017518811785, -0.000000901804067, 0.000022518036288, 0.020000000000000])
 
         self.ellipse4_mask = np.array(
-                cv2.imread(
-                    os.path.join(
-                        testdata_path,
-                        'Binary_ellipse4.png'), cv2.IMREAD_GRAYSCALE))
+            cv2.imread(
+                os.path.join(
+                    testdata_path,
+                    'Binary_ellipse4.png'), cv2.IMREAD_GRAYSCALE))
         self.features_ellipse4 = 100.00 * np.array([0.653333333333333,
                                                     1.860687093779016,
                                                     0.000040675758984,
