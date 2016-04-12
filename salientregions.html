@@ -781,17 +781,22 @@ True if elemetns of the two arrays are close within the defaults tolerance
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><ul class="simple">
 <li><strong>num_regions</strong> (<em>int</em>) &#8211;
 The number of saleint regions of saliency_type</li>
-<li><strong>features</strong> (<em>2-D numpy array with he equivalnet ellipse features</em>) &#8211;
-Every row corresponds to a single region/ellipse ans is of format
-x0 y0 A B C saliency_type ,
-where (x0,y0) are the coordinates of the ellipse centroid and A, B and C
-are the polynomial coefficients from the ellipse equation Ax^2 + Bxy + Cy^2 = 1</li>
+<li><strong>features</strong> (<em>numpy array</em>) &#8211;
+array with ellipse features for each of the ellipses</li>
 </ul>
 </p>
 </td>
 </tr>
 </tbody>
 </table>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Every row in the resulting feature array corresponds to a single
+region/ellipse and is of format:
+<code class="docutils literal"><span class="pre">x0</span> <span class="pre">y0</span> <span class="pre">A</span> <span class="pre">B</span> <span class="pre">C</span> <span class="pre">saliency_type</span></code> ,
+where <code class="docutils literal"><span class="pre">(x0,y0)</span></code> are the coordinates of the ellipse centroid and <code class="docutils literal"><span class="pre">A</span></code>, <code class="docutils literal"><span class="pre">B</span></code> and <code class="docutils literal"><span class="pre">C</span></code>
+are the polynomial coefficients from the ellipse equation <img class="math" src="_images/math/f95a6cdca86017eca71d2c11c6c20f704c52c02a.png" alt="Ax^2 + Bxy + Cy^2 = 1"/>.</p>
+</div>
 </dd></dl>
 
 <dl class="function">
@@ -837,13 +842,13 @@ Returns the masks with 0/255 values for the 4 salient types</p>
 </td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><ul class="simple">
-<li><strong>holes</strong> (<em>2-dimensional numpy array with values 0/255</em>) &#8211;
+<li><strong>holes</strong> (<em>numpy array</em>) &#8211;
 Binary image with holes as foreground</li>
-<li><strong>islands</strong> (<em>2-dimensional numpy array with values 0/255</em>) &#8211;
+<li><strong>islands</strong> (<em>numpy array</em>) &#8211;
 Binary image with islands as foreground</li>
-<li><strong>protrusions</strong> (<em>2-dimensional numpy array with values 0/255</em>) &#8211;
+<li><strong>protrusions</strong> (<em>numpy array</em>) &#8211;
 Binary image with protrusions as foreground</li>
-<li><strong>indentations</strong> (<em>2-dimensional numpy array with values 0/255</em>) &#8211;
+<li><strong>indentations</strong> (<em>numpy array</em>) &#8211;
 Binary image with indentations as foreground</li>
 </ul>
 </p>
@@ -869,7 +874,7 @@ Binary image with indentations as foreground</li>
 </td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>A, B, C</strong> &#8211;
-The coefficients of the polynomial equation of an ellipse Ax^2 + Bxy + Cy^2 = 1</p>
+The coefficients of the polynomial equation of an ellipse <img class="math" src="_images/math/f95a6cdca86017eca71d2c11c6c20f704c52c02a.png" alt="Ax^2 + Bxy + Cy^2 = 1"/></p>
 </td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">floats</p>
@@ -889,7 +894,7 @@ When a key is pressed, the window is closed</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>img</strong> (<em>multidimensional numpy array)</em>) &#8211; image</li>
+<li><strong>img</strong> (<em>numpy array</em>) &#8211; image</li>
 <li><strong>window_name</strong> (<em>str, optional</em>) &#8211; name of the window</li>
 </ul>
 </td>
@@ -907,11 +912,11 @@ When a key is pressed, the window is closed</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>img</strong> (<em>multidimensional numpy array</em>) &#8211; image</li>
-<li><strong>holes</strong> (<em>2-dimensional numpy array with values 0/255, optional</em>) &#8211; The holes, to display in blue</li>
-<li><strong>islands</strong> (<em>2-dimensional numpy array with values 0/255, optional</em>) &#8211; The islands, to display in yellow</li>
-<li><strong>indentations</strong> (<em>2-dimensional numpy array with values 0/255, optional</em>) &#8211; The indentations, to display in green</li>
-<li><strong>protrusions</strong> (<em>2-dimensional numpy array with values 0/255, optional</em>) &#8211; The protrusions, to display in red</li>
+<li><strong>img</strong> (<em>numpy array</em>) &#8211; image</li>
+<li><strong>holes</strong> (<em>numpy array</em>) &#8211; Binary mask of the holes, to display in blue</li>
+<li><strong>islands</strong> (<em>numpy array</em>) &#8211; Binary mask of the islands, to display in yellow</li>
+<li><strong>indentations</strong> (<em>numpy array</em>) &#8211; Binary mask of the indentations, to display in green</li>
+<li><strong>protrusions</strong> (<em>numpy array</em>) &#8211; Binary mask of the protrusions, to display in red</li>
 <li><strong>visualize</strong> (<em>bool, optional</em>) &#8211; visualizations flag</li>
 <li><strong>display_name</strong> (<em>str, optional</em>) &#8211; name of the window</li>
 </ul>
@@ -921,7 +926,7 @@ When a key is pressed, the window is closed</p>
 image with the colored regions</p>
 </td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">3-dimensional numpy array</p>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">numpy array</p>
 </td>
 </tr>
 </tbody>
