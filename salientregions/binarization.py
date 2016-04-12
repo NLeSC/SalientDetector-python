@@ -38,7 +38,7 @@ class ThresholdBinarizer(Binarizer):
         img : numpy array
             grayscale image to be binarized.
         visualize: bool, optional
-            Option for vizualizing the process
+            Option for visualizing the process
             
         Returns
         ------
@@ -70,7 +70,7 @@ class OtsuBinarizer(Binarizer):
         img : numpy array
             grayscale image to be binarized.
         visualize: bool, optional
-            Option for vizualizing the process
+            Option for visualizing the process
             
         Returns
         ------
@@ -140,7 +140,7 @@ class DatadrivenBinarizer(Binarizer):
         img : numpy array
             grayscale image to be binarized.
         visualize: bool, optional
-            Option for vizualizing the process
+            Option for visualizing the process
             
         Returns
         ------
@@ -212,7 +212,7 @@ class DatadrivenBinarizer(Binarizer):
         img : numpy array
             grayscale image to be binarized.
         visualize: bool, optional
-            Option for vizualizing the process
+            Option for visualizing the process
             
         Returns
         ------

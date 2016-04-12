@@ -18,6 +18,8 @@ class Detector(object):
     ------
     SE_size_factor: float, optional
         The fraction of the image size that the structuring element should be
+    lam_factor : float, optional
+        The factor of lambda compared to the SE size
     area_factor: float, optional
         factor that describes the minimum area of a significent CC
     connectivity: int
@@ -37,15 +39,16 @@ class Detector(object):
         self.connectivity = connectivity
 
     @abstractmethod
-    def detect(self, img, find_holes=True, find_islands=True,
-               find_indentations=True, find_protrusions=True,
-               visualize=True):
-        """
-        This method should be implemented to return a
-         dictionary with the salientregions.
+    def detect(self, img):
+        """This method should be implemented to return a
+        dictionary with the salientregions.
         Calling this function from the superclass makes sure the
-         structuring elemnt and lamda are created.
-
+        structuring element and lamda are created.
+        
+        Parameters
+        ------
+        img: numpy arrary
+            grayscale or color image to detect regions   
         """
         nrows, ncols = img.shape[0], img.shape[1]
         self.get_SE(nrows * ncols)
@@ -62,8 +65,8 @@ class Detector(object):
 
         Returns
         ------
-        SE: 2-dimensional numpy array of shape (k,k)
-            The structuring element to use in processing the image
+        SE: numpy array
+            The structuring element for this image
         lam: float
             lambda, minimumm area of a salient region
         """
@@ -136,12 +139,7 @@ class SalientDetector(Detector):
         super(
             SalientDetector,
             self).detect(
-            img,
-            find_holes=find_holes,
-            find_islands=find_islands,
-            find_indentations=find_indentations,
-            find_protrusions=find_protrusions,
-            visualize=visualize)
+            img)
 
         if self.binarizer is None:
             self.binarizer = binarization.DatadrivenBinarizer(
@@ -303,7 +301,7 @@ class MSSRDetector(Detector):
 
         Returns
         ------
-        binarized: 2-dimensional numpy array
+        binarized : numpy array
             Thresholded image
         """
         # If the data is already binary, don't do the percentile

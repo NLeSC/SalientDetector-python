@@ -67,7 +67,7 @@ class BinaryDetector(object):
         find_protrusions: bool, optional
             Whether to detect regions of type protrusion
         visualize: bool, optional
-            option for vizualizing the process
+            option for visualizing the process
             
         Returns
         ------
@@ -102,6 +102,8 @@ class BinaryDetector(object):
         return regions
 
     def reset(self):
+        """ Reset all attributes.
+        """
         self._img = None
         self._invimg = None
         self._filled = None
@@ -243,10 +245,10 @@ class BinaryDetector(object):
 
         Parameters
         ------
-        img : numpy array
+        elements : numpy array
             binary image with elements
-        lam: float, optional
-            lambda, minimumm area of a salient region
+        connectivity: int, optional
+            What connectivity to use to define CCs
         remove_border_elements: bool, optional
             Also remove elements that are attached to the border
         visualize: bool, optional

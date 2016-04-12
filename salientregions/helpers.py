@@ -49,7 +49,7 @@ def visualize_elements(img,
     protrusions :  2-dimensional numpy array with values 0/255, optional
         The protrusions, to display in red
     visualize:  bool, optional
-        vizualizations flag
+        visualizations flag
     display_name : str, optional
         name of the window
 
@@ -95,7 +95,7 @@ def read_matfile(filename, visualize=True):
     filename: str
         Path to the mat file
     visualize: bool, optional
-        option for vizualizing the process
+        option for visualizing the process
 
     Returns
     ----------
@@ -128,12 +128,12 @@ def image_diff(img1, img2, visualize=True):
 
     Parameters
     ----------
-    img1: 2-dimensional numpy array with values 0/255
+    img1: numpy array
         first image to compare
-    img1: 2-dimensional numpy array with values 0/255
+    img2: numpy array
         second image to compare
     visualize: bool, optional
-        option for vizualizing the process
+        option for visualizing the process
 
     Returns
     ----------
