@@ -11,6 +11,6 @@ setup(
     description='Package for finding salient regions in images',
     long_description=readme,
     author='Netherlands eScience Center',
-    url='https://github.com/NLeSC/LargeScaleImaging',
+    url='https://github.com/NLeSC/SalientRegions-python',
     packages=find_packages(exclude=('tests'))
 )
