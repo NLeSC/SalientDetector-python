@@ -1,9 +1,10 @@
 # Python software for image processing
 
-This folder contains Python software implementation of the MATLAB salient region detection code as part of the [image processing part of eStep](https://www.esciencecenter.nl/technology/expertise/computer-vision). The software conforms with the [eStep standarts](https://github.com/NLeSC/estep-checklist).
-The source code documentation can be found [here](http://nlesc.github.io/SalientDetector-python/)
+This folder contains a Python  implementation of the Salient Region Detector code as part of the [image processing part of eStep](https://www.esciencecenter.nl/technology/expertise/computer-vision). The software conforms with the [eStep standarts](https://github.com/NLeSC/estep-checklist).
 
-It contains sub-folders:
+The original MATLAB implementation can be found at [this repository](https://github.com/NLeSC/LargeScaleImaging)
+
+The repository contains the following sub-folders:
 
 ## Notebooks
 SeveraliPython notebooks testing and illustrating major functionality.
@@ -22,7 +23,7 @@ Unit tests for the code in salientregions.
 
 
 ## Installing the package
-If desired, activate an virtual environment. To build the package, type the following command in the current directory (`Software/Python/`):
+If desired, activate an virtual environment. To build the package, type the following command in the root directory of the repository:
 
 `make`
 
@@ -30,6 +31,23 @@ To install the package `salientregions`  in your environment:
 
 `make install`
 
-If you want to run tests, you need to pull the test images from this git repository using [git lfs](https://git-lfs.github.com/). To perform tests:
+To perform tests:
 
 `make test`
+
+# Getting started
+The source code documentation can be found [here](http://nlesc.github.io/SalientDetector-python/)
+
+This code makes heavily use of the OpenCV library, so in order to understand how the code works, it helps to have a look at the [OpenCV Documentation](http://docs.opencv.org/3.1.0/). 
+
+## images
+In OpenCV, images are represented as numpy arrays. Grayscale images are represented by a 2-dimensional array. Color images have a third dimension for the color channel. The Salient Region Detector has a few simplifying assumptions:
+* Color images have BGR channels
+* Images are assumed to be 8-bit. This is also the case for binary images, so they only have values of 0 and 255.
+
+## Detector object
+The complete functionality of the salient region detectors are found in the Detector object. The SalientDetector implements DMSR detection, and MSSRDetector implements MSSR detection (see referred papers for more information)
+An example of how to use the Detector can be found in [this iPython Notebook](https://github.com/NLeSC/SalientDetector-python/blob/master/Notebooks/Detector_objects.ipynb).
+
+# References
+TODO
