@@ -761,8 +761,43 @@ True if elemetns of the two arrays are close within the defaults tolerance
 
 <dl class="function">
 <dt id="salientregions.helpers.binary_mask2ellipse_features">
-<code class="descclassname">salientregions.helpers.</code><code class="descname">binary_mask2ellipse_features</code><span class="sig-paren">(</span><em>binary_mask</em>, <em>connectivity=4</em>, <em>saliency_type=1</em><span class="sig-paren">)</span><a class="headerlink" href="#salientregions.helpers.binary_mask2ellipse_features" title="Permalink to this definition">¶</a></dt>
-<dd><p>Conversion of binary regions to ellipse features.</p>
+<code class="descclassname">salientregions.helpers.</code><code class="descname">binary_mask2ellipse_features</code><span class="sig-paren">(</span><em>regions</em>, <em>connectivity=4</em><span class="sig-paren">)</span><a class="headerlink" href="#salientregions.helpers.binary_mask2ellipse_features" title="Permalink to this definition">¶</a></dt>
+<dd><p>Conversion of multiple types of regions to ellipse features.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>regions</strong> (<em>dict</em>) &#8211; Dict of binary masks of the detected salient regions</li>
+<li><strong>connectivity</strong> (<em>int</em>) &#8211; Neighborhood connectivity</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><ul class="simple">
+<li><strong>num_regions</strong> (<em>dict</em>) &#8211;
+The number of saleint regions for each saliency_type</li>
+<li><strong>features</strong> (<em>dict</em>) &#8211;
+array with ellipse features for each of the ellipses, for each saliency type</li>
+</ul>
+</p>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Every row in the resulting feature array corresponds to a single
+region/ellipse and is of format:
+<code class="docutils literal"><span class="pre">x0</span> <span class="pre">y0</span> <span class="pre">A</span> <span class="pre">B</span> <span class="pre">C</span> <span class="pre">saliency_type</span></code> ,
+where <code class="docutils literal"><span class="pre">(x0,y0)</span></code> are the coordinates of the ellipse centroid and <code class="docutils literal"><span class="pre">A</span></code>, <code class="docutils literal"><span class="pre">B</span></code> and <code class="docutils literal"><span class="pre">C</span></code>
+are the polynomial coefficients from the ellipse equation <img class="math" src="_images/math/f95a6cdca86017eca71d2c11c6c20f704c52c02a.png" alt="Ax^2 + Bxy + Cy^2 = 1"/>.</p>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="salientregions.helpers.binary_mask2ellipse_features_single">
+<code class="descclassname">salientregions.helpers.</code><code class="descname">binary_mask2ellipse_features_single</code><span class="sig-paren">(</span><em>binary_mask</em>, <em>connectivity=4</em>, <em>saliency_type=1</em><span class="sig-paren">)</span><a class="headerlink" href="#salientregions.helpers.binary_mask2ellipse_features_single" title="Permalink to this definition">¶</a></dt>
+<dd><p>Conversion of a single type of binary regions to ellipse features.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -773,7 +808,7 @@ True if elemetns of the two arrays are close within the defaults tolerance
 <li><strong>saliency_type</strong> (<em>int</em>) &#8211; Type of salient regions. The code  is:
 1: holes
 2: islands
-3: indentaitons
+3: indentations
 4: protrusions</li>
 </ul>
 </td>
