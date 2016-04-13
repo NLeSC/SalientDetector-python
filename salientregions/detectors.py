@@ -163,6 +163,13 @@ class SalientDetector(Detector):
                                     find_indentations,
                                     find_protrusions,
                                     visualize)
+        if visualize:
+            helpers.visualize_elements(
+                self.gray, holes=result.get(
+                    'holes', None), islands=result.get(
+                    'islands', None), indentations=result.get(
+                    'indentations', None), protrusions=result.get(
+                    'protrusions', None))        
         return result
 
 

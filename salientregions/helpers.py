@@ -201,8 +201,8 @@ def region2ellipse(half_major_axis, half_minor_axis, theta):
     return A, B, C
 
 
-def binary_mask2ellipse_features(binary_mask, connectivity=4, saliency_type=1):
-    """ Conversion of binary regions to ellipse features.
+def binary_mask2ellipse_features_single(binary_mask, connectivity=4, saliency_type=1):
+    """ Conversion of a single type of binary regions to ellipse features.
 
     Parameters
     ----------
@@ -214,7 +214,7 @@ def binary_mask2ellipse_features(binary_mask, connectivity=4, saliency_type=1):
         Type of salient regions. The code  is:
         1: holes
         2: islands
-        3: indentaitons
+        3: indentations
         4: protrusions
 
     Returns
@@ -234,8 +234,9 @@ def binary_mask2ellipse_features(binary_mask, connectivity=4, saliency_type=1):
     """
 
     #num_regions, labels, stats, centroids = cv2.connectedComponentsWithStats(binary_mask, connectivity=connectivity)
+    binary_mask2 = binary_mask.copy()
     _, contours, _ = cv2.findContours(
-        binary_mask, cv2.RETR_CCOMP, cv2.CHAIN_APPROX_SIMPLE)
+        binary_mask2, cv2.RETR_CCOMP, cv2.CHAIN_APPROX_SIMPLE)
 
     num_regions = len(contours)
     features = np.zeros((num_regions, 6), float)
@@ -271,4 +272,44 @@ def binary_mask2ellipse_features(binary_mask, connectivity=4, saliency_type=1):
                            np.nan,
                            saliency_type])
 
+    return num_regions, features
+
+def binary_mask2ellipse_features(regions, connectivity=4):
+    """ Conversion of multiple types of regions to ellipse features.
+
+    Parameters
+    ----------
+    regions: dict
+        Dict of binary masks of the detected salient regions 
+    connectivity: int
+        Neighborhood connectivity
+
+
+    Returns
+    ----------
+    num_regions: dict
+        The number of saleint regions for each saliency_type
+    features: dict
+        array with ellipse features for each of the ellipses, for each saliency type
+
+    Note
+    ----------
+    Every row in the resulting feature array corresponds to a single
+    region/ellipse and is of format:
+    ``x0 y0 A B C saliency_type`` ,
+    where ``(x0,y0)`` are the coordinates of the ellipse centroid and ``A``, ``B`` and ``C``
+    are the polynomial coefficients from the ellipse equation :math:`Ax^2 + Bxy + Cy^2 = 1`.
+    """
+    region2int = {"holes": 1,
+                  "islands":2,
+                  "indentations": 3,
+                  "protrusions": 4}
+    num_regions = {}
+    features = {}
+    for saltype in regions.keys():
+        num_regions_s, features_s =  binary_mask2ellipse_features_single(regions[saltype], 
+                                                              connectivity=connectivity, 
+                                                              saliency_type=region2int[saltype])
+        num_regions[saltype] = num_regions_s
+        features[saltype] = features_s
     return num_regions, features
