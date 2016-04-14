@@ -81,7 +81,7 @@ class HelpersEllipseTester(unittest.TestCase):
     def test_mask2features_ellipse1(self):
        # print "---Testing binary_mask2ellipse_features for
        # ellipse1----------------"
-        num_regions, features = sr.helpers.binary_mask2ellipse_features(
+        num_regions, features = sr.helpers.binary_mask2ellipse_features_single(
             self.ellipse1_mask, self.connectivty, 2)
 
 #        print "MATLAB features:", self.features_ellipse1
@@ -99,7 +99,7 @@ class HelpersEllipseTester(unittest.TestCase):
     def test_mask2features_ellipse2(self):
         # print "---Testing binary_mask2ellipse_features for
         # ellipse2----------------"
-        num_regions, features = sr.helpers.binary_mask2ellipse_features(
+        num_regions, features = sr.helpers.binary_mask2ellipse_features_single(
             self.ellipse2_mask, self.connectivty, 2)
 
         # print "MATLAB features:", self.features_ellipse2
@@ -117,7 +117,7 @@ class HelpersEllipseTester(unittest.TestCase):
     def test_mask2features_ellipse3(self):
         # print "---Testing binary_mask2ellipse_features for
         # ellipse3----------------"
-        num_regions, features = sr.helpers.binary_mask2ellipse_features(
+        num_regions, features = sr.helpers.binary_mask2ellipse_features_single(
             self.ellipse3_mask, self.connectivty, 2)
 
 #        print "MATLAB features:", self.features_ellipse3
@@ -135,7 +135,7 @@ class HelpersEllipseTester(unittest.TestCase):
     def test_mask2features_ellipse4(self):
         # print "---Testing binary_mask2ellipse_features for
         # ellipse4----------------"
-        num_regions, features = sr.helpers.binary_mask2ellipse_features(
+        num_regions, features = sr.helpers.binary_mask2ellipse_features_single(
             self.ellipse4_mask, self.connectivty, 2)
 
 #        print "MATLAB features:", self.features_ellipse4
