@@ -265,8 +265,9 @@ def binary_mask2ellipse_features_single(binary_mask, connectivity=4, saliency_ty
         index_regions = index_regions + 1
 
         # fit an ellipse to the contour
-        (x, y), (MA, ma), angle = cv2.fitEllipse(cnt)
-       # print "x,y: ", x, y
+        #(x, y), (MA, ma), angle = cv2.fitEllipse(cnt)
+        (x, y), (ma, MA), angle = cv2.fitEllipse(cnt)
+#        print "MA, ma: ", MA, ma
         # ellipse parameters
         a = np.fix(MA / 2)
         b = np.fix(ma / 2)
