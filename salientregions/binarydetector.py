@@ -305,7 +305,7 @@ class BinaryDetector(object):
 
         filled = img.copy()
         _, contours, hierarchy = cv2.findContours(filled,
-                                                  cv2.RETR_EXTERNAL,
+                                                  cv2.RETR_CCOMP,
                                                   cv2.CHAIN_APPROX_SIMPLE)
         for cnt in contours:
             # Fill the original image for all the contours
