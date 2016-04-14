@@ -29,7 +29,7 @@ def show_image(img, window_name='image'):
     plt.show()
 
 
-def visualize_elements(img,
+def visualize_elements(img, regions=None,
                        holes=None, islands=None,
                        indentations=None, protrusions=None,
                        visualize=True,
@@ -40,6 +40,8 @@ def visualize_elements(img,
     ----------
     img : numpy array
         image
+    regions : dict
+        dictionary with the regions to show
     holes : numpy array
         Binary mask of the holes, to display in blue
     islands :  numpy array
@@ -71,6 +73,12 @@ def visualize_elements(img,
         img_to_show = cv2.cvtColor(img, cv2.COLOR_GRAY2BGR)
     else:
         img_to_show = img.copy()
+        
+    if regions is not None:
+        holes = regions.get("holes", None)
+        islands = regions.get("islands", None)
+        indentations = regions.get("indentations", None)
+        protrusions = regions.get("protrusions", None)
     if holes is not None:
         img_to_show[[holes > 0]] = colormap['holes']
     if islands is not None:

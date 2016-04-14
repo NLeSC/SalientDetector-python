@@ -49,5 +49,10 @@ In OpenCV, images are represented as numpy arrays. Grayscale images are represen
 The complete functionality of the salient region detectors are found in the Detector object. The SalientDetector implements DMSR detection, and MSSRDetector implements MSSR detection (see referred papers for more information about these algorithms).
 An example of how to use the Detector can be found in [this iPython Notebook](https://github.com/NLeSC/SalientDetector-python/blob/master/Notebooks/DetectorExample.ipynb).
 
+# Contributing
+If you want to contribute to the code, please have a look at the [eStep standarts](https://github.com/NLeSC/estep-checklist).
+
+We use numpy-style code documentation.
+
 # References
 TODO
