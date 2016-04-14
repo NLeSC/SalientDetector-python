@@ -940,7 +940,7 @@ When a key is pressed, the window is closed</p>
 
 <dl class="function">
 <dt id="salientregions.helpers.visualize_elements">
-<code class="descclassname">salientregions.helpers.</code><code class="descname">visualize_elements</code><span class="sig-paren">(</span><em>img</em>, <em>holes=None</em>, <em>islands=None</em>, <em>indentations=None</em>, <em>protrusions=None</em>, <em>visualize=True</em>, <em>display_name='salient regions'</em><span class="sig-paren">)</span><a class="headerlink" href="#salientregions.helpers.visualize_elements" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">salientregions.helpers.</code><code class="descname">visualize_elements</code><span class="sig-paren">(</span><em>img</em>, <em>regions=None</em>, <em>holes=None</em>, <em>islands=None</em>, <em>indentations=None</em>, <em>protrusions=None</em>, <em>visualize=True</em>, <em>display_name='salient regions'</em><span class="sig-paren">)</span><a class="headerlink" href="#salientregions.helpers.visualize_elements" title="Permalink to this definition">¶</a></dt>
 <dd><p>Display the image with the salient regions provided.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -948,6 +948,7 @@ When a key is pressed, the window is closed</p>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
 <li><strong>img</strong> (<em>numpy array</em>) &#8211; image</li>
+<li><strong>regions</strong> (<em>dict</em>) &#8211; dictionary with the regions to show</li>
 <li><strong>holes</strong> (<em>numpy array</em>) &#8211; Binary mask of the holes, to display in blue</li>
 <li><strong>islands</strong> (<em>numpy array</em>) &#8211; Binary mask of the islands, to display in yellow</li>
 <li><strong>indentations</strong> (<em>numpy array</em>) &#8211; Binary mask of the indentations, to display in green</li>
