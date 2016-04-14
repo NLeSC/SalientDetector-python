@@ -40,14 +40,14 @@ The source code documentation can be found [here](http://nlesc.github.io/Salient
 
 This code makes heavily use of the OpenCV library, so in order to understand how the code works, it helps to have a look at the [OpenCV Documentation](http://docs.opencv.org/3.1.0/). 
 
-## images
+## Images
 In OpenCV, images are represented as numpy arrays. Grayscale images are represented by a 2-dimensional array. Color images have a third dimension for the color channel. The Salient Region Detector has a few simplifying assumptions:
 * Color images have BGR channels
 * Images are assumed to be 8-bit. This is also the case for binary images, so they only have values of 0 and 255.
 
 ## Detector object
-The complete functionality of the salient region detectors are found in the Detector object. The SalientDetector implements DMSR detection, and MSSRDetector implements MSSR detection (see referred papers for more information)
-An example of how to use the Detector can be found in [this iPython Notebook](https://github.com/NLeSC/SalientDetector-python/blob/master/Notebooks/Detector_objects.ipynb).
+The complete functionality of the salient region detectors are found in the Detector object. The SalientDetector implements DMSR detection, and MSSRDetector implements MSSR detection (see referred papers for more information about these algorithms).
+An example of how to use the Detector can be found in [this iPython Notebook](https://github.com/NLeSC/SalientDetector-python/blob/master/Notebooks/DetectorExample.ipynb).
 
 # References
 TODO
