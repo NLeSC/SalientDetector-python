@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 import math
 
 
-def show_image(img, window_name='image'):
+def show_image(img, title=None):
     """Display the image.
     When a key is pressed, the window is closed
 
@@ -14,8 +14,8 @@ def show_image(img, window_name='image'):
     ----------
     img :  numpy array
         image
-    window_name : str, optional
-        name of the window
+    title : str, optional
+        Title of the image
     """
     fig = plt.figure()
     plt.axis("off")
@@ -23,7 +23,10 @@ def show_image(img, window_name='image'):
         plt.imshow(cv2.cvtColor(img, cv2.COLOR_BGR2RGB))
     else:
         plt.imshow(cv2.cvtColor(img, cv2.COLOR_GRAY2RGB))
-    fig.canvas.set_window_title(window_name)
+    fig.canvas.set_window_title(title)
+    if title is not None:
+        fig.canvas.set_window_title(title)
+        fig.suptitle(title)
     plt.gcf().canvas.mpl_connect('key_press_event',
                                  lambda event: plt.close(event.canvas.figure))
     plt.show()
@@ -33,7 +36,7 @@ def visualize_elements(img, regions=None,
                        holes=None, islands=None,
                        indentations=None, protrusions=None,
                        visualize=True,
-                       display_name='salient regions'):
+                       title='salient regions'):
     """Display the image with the salient regions provided.
 
     Parameters
@@ -89,7 +92,7 @@ def visualize_elements(img, regions=None,
         img_to_show[[protrusions > 0]] = colormap['protrusions']
 
     if visualize:
-        show_image(img_to_show, window_name=display_name)
+        show_image(img_to_show, title=title)
     return img_to_show
 
 
@@ -148,7 +151,7 @@ def image_diff(img1, img2, visualize=True):
         True if all pixels of the two images are equal
     """
     if visualize:
-        show_image(cv2.bitwise_xor(img1, img2), 'difference')
+        show_image(cv2.bitwise_xor(img1, img2), 'Difference between images')
     return np.all(img1 == img2)
 
 

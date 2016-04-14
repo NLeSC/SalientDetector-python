@@ -99,7 +99,8 @@ class BinaryDetector(object):
                     'holes', None), islands=regions.get(
                     'islands', None), indentations=regions.get(
                     'indentations', None), protrusions=regions.get(
-                    'protrusions', None))
+                    'protrusions', None),
+                    title='Salient regions in binary image')
         return regions
 
     def reset(self):
@@ -286,7 +287,7 @@ class BinaryDetector(object):
                         or ymax >= lowerborder:
                     result[[labels == i]] = 0
         if visualize:
-            helpers.show_image(result, 'small elements removed')
+            helpers.show_image(result, 'Small elements removed')
         return result
 
     def _fill_image(self, img):

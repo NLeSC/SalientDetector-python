@@ -51,7 +51,7 @@ class ThresholdBinarizer(Binarizer):
             binarized = binarized[:, :, 0]
         if visualize:
             helpers.show_image(
-                binarized, window_name=(
+                binarized, title=(
                     'Binarized with threshold %i' %
                     self.threshold))
         return binarized
@@ -84,7 +84,7 @@ class OtsuBinarizer(Binarizer):
             binarized = binarized[:, :, 0]
         if visualize:
             helpers.show_image(
-                binarized, window_name=(
+                binarized, title=(
                     'Binarized with threshold %i' %
                     threshold))
         return binarized
@@ -188,9 +188,11 @@ class DatadrivenBinarizer(Binarizer):
         if visualize:
             fig = plt.figure()
             fig.canvas.set_window_title('Number of CCs per threshold level')
-            plt.plot(scores)
-            plt.axvline(x=t_opt, color='red')
-            plt.axvline(x=t_otsu, color='green')
+            s, = plt.plot(scores)
+            fig.suptitle('Weighted number of CCs per threshold level')
+            l1 = plt.axvline(x=t_opt, color='red')
+            l2 = plt.axvline(x=t_otsu, color='green')
+            plt.legend(handles=[s, l1, l2], labels=['Score', 'Optimal level', 'Otsu level'])
             plt.xlim(0, 255)
             plt.gcf().canvas.mpl_connect(
                 'key_press_event',
@@ -198,7 +200,7 @@ class DatadrivenBinarizer(Binarizer):
                     event.canvas.figure))
             plt.show()
             helpers.show_image(
-                binarized, window_name=(
+                binarized, title=(
                     'Binarized with threshold %i' %
                     t_opt))
         return t_opt, binarized
