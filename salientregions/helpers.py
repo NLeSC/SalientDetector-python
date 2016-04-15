@@ -258,24 +258,27 @@ def binary_mask2ellipse_features_single(binary_mask, connectivity=4, saliency_ty
     _, contours, hierarchy = cv2.findContours(
         binary_mask2, cv2.RETR_CCOMP, cv2.CHAIN_APPROX_SIMPLE)
 
-    num_regions = 0
+    num_regions = -1
     features_standard = np.zeros((len(contours), 6), float)
     features_poly = np.zeros((len(contours), 6), float)
 
     for index_regions in xrange(len(contours)):
         if hierarchy[0,index_regions,3]==-1:
+#            print "Regions counter: ", num_regions   
+#            print "Regions index: ", index_regions
             num_regions += 1
+            
             cnt = contours[index_regions]
             # fit an ellipse to the contour
            # (x, y), (MA, ma), angle = cv2.fitEllipse(cnt)
             (x, y), (ma, MA), angle = cv2.fitEllipse(cnt)
-           # print "x,y: ", x, y
+           # print "Output of cv2.fitEllipse (x,y,MA, ma, angle): ", x, y, MA, ma, angle
             # ellipse parameters
             a = np.fix(MA / 2)
             b = np.fix(ma / 2)
            # standard parameters
-            features_standard[index_regions, ] = ([x, y, a, b, angle, saliency_type])
-
+            features_standard[num_regions, ] = ([x, y, a, b, angle, saliency_type])
+        #    print "Standard features (x,y,a,b,angle,sal_type): ", features_standard[num_regions, ]
             if ((a > 0) and (b > 0)):
                 x0 = x
                 y0 = y
@@ -284,17 +287,20 @@ def binary_mask2ellipse_features_single(binary_mask, connectivity=4, saliency_ty
                 angle_rad = angle * math.pi / 180
     
                 # compute the elliptic polynomial coefficients, aka features
-                [A, B, C] = region2ellipse(a, b, -angle_rad)
-                features_poly[index_regions, ] = ([x0, y0, A, B, C, saliency_type])
+                [A, B, C] = region2ellipse(a, b, -angle_rad)               
+                features_poly[num_regions, ] = ([x0, y0, A, B, C, saliency_type])
+                #print "Should be normal case..."
+                #print  "Polynomial features (x,y,A,B,C,sal_type): ",features_poly[num_regions, ]
             else:
-                features_poly[index_regions,
+                #print "Should be NaN case..."
+                features_poly[num_regions,
                          ] = ([np.nan,
                                np.nan,
                                np.nan,
                                np.nan,
                                np.nan,
                                saliency_type]) 
-
+                #print "Polynomial features (x,y,A,B,C,sal_type): ",features_poly[num_regions, ]
     return num_regions, features_standard, features_poly
 
 def binary_mask2ellipse_features(regions, connectivity=4):
@@ -343,11 +349,62 @@ def binary_mask2ellipse_features(regions, connectivity=4):
     features_poly ={}
     
     for saltype in regions.keys():
+        print "Saliency type: ", saltype
         num_regions_s, features_standard_s, features_poly_s =  binary_mask2ellipse_features_single(regions[saltype], 
                                                 connectivity=connectivity,  saliency_type=region2int[saltype])
         num_regions[saltype] = num_regions_s
+        print "Number of regions for that saliency type: ", num_regions_s
         features_standard[saltype] = features_standard_s
         features_poly[saltype] = features_poly_s
         
     return num_regions, features_standard, features_poly
+    
+def save_ellipse_features_poly2file(num_regions, features_poly, filename):
+    """ Saving the eliipse polynomical features to file.
+
+    Parameters
+    ----------
+    num_regions: dict
+        The number of saleint regions for each saliency_type
+    features_poly: dict
+        dictionary with polynomial ellipse features for each of the ellipses
+    filename: str
+        the filename where to save the features    
+        
+    Returns
+    --------    
+    total_num_regions: int
+        the total number of salient regions of saliency types
+    
+    """
+    total_num_regions = 0
+    
+    # open the file
+    f = open(filename, 'w')
+    
+    for saltype in num_regions.keys():        
+        total_num_regions += num_regions[saltype]
+
+      
+    f.write('0 \n');    
+    f.write(str(total_num_regions))
+    f.write('\n');
+    
+    for saltype in num_regions.keys():
+        features_poly_s = features_poly[saltype]
+        print "saliency type: ", saltype
+        # write into the file per ellipse        
+        #for ellipse_entry in features_poly_s: #
+        for n in range(num_regions[saltype]):
+            ellipse_entry = features_poly_s[n,:]
+            print "n: features", n,":", ellipse_entry
+            for e in ellipse_entry:            
+                f.write(str(e)) 
+                f.write(' ')
+            f.write('\n')
+           
+    # close the file       
+    f.close()       
+    
+    return total_num_regions
     
