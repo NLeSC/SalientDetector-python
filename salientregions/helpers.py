@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 import math
 
 
-def show_image(img, window_name='image'):
+def show_image(img, title=None):
     """Display the image.
     When a key is pressed, the window is closed
 
@@ -14,8 +14,8 @@ def show_image(img, window_name='image'):
     ----------
     img :  numpy array
         image
-    window_name : str, optional
-        name of the window
+    title : str, optional
+        Title of the image
     """
     fig = plt.figure()
     plt.axis("off")
@@ -23,7 +23,10 @@ def show_image(img, window_name='image'):
         plt.imshow(cv2.cvtColor(img, cv2.COLOR_BGR2RGB))
     else:
         plt.imshow(cv2.cvtColor(img, cv2.COLOR_GRAY2RGB))
-    fig.canvas.set_window_title(window_name)
+    fig.canvas.set_window_title(title)
+    if title is not None:
+        fig.canvas.set_window_title(title)
+        fig.suptitle(title)
     plt.gcf().canvas.mpl_connect('key_press_event',
                                  lambda event: plt.close(event.canvas.figure))
     plt.show()
@@ -33,7 +36,7 @@ def visualize_elements(img, regions=None,
                        holes=None, islands=None,
                        indentations=None, protrusions=None,
                        visualize=True,
-                       display_name='salient regions'):
+                       title='salient regions'):
     """Display the image with the salient regions provided.
 
     Parameters
@@ -89,7 +92,7 @@ def visualize_elements(img, regions=None,
         img_to_show[[protrusions > 0]] = colormap['protrusions']
 
     if visualize:
-        show_image(img_to_show, window_name=display_name)
+        show_image(img_to_show, title=title)
     return img_to_show
 
 
@@ -229,21 +232,12 @@ def binary_mask2ellipse_features_single(binary_mask, connectivity=4, saliency_ty
     ----------
     num_regions: int
         The number of saleint regions of saliency_type
-    features_standard: numpy array
-        array with standard ellipse features for each of the ellipses
-    features_poly: numpy array
-        array with polynomial ellipse features for each of the ellipses  
+    features: numpy array
+        array with ellipse features for each of the ellipses
 
-    Notes
+    Note
     ----------
-    Every row in the resulting feature_syandard array corresponds to a single
-    region/ellipse and is of format:
-    ``x0 y0 a b angle saliency_type`` ,
-    where ``(x0,y0)`` are the coordinates of the ellipse centroid and ``a``, ``b`` and ``angle``(in degrees)
-    are the standard parameters from the ellipse equation:
-    math:`(x+cos(angle) + y+sin(angle))^2/a^2 + (x*sin(angle) - y*cos(angle))^2/b^2  = 1`
-    
-    Every row in the resulting feature_poly array corresponds to a single
+    Every row in the resulting feature array corresponds to a single
     region/ellipse and is of format:
     ``x0 y0 A B C saliency_type`` ,
     where ``(x0,y0)`` are the coordinates of the ellipse centroid and ``A``, ``B`` and ``C``
@@ -255,45 +249,40 @@ def binary_mask2ellipse_features_single(binary_mask, connectivity=4, saliency_ty
     _, contours, hierarchy = cv2.findContours(
         binary_mask2, cv2.RETR_CCOMP, cv2.CHAIN_APPROX_SIMPLE)
 
-    num_regions = len(contours)
-    features_standard = np.zeros((num_regions, 6), float)
-    features_poly = np.zeros((num_regions, 6), float)
-    index_regions = 0
+    num_regions = 0
+    features = np.zeros((len(contours), 6), float)
 
-    for cnt in contours:
+    for index_regions in xrange(len(contours)):
+        if hierarchy[0,index_regions,3]==-1:
+            num_regions += 1
+            cnt = contours[index_regions]
+            # fit an ellipse to the contour
+            (x, y), (MA, ma), angle = cv2.fitEllipse(cnt)
+           # print "x,y: ", x, y
+            # ellipse parameters
+            a = np.fix(MA / 2)
+            b = np.fix(ma / 2)
+    
+            if ((a > 0) and (b > 0)):
+                x0 = x
+                y0 = y
+                if (angle == 0):
+                    angle = 180
+                angle_rad = angle * math.pi / 180
+    
+                # compute the elliptic polynomial coefficients, aka features
+                [A, B, C] = region2ellipse(a, b, -angle_rad)
+                features[index_regions, ] = ([x0, y0, A, B, C, saliency_type])
+            else:
+                features[index_regions,
+                         ] = ([np.nan,
+                               np.nan,
+                               np.nan,
+                               np.nan,
+                               np.nan,
+                               saliency_type]) 
 
-        index_regions = index_regions + 1
-
-        # fit an ellipse to the contour
-        #(x, y), (MA, ma), angle = cv2.fitEllipse(cnt)
-        (x, y), (ma, MA), angle = cv2.fitEllipse(cnt)
-#        print "MA, ma: ", MA, ma
-        # ellipse parameters
-        a = np.fix(MA / 2)
-        b = np.fix(ma / 2)
-        # standard parameters
-        features_standard[index_regions - 1, ] = ([x, y, a, b, angle, saliency_type])
-
-        if ((a > 0) and (b > 0)):
-            x0 = x
-            y0 = y
-            if (angle == 0):
-                angle = 180
-            angle_rad = angle * math.pi / 180
-
-            # compute the elliptic polynomial coefficients, aka features
-            [A, B, C] = region2ellipse(a, b, -angle_rad)
-            features_poly[index_regions - 1, ] = ([x0, y0, A, B, C, saliency_type])
-        else:
-            features_poly[index_regions - 1,
-                     ] = ([np.nan,
-                           np.nan,
-                           np.nan,
-                           np.nan,
-                           np.nan,
-                           saliency_type])
-
-    return num_regions, features_standard, features_poly
+    return num_regions, features
 
 def binary_mask2ellipse_features(regions, connectivity=4):
     """ Conversion of multiple types of regions to ellipse features.
@@ -328,10 +317,9 @@ def binary_mask2ellipse_features(regions, connectivity=4):
     num_regions = {}
     features = {}
     for saltype in regions.keys():
-        num_regions_s, _, features_s =  binary_mask2ellipse_features_single(regions[saltype], 
+        num_regions_s, features_s =  binary_mask2ellipse_features_single(regions[saltype], 
                                                               connectivity=connectivity, 
                                                               saliency_type=region2int[saltype])
         num_regions[saltype] = num_regions_s
         features[saltype] = features_s
     return num_regions, features
-    
