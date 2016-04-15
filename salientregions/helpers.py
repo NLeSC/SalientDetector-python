@@ -148,7 +148,7 @@ def image_diff(img1, img2, visualize=True):
         True if all pixels of the two images are equal
     """
     if visualize:
-        show_image(cv2.bitwise_xor(img1, img2), 'Difference between images')
+        show_image(cv2.bitwise_xor(img1, img2), 'difference')
     return np.all(img1 == img2)
 
 
@@ -252,7 +252,7 @@ def binary_mask2ellipse_features_single(binary_mask, connectivity=4, saliency_ty
 
     #num_regions, labels, stats, centroids = cv2.connectedComponentsWithStats(binary_mask, connectivity=connectivity)
     binary_mask2 = binary_mask.copy()
-    _, contours, hierarchy = cv2.findContours(
+    _, contours, _ = cv2.findContours(
         binary_mask2, cv2.RETR_CCOMP, cv2.CHAIN_APPROX_SIMPLE)
 
     num_regions = len(contours)

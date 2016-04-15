@@ -169,8 +169,7 @@ class SalientDetector(Detector):
                     'holes', None), islands=result.get(
                     'islands', None), indentations=result.get(
                     'indentations', None), protrusions=result.get(
-                    'protrusions', None),
-                    title="Salient Regions visualized in grayscale image")        
+                    'protrusions', None))        
         return result
 
 
@@ -197,10 +196,6 @@ class MSSRDetector(Detector):
         The image converted to grayscale
     regions_sum : numpy array
         The sum of the regions of all levels, before thresholding
-        
-    Note
-    ------
-    This algorithm is much slower than the DMSR, so should be used with care.
     """
 
     def __init__(self, min_thres=0, max_thres=255, step=1, perc=0.7, **kwargs):

@@ -150,14 +150,14 @@ class BinaryDetectorTester(unittest.TestCase):
             visualize=False)
 
     def test_fill_image_noise(self):
-        filled =  self.binarydetector._fill_image(self.image_noise)
+        filled = sr.BinaryDetector.fill_image(self.image_noise)
         assert sr.image_diff(
             self.filled_image_noise_true,
             filled,
             visualize=False)
 
     def test_fill_image_nested(self):
-        filled =  self.binarydetector._fill_image(self.image_nested)
+        filled = sr.BinaryDetector.fill_image(self.image_nested)
         assert sr.image_diff(
             self.filled_image_nested_true,
             filled,
