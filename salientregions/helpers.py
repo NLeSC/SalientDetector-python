@@ -148,7 +148,7 @@ def image_diff(img1, img2, visualize=True):
         True if all pixels of the two images are equal
     """
     if visualize:
-        show_image(cv2.bitwise_xor(img1, img2), 'difference')
+        show_image(cv2.bitwise_xor(img1, img2), 'Difference between images')
     return np.all(img1 == img2)
 
 
@@ -210,7 +210,7 @@ def region2ellipse(half_major_axis, half_minor_axis, theta):
 
 
 def binary_mask2ellipse_features_single(binary_mask, connectivity=4, saliency_type=1):
-    """ Conversion of a single saliency type of binary regions to ellipse features.
+    """ Conversion of a single type of binary regions to ellipse features.
 
     Parameters
     ----------
@@ -230,13 +230,13 @@ def binary_mask2ellipse_features_single(binary_mask, connectivity=4, saliency_ty
     num_regions: int
         The number of saleint regions of saliency_type
     features_standard: numpy array
-        array with standard ellipse features for each of the ellipses for a given saliency type
+        array with standard ellipse features for each of the ellipses
     features_poly: numpy array
-        array with polynomial ellipse features for each of the ellipses  for a given saliency type
+        array with polynomial ellipse features for each of the ellipses  
 
     Notes
     ----------
-    Every row in the resulting feature_standard array corresponds to a single
+    Every row in the resulting feature_syandard array corresponds to a single
     region/ellipse and is of format:
     ``x0 y0 a b angle saliency_type`` ,
     where ``(x0,y0)`` are the coordinates of the ellipse centroid and ``a``, ``b`` and ``angle``(in degrees)
@@ -252,7 +252,7 @@ def binary_mask2ellipse_features_single(binary_mask, connectivity=4, saliency_ty
 
     #num_regions, labels, stats, centroids = cv2.connectedComponentsWithStats(binary_mask, connectivity=connectivity)
     binary_mask2 = binary_mask.copy()
-    _, contours, _ = cv2.findContours(
+    _, contours, hierarchy = cv2.findContours(
         binary_mask2, cv2.RETR_CCOMP, cv2.CHAIN_APPROX_SIMPLE)
 
     num_regions = len(contours)
@@ -296,7 +296,7 @@ def binary_mask2ellipse_features_single(binary_mask, connectivity=4, saliency_ty
     return num_regions, features_standard, features_poly
 
 def binary_mask2ellipse_features(regions, connectivity=4):
-    """ Conversion of all types of regions to ellipse features.
+    """ Conversion of multiple types of regions to ellipse features.
 
     Parameters
     ----------
@@ -305,27 +305,17 @@ def binary_mask2ellipse_features(regions, connectivity=4):
     connectivity: int
         Neighborhood connectivity
 
+
     Returns
     ----------
     num_regions: dict
         The number of saleint regions for each saliency_type
-    features_standard: dict
-        dictionary with standard ellipse features for each of the ellipses 
-    features_poly: dict
-        dictionary with polynomial ellipse features for each of the ellipses
-        
+    features: dict
+        array with ellipse features for each of the ellipses, for each saliency type
+
     Note
     ----------
-    The keys of the dictionaries are the saliency type.
-    
-    Every row in the array per key of  features_standard corresponds to a single
-    region/ellipse and is of format:
-    ``x0 y0 a b angle saliency_type`` ,
-    where ``(x0,y0)`` are the coordinates of the ellipse centroid and ``a``, ``b`` and ``angle``(in degrees)
-    are the standard parameters from the ellipse equation:
-    math:`(x+cos(angle) + y+sin(angle))^2/a^2 + (x*sin(angle) - y*cos(angle))^2/b^2  = 1`
-    
-    EEvery row in the array per key of  features_poly corresponds to a single
+    Every row in the resulting feature array corresponds to a single
     region/ellipse and is of format:
     ``x0 y0 A B C saliency_type`` ,
     where ``(x0,y0)`` are the coordinates of the ellipse centroid and ``A``, ``B`` and ``C``
@@ -336,15 +326,12 @@ def binary_mask2ellipse_features(regions, connectivity=4):
                   "indentations": 3,
                   "protrusions": 4}
     num_regions = {}
-    features_standard = {}
-    features_poly ={}
-    
+    features = {}
     for saltype in regions.keys():
-        num_regions_s, features_standard_s, features_poly_s =  binary_mask2ellipse_features_single(regions[saltype], 
-                                                connectivity=connectivity,  saliency_type=region2int[saltype])
+        num_regions_s, _, features_s =  binary_mask2ellipse_features_single(regions[saltype], 
+                                                              connectivity=connectivity, 
+                                                              saliency_type=region2int[saltype])
         num_regions[saltype] = num_regions_s
-        features_standard[saltype] = features_standard_s
-        features_poly[saltype] = features_poly_s
-        
-    return num_regions, features_standard, features_poly
+        features[saltype] = features_s
+    return num_regions, features
     
