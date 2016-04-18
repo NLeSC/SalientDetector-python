@@ -17,11 +17,13 @@ class HelpersEllipseTester(unittest.TestCase):
     '''
 
     def setUp(self):
+        # testing region to ellipse conversion
         self.major_axis_len = 15
         self.minor_axis_len = 9
         self.theta = 0.52
         self.coeff = [0.006395179230685, -0.003407029045900, 0.010394944226105]
 
+        # testing elliptic features
         testdata_path = os.path.normpath(
             os.path.join(
                 os.path.dirname(
@@ -32,7 +34,8 @@ class HelpersEllipseTester(unittest.TestCase):
             cv2.imread(
                 os.path.join(
                     testdata_path,
-                    'Binary_ellipse1.png'), cv2.IMREAD_GRAYSCALE))
+                    'Binary_ellipse1.png'), cv2.IMREAD_GRAYSCALE))        
+            
         self.features_standard_ellipse1 = np.array([200,175,34,14,0,2])
         self.features_poly_ellipse1 = 100.00 * \
             np.array([2.000000000000000, 1.750000000000000, 0.000008650519031, -0.000000000000000, 0.000051020408163, 0.020000000000000])
@@ -76,6 +79,24 @@ class HelpersEllipseTester(unittest.TestCase):
         self.rtol = 2  # default for np.allclose is 1e-05!!
         self.atol = 1e-02  # default for np.allclose is 1e-08
 
+        # tesing the saving and loading
+        self.num_regions = 7
+        self.num_holes = 1
+        self.num_islands = 2
+        self.num_indent = 3
+        self.num_protr = 1
+        self.features = {}
+    
+        features_testpath = os.path.normpath(
+            os.path.join(
+                os.path.dirname(
+                    os.path.abspath(__file__)),
+                'features/'))
+        self.features_filename =  os.path.join(
+                    features_testpath,
+                    'ellipse_features.txt') 
+                
+                
     def test_region2ellipse(self):
         A, B, C = sr.helpers.region2ellipse(
             self.major_axis_len, self.minor_axis_len, self.theta)
