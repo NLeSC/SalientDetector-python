@@ -349,11 +349,11 @@ def binary_mask2ellipse_features(regions, connectivity=4):
     features_poly ={}
     
     for saltype in regions.keys():
-        print "Saliency type: ", saltype
+       # print "Saliency type: ", saltype
         num_regions_s, features_standard_s, features_poly_s =  binary_mask2ellipse_features_single(regions[saltype], 
                                                 connectivity=connectivity,  saliency_type=region2int[saltype])
         num_regions[saltype] = num_regions_s
-        print "Number of regions for that saliency type: ", num_regions_s
+        #print "Number of regions for that saliency type: ", num_regions_s
         features_standard[saltype] = features_standard_s
         features_poly[saltype] = features_poly_s
         
@@ -365,7 +365,7 @@ def save_ellipse_features2file(num_regions, features, filename):
     Parameters
     ----------
     num_regions: dict
-        The number of saleint regions for each saliency_type
+        The number of saleint regions for each saliency type
     features: dict
         dictionary with ellipse features for each of the ellipses
     filename: str
@@ -375,11 +375,15 @@ def save_ellipse_features2file(num_regions, features, filename):
     --------    
     total_num_regions: int
         the total number of salient regions of saliency types
+        
+    NOTES
+    -------
+    see load_ellipse_features_from_file    
     
     """
     total_num_regions = 0
     
-    # open the file
+    # open the file in writing mode
     f = open(filename, 'w')
     
     for saltype in num_regions.keys():        
@@ -392,12 +396,12 @@ def save_ellipse_features2file(num_regions, features, filename):
     
     for saltype in num_regions.keys():
         features_s = features[saltype]
-        print "saliency type: ", saltype
+        #print "saliency type: ", saltype
         # write into the file per ellipse        
         #for ellipse_entry in features_poly_s: #
         for n in range(num_regions[saltype]):
             ellipse_entry = features_s[n,:]
-            print "n: features", n,":", ellipse_entry
+            #print "n: features", n,":", ellipse_entry
             for e in ellipse_entry:            
                 f.write(str(e)) 
                 f.write(' ')
@@ -407,4 +411,126 @@ def save_ellipse_features2file(num_regions, features, filename):
     f.close()       
     
     return total_num_regions
+    
+def convert_string2float_list(string_list):
+    """ Converts string list to a float list
+        
+        Parameters
+        ----------
+        string_list: str list
+            list of strings
+            
+        Returns
+        ----------
+        float_list: float list
+            list of floats   
+    """
+    float_list =[]
+    for l in string_list:
+        float_list.append(float(l))  
+    return float_list
+    
+    
+def load_ellipse_features_from_file(filename):
+    """ Load  elipse features (polynomial or standard) from, file.
+
+    Parameters
+    ----------
+    filename: str
+        the filename where to load the features from   
+        
+    Returns
+    --------    
+    total_num_regions: int
+        the total number of salient regions of saliency types
+    num_regions: dict
+        The number of saleint regions for each saliency type    
+    features: dict
+        dictionary with ellipse features for each of the ellipses  
+        
+    NOTES
+    -------
+    see save_ellipse_features2file
+   """
+
+    # initializations
+    keys = {"holes", "islands", "indentations", "protrusions"}
+    region2int = {"holes": 1,
+                  "islands":2,
+                  "indentations": 3,
+                  "protrusions": 4}
+#    int2region = {1:"holes",
+#                  2:"islands",
+#                  3:"indentations",
+#                  4:"protrusions"}
+    total_num_regions = 0
+    num_holes = 0
+    num_islands = 0
+    num_indentations = 0
+    num_protrusions = 0
+    
+    features_holes_list = []
+    features_islands_list = []
+    features_indentations_list = []
+    features_protrusions_list = []
+    
+    features = dict.fromkeys(keys)
+    num_regions = dict.fromkeys(keys)
+    
+    # open the filein mdoe reading
+    f = open(filename, 'r')
+    
+    # skip the first line  (contains a 0)
+    f.readline()
+    # next one is the total number of regions    
+    total_num_regions = int(f.readline())
+        
+    # read off the feautres line by line
+    for i in range(total_num_regions):
+        line = f.readline()
+        # get the last element- the type
+        line_numbers = line.split()
+        sal_type_code = int(float(line_numbers[-1]))
+        # make the string list- to a float list        
+        feature_list = convert_string2float_list(line_numbers)
+       
+        if sal_type_code == 1:
+            features_holes_list.append(feature_list)    
+            num_holes += 1
+        if sal_type_code == 2: 
+            features_islands_list.append(feature_list)
+            num_islands += 1
+        if sal_type_code == 3:                      
+            features_indentations_list.append(feature_list)
+            num_indentations += 1
+        if sal_type_code == 4:
+            features_protrusions_list.append(feature_list)
+            num_protrusions += 1
+    # close the file        
+    f.close()   
+    
+    # make numpy arrays from the lists 
+    features_holes = np.array(features_holes_list)
+    features_islands = np.array(features_islands_list)
+    features_indentations = np.array(features_indentations_list)
+    features_protrusions = np.array(features_protrusions_list)
+    
+    # contruct the final dictionary of features
+    for k in keys:
+        sal_type_code = region2int[k]
+        if sal_type_code == 1:
+            features[k] = features_holes  
+            num_regions[k] = num_holes
+        if sal_type_code == 2:
+            features[k] = features_islands
+            num_regions[k] = num_islands            
+        if sal_type_code == 3:
+            features[k] = features_indentations
+            num_regions[k]=  num_indentations             
+        if sal_type_code == 4:
+            features[k] = features_protrusions
+            num_regions[k] = num_protrusions
+                   
+        
+    return total_num_regions, num_regions, features
     
