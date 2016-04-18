@@ -359,7 +359,7 @@ def binary_mask2ellipse_features(regions, connectivity=4):
         
     return num_regions, features_standard, features_poly
     
-def     :
+def save_ellipse_features2file(num_regions, features, filename):
     """ Saving the eliipse features (polynomial or standard) to file.
 
     Parameters
