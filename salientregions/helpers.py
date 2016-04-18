@@ -359,15 +359,15 @@ def binary_mask2ellipse_features(regions, connectivity=4):
         
     return num_regions, features_standard, features_poly
     
-def save_ellipse_features_poly2file(num_regions, features_poly, filename):
-    """ Saving the eliipse polynomical features to file.
+def save_ellipse_features2file(num_regions, features, filename):
+    """ Saving the eliipse features (polynomial or standard) to file.
 
     Parameters
     ----------
     num_regions: dict
         The number of saleint regions for each saliency_type
-    features_poly: dict
-        dictionary with polynomial ellipse features for each of the ellipses
+    features: dict
+        dictionary with ellipse features for each of the ellipses
     filename: str
         the filename where to save the features    
         
@@ -391,12 +391,12 @@ def save_ellipse_features_poly2file(num_regions, features_poly, filename):
     f.write('\n');
     
     for saltype in num_regions.keys():
-        features_poly_s = features_poly[saltype]
+        features_s = features[saltype]
         print "saliency type: ", saltype
         # write into the file per ellipse        
         #for ellipse_entry in features_poly_s: #
         for n in range(num_regions[saltype]):
-            ellipse_entry = features_poly_s[n,:]
+            ellipse_entry = features_s[n,:]
             print "n: features", n,":", ellipse_entry
             for e in ellipse_entry:            
                 f.write(str(e)) 
