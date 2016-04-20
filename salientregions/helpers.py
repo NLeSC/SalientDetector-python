@@ -258,49 +258,40 @@ def binary_mask2ellipse_features_single(binary_mask, connectivity=4, saliency_ty
     _, contours, hierarchy = cv2.findContours(
         binary_mask2, cv2.RETR_CCOMP, cv2.CHAIN_APPROX_SIMPLE)
 
-    num_regions = -1
-    features_standard = np.zeros((len(contours), 6), float)
-    features_poly = np.zeros((len(contours), 6), float)
+    indices_regions = np.where(hierarchy[0,:,3]==-1)[0]
+    num_regions = len(indices_regions)
+    features_standard = np.zeros((num_regions, 6), float)
+    features_poly = np.zeros((num_regions, 6), float)
+    i = 0
+    for index_regions in indices_regions:
+        cnt = contours[index_regions]
+        # fit an ellipse to the contour
+        (x, y), (ma, MA), angle = cv2.fitEllipse(cnt)
+        # ellipse parameters
+        a = np.fix(MA / 2)
+        b = np.fix(ma / 2)
+       # standard parameters
+        features_standard[i, ] = ([x, y, a, b, angle, saliency_type])
+        if ((a > 0) and (b > 0)):
+            x0 = x
+            y0 = y
+            if (angle == 0):
+                angle = 180
+            angle_rad = angle * math.pi / 180
 
-    for index_regions in xrange(len(contours)):
-        if hierarchy[0,index_regions,3]==-1:
-#            print "Regions counter: ", num_regions   
-#            print "Regions index: ", index_regions
-            num_regions += 1
-            
-            cnt = contours[index_regions]
-            # fit an ellipse to the contour
-           # (x, y), (MA, ma), angle = cv2.fitEllipse(cnt)
-            (x, y), (ma, MA), angle = cv2.fitEllipse(cnt)
-           # print "Output of cv2.fitEllipse (x,y,MA, ma, angle): ", x, y, MA, ma, angle
-            # ellipse parameters
-            a = np.fix(MA / 2)
-            b = np.fix(ma / 2)
-           # standard parameters
-            features_standard[num_regions, ] = ([x, y, a, b, angle, saliency_type])
-        #    print "Standard features (x,y,a,b,angle,sal_type): ", features_standard[num_regions, ]
-            if ((a > 0) and (b > 0)):
-                x0 = x
-                y0 = y
-                if (angle == 0):
-                    angle = 180
-                angle_rad = angle * math.pi / 180
-    
-                # compute the elliptic polynomial coefficients, aka features
-                [A, B, C] = region2ellipse(a, b, -angle_rad)               
-                features_poly[num_regions, ] = ([x0, y0, A, B, C, saliency_type])
-                #print "Should be normal case..."
-                #print  "Polynomial features (x,y,A,B,C,sal_type): ",features_poly[num_regions, ]
-            else:
-                #print "Should be NaN case..."
-                features_poly[num_regions,
-                         ] = ([np.nan,
-                               np.nan,
-                               np.nan,
-                               np.nan,
-                               np.nan,
-                               saliency_type]) 
-                #print "Polynomial features (x,y,A,B,C,sal_type): ",features_poly[num_regions, ]
+            # compute the elliptic polynomial coefficients, aka features
+            [A, B, C] = region2ellipse(a, b, -angle_rad)               
+            features_poly[i, ] = ([x0, y0, A, B, C, saliency_type])
+        else:
+            # We still output the ellipse as NaN 
+            features_poly[i,
+                     ] = ([np.nan,
+                           np.nan,
+                           np.nan,
+                           np.nan,
+                           np.nan,
+                           saliency_type]) 
+        i += 1
     return num_regions, features_standard, features_poly
 
 def binary_mask2ellipse_features(regions, connectivity=4):
