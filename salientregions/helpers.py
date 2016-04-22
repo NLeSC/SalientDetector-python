@@ -32,6 +32,13 @@ def show_image(img, title=None):
     plt.show()
 
 
+# colormap bgr
+colormap = {'holes': [255, 0, 0],  # BLUE
+            'islands': [0, 255, 255],  # YELLOW
+            'indentations': [0, 255, 0],  # GREEN
+            'protrusions': [0, 0, 255]  # RED
+            }
+                
 def visualize_elements(img, regions=None,
                        holes=None, islands=None,
                        indentations=None, protrusions=None,
@@ -64,12 +71,6 @@ def visualize_elements(img, regions=None,
     img_to_show : numpy array
         image with the colored regions
     """
-    # colormap bgr
-    colormap = {'holes': [255, 0, 0],  # BLUE
-                'islands': [0, 255, 255],  # YELLOW
-                'indentations': [0, 255, 0],  # GREEN
-                'protrusions': [0, 0, 255]  # RED
-                }
 
     # if the image is grayscale, make it BGR:
     if len(img.shape) == 2:
@@ -95,6 +96,38 @@ def visualize_elements(img, regions=None,
         show_image(img_to_show, title=title)
     return img_to_show
 
+def visualize_elements_ellipses(img, features,
+                       visualize=True,
+                       title='salient regions'):
+    """Display the image with the salient regions provided.
+
+    Parameters
+    ----------
+    img : numpy array
+        image
+    features : dict
+        dictionary with the ellipse features of the regions to show
+    visualize:  bool, optional
+        visualizations flag
+    display_name : str, optional
+        name of the window
+
+
+    Returns
+    ----------
+    img_to_show : numpy array
+        image with the colored regions
+    """
+    if len(img.shape) == 2:
+        img_to_show = cv2.cvtColor(img, cv2.COLOR_GRAY2BGR)
+    else:
+        img_to_show = img.copy()
+    for region_type in features.keys():
+        img_to_show = visualize_ellipses(img_to_show, features[region_type], 
+                                         colormap[region_type], visualize=False)
+    if visualize:
+        show_image(img_to_show, title=title)
+    return img_to_show
 
 def read_matfile(filename, visualize=True):
     """Read a matfile with the binary masks for the salient regions.
@@ -212,7 +245,7 @@ def region2ellipse(half_major_axis, half_minor_axis, theta):
     return A, B, C
 
 
-def binary_mask2ellipse_features_single(binary_mask, connectivity=4, saliency_type=1):
+def binary_mask2ellipse_features_single(binary_mask, connectivity=4, saliency_type=1, min_square=False):
     """ Conversion of a single saliency type of binary regions to ellipse features.
 
     Parameters
@@ -227,6 +260,9 @@ def binary_mask2ellipse_features_single(binary_mask, connectivity=4, saliency_ty
         2: islands
         3: indentations
         4: protrusions
+    min_square: bool, optional
+        whether to use minimum sqrt fitting for ellipses 
+        (default is bounded rotated rectangle fitting)
 
     Returns
     ----------
@@ -266,7 +302,10 @@ def binary_mask2ellipse_features_single(binary_mask, connectivity=4, saliency_ty
     for index_regions in indices_regions:
         cnt = contours[index_regions]
         # fit an ellipse to the contour
-        (x, y), (ma, MA), angle = cv2.fitEllipse(cnt)
+        if min_square:
+            (x, y), (ma, MA), angle = cv2.fitEllipse(cnt)
+        else:
+            (x, y), (ma, MA), angle = cv2.minAreaRect(cnt)
         # ellipse parameters
         a = np.fix(MA / 2)
         b = np.fix(ma / 2)
@@ -294,15 +333,51 @@ def binary_mask2ellipse_features_single(binary_mask, connectivity=4, saliency_ty
         i += 1
     return num_regions, features_standard, features_poly
 
-def binary_mask2ellipse_features(regions, connectivity=4):
+def visualize_ellipses(img, features, color=(0,0,255), visualize=True):
+    """ Visualise ellipses in an image
+
+    Parameters
+    ----------
+    regions: img
+        image to show the ellipses on
+    features: numpy array
+        standard ellipse features for each of the ellipses 
+    color: tuple of ints, optional
+        color to show the ellipses
+    visualize:  bool, optional
+        visualizations flag
+
+    Returns
+    ----------
+    img_to_show: numpy array
+        image with the colored ellipses
+    
+    """ 
+    # if the image is grayscale, make it BGR:
+    if len(img.shape) == 2:
+        img_to_show = cv2.cvtColor(img, cv2.COLOR_GRAY2BGR)
+    else:
+        img_to_show = img.copy()
+        
+    for (x, y, a, b, angle, _) in features:
+        img_to_show = cv2.ellipse(img_to_show,(int(x),int(y)),(int(b),int(a)),int(angle),0,360,color,2)
+    if visualize:
+        show_image(img_to_show)
+    return img_to_show
+    
+
+def binary_mask2ellipse_features(regions, connectivity=4, min_square=False):
     """ Conversion of all types of regions to ellipse features.
 
     Parameters
     ----------
     regions: dict
         Dict of binary masks of the detected salient regions 
-    connectivity: int
+    connectivity: int, optional
         Neighborhood connectivity
+    min_square: bool, optional
+        whether to use minimum sqrt fitting for ellipses 
+        (default is bounded rotated rectangle fitting)
 
 
     Returns
@@ -325,7 +400,7 @@ def binary_mask2ellipse_features(regions, connectivity=4):
     are the standard parameters from the ellipse equation:
     math:`(x+cos(angle) + y+sin(angle))^2/a^2 + (x*sin(angle) - y*cos(angle))^2/b^2  = 1`
     
-    EEvery row in the array per key of  features_poly corresponds to a single
+    Every row in the array per key of  features_poly corresponds to a single
     region/ellipse and is of format:
     ``x0 y0 A B C saliency_type`` ,
     where ``(x0,y0)`` are the coordinates of the ellipse centroid and ``A``, ``B`` and ``C``
@@ -342,7 +417,7 @@ def binary_mask2ellipse_features(regions, connectivity=4):
     for saltype in regions.keys():
        # print "Saliency type: ", saltype
         num_regions_s, features_standard_s, features_poly_s =  binary_mask2ellipse_features_single(regions[saltype], 
-                                                connectivity=connectivity,  saliency_type=region2int[saltype])
+                                                connectivity=connectivity,  saliency_type=region2int[saltype], min_square=min_square)
         num_regions[saltype] = num_regions_s
         #print "Number of regions for that saliency type: ", num_regions_s
         features_standard[saltype] = features_standard_s
@@ -351,7 +426,7 @@ def binary_mask2ellipse_features(regions, connectivity=4):
     return num_regions, features_standard, features_poly
     
 def save_ellipse_features2file(num_regions, features, filename):
-    """ Saving the eliipse features (polynomial or standard) to file.
+    """ Saving the ellipse features (polynomial or standard) to file.
 
     Parameters
     ----------
