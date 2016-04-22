@@ -478,24 +478,6 @@ def save_ellipse_features2file(num_regions, features, filename):
     
     return total_num_regions
     
-def convert_string2float_list(string_list):
-    """ Converts string list to a float list
-        
-        Parameters
-        ----------
-        string_list: str list
-            list of strings
-            
-        Returns
-        ----------
-        float_list: float list
-            list of floats   
-    """
-    float_list =[]
-    for l in string_list:
-        float_list.append(float(l))  
-    return float_list
-    
     
 def load_ellipse_features_from_file(filename):
     """ Load  elipse features (polynomial or standard) from, file.
@@ -520,28 +502,16 @@ def load_ellipse_features_from_file(filename):
    """
 
     # initializations
-    keys = {"holes", "islands", "indentations", "protrusions"}
     region2int = {"holes": 1,
                   "islands":2,
                   "indentations": 3,
                   "protrusions": 4}
-#    int2region = {1:"holes",
-#                  2:"islands",
-#                  3:"indentations",
-#                  4:"protrusions"}
+    int2region = {v: k for (k,v) in region2int.iteritems()}
+    keys = region2int.keys()
+    
     total_num_regions = 0
-    num_holes = 0
-    num_islands = 0
-    num_indentations = 0
-    num_protrusions = 0
-    
-    features_holes_list = []
-    features_islands_list = []
-    features_indentations_list = []
-    features_protrusions_list = []
-    
-    features = dict.fromkeys(keys)
-    num_regions = dict.fromkeys(keys)
+    num_regions = {k: 0 for k in keys}
+    features_lists = {k: [] for k in keys}
     
     # open the filein mdoe reading
     f = open(filename, 'r')
@@ -556,47 +526,17 @@ def load_ellipse_features_from_file(filename):
         line = f.readline()
         # get the last element- the type
         line_numbers = line.split()
-        sal_type_code = int(float(line_numbers[-1]))
+        sal_type = int2region[int(float(line_numbers[-1]))]
         # make the string list- to a float list        
-        feature_list = convert_string2float_list(line_numbers)
-       
-        if sal_type_code == 1:
-            features_holes_list.append(feature_list)    
-            num_holes += 1
-        if sal_type_code == 2: 
-            features_islands_list.append(feature_list)
-            num_islands += 1
-        if sal_type_code == 3:                      
-            features_indentations_list.append(feature_list)
-            num_indentations += 1
-        if sal_type_code == 4:
-            features_protrusions_list.append(feature_list)
-            num_protrusions += 1
+        feature_list = [float(l) for l in line_numbers]
+        features_lists[sal_type].append(feature_list)
+        num_regions[sal_type] += 1
+
     # close the file        
     f.close()   
     
     # make numpy arrays from the lists 
-    features_holes = np.array(features_holes_list)
-    features_islands = np.array(features_islands_list)
-    features_indentations = np.array(features_indentations_list)
-    features_protrusions = np.array(features_protrusions_list)
-    
-    # contruct the final dictionary of features
-    for k in keys:
-        sal_type_code = region2int[k]
-        if sal_type_code == 1:
-            features[k] = features_holes  
-            num_regions[k] = num_holes
-        if sal_type_code == 2:
-            features[k] = features_islands
-            num_regions[k] = num_islands            
-        if sal_type_code == 3:
-            features[k] = features_indentations
-            num_regions[k]=  num_indentations             
-        if sal_type_code == 4:
-            features[k] = features_protrusions
-            num_regions[k] = num_protrusions
-                   
-        
+    features = {k: np.array(v) for (k,v) in features_lists.iteritems()}
+  
     return total_num_regions, num_regions, features
     
