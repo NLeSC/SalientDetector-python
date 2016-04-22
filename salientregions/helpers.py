@@ -32,6 +32,13 @@ def show_image(img, title=None):
     plt.show()
 
 
+# colormap bgr
+colormap = {'holes': [255, 0, 0],  # BLUE
+            'islands': [0, 255, 255],  # YELLOW
+            'indentations': [0, 255, 0],  # GREEN
+            'protrusions': [0, 0, 255]  # RED
+            }
+                
 def visualize_elements(img, regions=None,
                        holes=None, islands=None,
                        indentations=None, protrusions=None,
@@ -64,12 +71,6 @@ def visualize_elements(img, regions=None,
     img_to_show : numpy array
         image with the colored regions
     """
-    # colormap bgr
-    colormap = {'holes': [255, 0, 0],  # BLUE
-                'islands': [0, 255, 255],  # YELLOW
-                'indentations': [0, 255, 0],  # GREEN
-                'protrusions': [0, 0, 255]  # RED
-                }
 
     # if the image is grayscale, make it BGR:
     if len(img.shape) == 2:
@@ -95,6 +96,38 @@ def visualize_elements(img, regions=None,
         show_image(img_to_show, title=title)
     return img_to_show
 
+def visualize_elements_ellipses(img, features,
+                       visualize=True,
+                       title='salient regions'):
+    """Display the image with the salient regions provided.
+
+    Parameters
+    ----------
+    img : numpy array
+        image
+    features : dict
+        dictionary with the ellipse features of the regions to show
+    visualize:  bool, optional
+        visualizations flag
+    display_name : str, optional
+        name of the window
+
+
+    Returns
+    ----------
+    img_to_show : numpy array
+        image with the colored regions
+    """
+    if len(img.shape) == 2:
+        img_to_show = cv2.cvtColor(img, cv2.COLOR_GRAY2BGR)
+    else:
+        img_to_show = img.copy()
+    for region_type in features.keys():
+        img_to_show = visualize_ellipses(img_to_show, features[region_type], 
+                                         colormap[region_type], visualize=False)
+    if visualize:
+        show_image(img_to_show, title=title)
+    return img_to_show
 
 def read_matfile(filename, visualize=True):
     """Read a matfile with the binary masks for the salient regions.
@@ -212,7 +245,7 @@ def region2ellipse(half_major_axis, half_minor_axis, theta):
     return A, B, C
 
 
-def binary_mask2ellipse_features_single(binary_mask, connectivity=4, saliency_type=1):
+def binary_mask2ellipse_features_single(binary_mask, connectivity=4, saliency_type=1, min_square=False):
     """ Conversion of a single saliency type of binary regions to ellipse features.
 
     Parameters
@@ -227,6 +260,9 @@ def binary_mask2ellipse_features_single(binary_mask, connectivity=4, saliency_ty
         2: islands
         3: indentations
         4: protrusions
+    min_square: bool, optional
+        whether to use minimum sqrt fitting for ellipses 
+        (default is bounded rotated rectangle fitting)
 
     Returns
     ----------
@@ -266,7 +302,10 @@ def binary_mask2ellipse_features_single(binary_mask, connectivity=4, saliency_ty
     for index_regions in indices_regions:
         cnt = contours[index_regions]
         # fit an ellipse to the contour
-        (x, y), (ma, MA), angle = cv2.fitEllipse(cnt)
+        if min_square:
+            (x, y), (ma, MA), angle = cv2.fitEllipse(cnt)
+        else:
+            (x, y), (ma, MA), angle = cv2.minAreaRect(cnt)
         # ellipse parameters
         a = np.fix(MA / 2)
         b = np.fix(ma / 2)
@@ -294,15 +333,51 @@ def binary_mask2ellipse_features_single(binary_mask, connectivity=4, saliency_ty
         i += 1
     return num_regions, features_standard, features_poly
 
-def binary_mask2ellipse_features(regions, connectivity=4):
+def visualize_ellipses(img, features, color=(0,0,255), visualize=True):
+    """ Visualise ellipses in an image
+
+    Parameters
+    ----------
+    regions: img
+        image to show the ellipses on
+    features: numpy array
+        standard ellipse features for each of the ellipses 
+    color: tuple of ints, optional
+        color to show the ellipses
+    visualize:  bool, optional
+        visualizations flag
+
+    Returns
+    ----------
+    img_to_show: numpy array
+        image with the colored ellipses
+    
+    """ 
+    # if the image is grayscale, make it BGR:
+    if len(img.shape) == 2:
+        img_to_show = cv2.cvtColor(img, cv2.COLOR_GRAY2BGR)
+    else:
+        img_to_show = img.copy()
+        
+    for (x, y, a, b, angle, _) in features:
+        img_to_show = cv2.ellipse(img_to_show,(int(x),int(y)),(int(b),int(a)),int(angle),0,360,color,2)
+    if visualize:
+        show_image(img_to_show)
+    return img_to_show
+    
+
+def binary_mask2ellipse_features(regions, connectivity=4, min_square=False):
     """ Conversion of all types of regions to ellipse features.
 
     Parameters
     ----------
     regions: dict
         Dict of binary masks of the detected salient regions 
-    connectivity: int
+    connectivity: int, optional
         Neighborhood connectivity
+    min_square: bool, optional
+        whether to use minimum sqrt fitting for ellipses 
+        (default is bounded rotated rectangle fitting)
 
 
     Returns
@@ -325,7 +400,7 @@ def binary_mask2ellipse_features(regions, connectivity=4):
     are the standard parameters from the ellipse equation:
     math:`(x+cos(angle) + y+sin(angle))^2/a^2 + (x*sin(angle) - y*cos(angle))^2/b^2  = 1`
     
-    EEvery row in the array per key of  features_poly corresponds to a single
+    Every row in the array per key of  features_poly corresponds to a single
     region/ellipse and is of format:
     ``x0 y0 A B C saliency_type`` ,
     where ``(x0,y0)`` are the coordinates of the ellipse centroid and ``A``, ``B`` and ``C``
@@ -342,7 +417,7 @@ def binary_mask2ellipse_features(regions, connectivity=4):
     for saltype in regions.keys():
        # print "Saliency type: ", saltype
         num_regions_s, features_standard_s, features_poly_s =  binary_mask2ellipse_features_single(regions[saltype], 
-                                                connectivity=connectivity,  saliency_type=region2int[saltype])
+                                                connectivity=connectivity,  saliency_type=region2int[saltype], min_square=min_square)
         num_regions[saltype] = num_regions_s
         #print "Number of regions for that saliency type: ", num_regions_s
         features_standard[saltype] = features_standard_s
@@ -351,7 +426,7 @@ def binary_mask2ellipse_features(regions, connectivity=4):
     return num_regions, features_standard, features_poly
     
 def save_ellipse_features2file(num_regions, features, filename):
-    """ Saving the eliipse features (polynomial or standard) to file.
+    """ Saving the ellipse features (polynomial or standard) to file.
 
     Parameters
     ----------
@@ -403,24 +478,6 @@ def save_ellipse_features2file(num_regions, features, filename):
     
     return total_num_regions
     
-def convert_string2float_list(string_list):
-    """ Converts string list to a float list
-        
-        Parameters
-        ----------
-        string_list: str list
-            list of strings
-            
-        Returns
-        ----------
-        float_list: float list
-            list of floats   
-    """
-    float_list =[]
-    for l in string_list:
-        float_list.append(float(l))  
-    return float_list
-    
     
 def load_ellipse_features_from_file(filename):
     """ Load  elipse features (polynomial or standard) from, file.
@@ -445,28 +502,16 @@ def load_ellipse_features_from_file(filename):
    """
 
     # initializations
-    keys = {"holes", "islands", "indentations", "protrusions"}
     region2int = {"holes": 1,
                   "islands":2,
                   "indentations": 3,
                   "protrusions": 4}
-#    int2region = {1:"holes",
-#                  2:"islands",
-#                  3:"indentations",
-#                  4:"protrusions"}
+    int2region = {v: k for (k,v) in region2int.iteritems()}
+    keys = region2int.keys()
+    
     total_num_regions = 0
-    num_holes = 0
-    num_islands = 0
-    num_indentations = 0
-    num_protrusions = 0
-    
-    features_holes_list = []
-    features_islands_list = []
-    features_indentations_list = []
-    features_protrusions_list = []
-    
-    features = dict.fromkeys(keys)
-    num_regions = dict.fromkeys(keys)
+    num_regions = {k: 0 for k in keys}
+    features_lists = {k: [] for k in keys}
     
     # open the filein mdoe reading
     f = open(filename, 'r')
@@ -481,47 +526,17 @@ def load_ellipse_features_from_file(filename):
         line = f.readline()
         # get the last element- the type
         line_numbers = line.split()
-        sal_type_code = int(float(line_numbers[-1]))
+        sal_type = int2region[int(float(line_numbers[-1]))]
         # make the string list- to a float list        
-        feature_list = convert_string2float_list(line_numbers)
-       
-        if sal_type_code == 1:
-            features_holes_list.append(feature_list)    
-            num_holes += 1
-        if sal_type_code == 2: 
-            features_islands_list.append(feature_list)
-            num_islands += 1
-        if sal_type_code == 3:                      
-            features_indentations_list.append(feature_list)
-            num_indentations += 1
-        if sal_type_code == 4:
-            features_protrusions_list.append(feature_list)
-            num_protrusions += 1
+        feature_list = [float(l) for l in line_numbers]
+        features_lists[sal_type].append(feature_list)
+        num_regions[sal_type] += 1
+
     # close the file        
     f.close()   
     
     # make numpy arrays from the lists 
-    features_holes = np.array(features_holes_list)
-    features_islands = np.array(features_islands_list)
-    features_indentations = np.array(features_indentations_list)
-    features_protrusions = np.array(features_protrusions_list)
-    
-    # contruct the final dictionary of features
-    for k in keys:
-        sal_type_code = region2int[k]
-        if sal_type_code == 1:
-            features[k] = features_holes  
-            num_regions[k] = num_holes
-        if sal_type_code == 2:
-            features[k] = features_islands
-            num_regions[k] = num_islands            
-        if sal_type_code == 3:
-            features[k] = features_indentations
-            num_regions[k]=  num_indentations             
-        if sal_type_code == 4:
-            features[k] = features_protrusions
-            num_regions[k] = num_protrusions
-                   
-        
+    features = {k: np.array(v) for (k,v) in features_lists.iteritems()}
+  
     return total_num_regions, num_regions, features
     
