@@ -5,6 +5,41 @@ import cv2
 import os
 
 
+class DataDrivenBinarizerTester(unittest.TestCase):
+    '''
+    Tests for the helper functions related to images
+    '''
+
+    def setUp(self):
+        testdata_path = os.path.normpath(
+            os.path.join(
+                os.path.dirname(
+                    os.path.abspath(__file__)),
+                'images/Gray/'))
+        self.image = cv2.imread(os.path.join(testdata_path, 'gray.png'), cv2.IMREAD_GRAYSCALE)
+        self.binarized_true = cv2.imread(
+            os.path.join(
+                testdata_path,
+                'gray_data_binarization.png.png'), cv2.IMREAD_GRAYSCALE)
+        self.binarizer = sr.DatadrivenBinarizer( lam=27,
+                 area_factor_large=0.001,
+                 area_factor_verylarge=0.01,
+                 weights=(0.33, 0.33, 0.33),
+                 offset=80,
+                 num_levels=255,
+                 connectivity=8)
+        self.threshold_true = 106
+        
+    def test_binarize(self):
+        binarized = self.binarizer.binarize(self.image, visualize=False)
+        #assert sr.image_diff(self.binarized_true,
+        #    binarized,
+        #    visualize=False)
+            
+    def test_binarize_threshold(self):
+        threshold, _ = self.binarizer.binarize_withthreshold(self.image, visualize=False)
+        #assert threshold ==  self.threshold_true
+
 class ThresholdBinarizerTester(unittest.TestCase):
     '''
     Tests for the helper functions related to images
