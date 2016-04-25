@@ -163,6 +163,9 @@ class DatadrivenBinarizer(Binarizer):
         a_nccs_verylarge = np.zeros(256)
 
         step = 256 / self.num_levels
+        print "stepsize:", step
+        print "min: ", max(t_otsu - self.offset, 0)
+        print "max: ", min(t_otsu + self.offset, 255)
         for t in xrange(max(t_otsu - self.offset, 0),
                         min(t_otsu + self.offset, 255),
                         step):
@@ -172,8 +175,8 @@ class DatadrivenBinarizer(Binarizer):
                 bint, connectivity=self.connectivity)
             areas = stats[:, cv2.CC_STAT_AREA]
             a_nccs[t] = sum(areas > self.lam)
-            a_nccs_large[t] = sum(areas > area_large)
-            a_nccs_verylarge[t] = sum(areas > area_verylarge)
+            a_nccs_large[t] = sum(areas >= area_large)
+            a_nccs_verylarge[t] = sum(areas >= area_verylarge)
 
         # Normalize
         a_nccs = a_nccs / float(a_nccs.max())
@@ -204,6 +207,7 @@ class DatadrivenBinarizer(Binarizer):
                     'Binarized with threshold %i' %
                     t_opt))
         return t_opt, binarized
+        
 
     def binarize(self, img, visualize=True):
         """
