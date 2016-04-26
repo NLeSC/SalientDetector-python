@@ -102,7 +102,7 @@
         <div class="rst-content">
           
 
-
+ 
 
 
 
@@ -137,44 +137,84 @@
 <div class="section" id="module-tests.test_binarizers">
 <span id="tests-test-binarizers-module"></span><h2>tests.test_binarizers module<a class="headerlink" href="#module-tests.test_binarizers" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
+<dt id="tests.test_binarizers.DataDrivenBinarizerTester">
+<em class="property">class </em><code class="descclassname">tests.test_binarizers.</code><code class="descname">DataDrivenBinarizerTester</code><span class="sig-paren">(</span><em>methodName='runTest'</em><span class="sig-paren">)</span><a class="headerlink" href="#tests.test_binarizers.DataDrivenBinarizerTester" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">unittest.case.TestCase</span></code></p>
+<p>Tests for the DataDriven binarizer</p>
+<dl class="method">
+<dt id="tests.test_binarizers.DataDrivenBinarizerTester.setUp">
+<code class="descname">setUp</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tests.test_binarizers.DataDrivenBinarizerTester.setUp" title="Permalink to this definition">¶</a></dt>
+<dd><p>Load the test image and the &#8216;true&#8217; binarized image</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tests.test_binarizers.DataDrivenBinarizerTester.test_binarize">
+<code class="descname">test_binarize</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tests.test_binarizers.DataDrivenBinarizerTester.test_binarize" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test the function <cite>binarize</cite>
+Compare the binarized image.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tests.test_binarizers.DataDrivenBinarizerTester.test_binarize_threshold">
+<code class="descname">test_binarize_threshold</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tests.test_binarizers.DataDrivenBinarizerTester.test_binarize_threshold" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test the function <cite>binarize_withthreshold</cite>
+Compare the resulting threshold.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
 <dt id="tests.test_binarizers.ThresholdBinarizerTester">
 <em class="property">class </em><code class="descclassname">tests.test_binarizers.</code><code class="descname">ThresholdBinarizerTester</code><span class="sig-paren">(</span><em>methodName='runTest'</em><span class="sig-paren">)</span><a class="headerlink" href="#tests.test_binarizers.ThresholdBinarizerTester" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">unittest.case.TestCase</span></code></p>
-<p>Tests for the helper functions related to images</p>
+<p>Tests for the Threshold Binarizer</p>
 <dl class="method">
 <dt id="tests.test_binarizers.ThresholdBinarizerTester.setUp">
 <code class="descname">setUp</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tests.test_binarizers.ThresholdBinarizerTester.setUp" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Load the test image and the &#8216;true&#8217; binarized images for several thresholds</p>
+</dd></dl>
 
 <dl class="method">
 <dt id="tests.test_binarizers.ThresholdBinarizerTester.test_binarize0">
 <code class="descname">test_binarize0</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tests.test_binarizers.ThresholdBinarizerTester.test_binarize0" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Test the function <cite>binarize</cite> for threshold 0.
+Compare the binarized image.</p>
+</dd></dl>
 
 <dl class="method">
 <dt id="tests.test_binarizers.ThresholdBinarizerTester.test_binarize175">
 <code class="descname">test_binarize175</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tests.test_binarizers.ThresholdBinarizerTester.test_binarize175" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Test the function <cite>binarize</cite> for threshold 175.
+Compare the binarized image.</p>
+</dd></dl>
 
 <dl class="method">
 <dt id="tests.test_binarizers.ThresholdBinarizerTester.test_binarize255">
 <code class="descname">test_binarize255</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tests.test_binarizers.ThresholdBinarizerTester.test_binarize255" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Test the function <cite>binarize</cite> for threshold 255.
+Compare the binarized image.</p>
+</dd></dl>
 
 <dl class="method">
 <dt id="tests.test_binarizers.ThresholdBinarizerTester.test_binarize256">
 <code class="descname">test_binarize256</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tests.test_binarizers.ThresholdBinarizerTester.test_binarize256" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Test the function <cite>binarize</cite> for threshold 256.
+Compare the binarized image.</p>
+</dd></dl>
 
 <dl class="method">
 <dt id="tests.test_binarizers.ThresholdBinarizerTester.test_binarize57">
 <code class="descname">test_binarize57</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tests.test_binarizers.ThresholdBinarizerTester.test_binarize57" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Test the function <cite>binarize</cite> for threshold 57.
+Compare the binarized image.</p>
+</dd></dl>
 
 <dl class="method">
 <dt id="tests.test_binarizers.ThresholdBinarizerTester.test_binarizeneg1">
 <code class="descname">test_binarizeneg1</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tests.test_binarizers.ThresholdBinarizerTester.test_binarizeneg1" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Test the function <cite>binarize</cite> for threshold -1.
+Compare the binarized image.</p>
+</dd></dl>
 
 </dd></dl>
 
@@ -191,52 +231,62 @@
 <dl class="method">
 <dt id="tests.test_binary_detector.BinaryDetectorTester.setUp">
 <code class="descname">setUp</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tests.test_binary_detector.BinaryDetectorTester.setUp" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Load the binary image and the binary masks for the true regions.</p>
+</dd></dl>
 
 <dl class="method">
 <dt id="tests.test_binary_detector.BinaryDetectorTester.test_detect">
 <code class="descname">test_detect</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tests.test_binary_detector.BinaryDetectorTester.test_detect" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Test the method <cite>detect</cite> for all regions.</p>
+</dd></dl>
 
 <dl class="method">
 <dt id="tests.test_binary_detector.BinaryDetectorTester.test_fill_image_nested">
 <code class="descname">test_fill_image_nested</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tests.test_binary_detector.BinaryDetectorTester.test_fill_image_nested" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Test the helper method <cite>fill_image</cite> for an image with nested regions..</p>
+</dd></dl>
 
 <dl class="method">
 <dt id="tests.test_binary_detector.BinaryDetectorTester.test_fill_image_noise">
 <code class="descname">test_fill_image_noise</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tests.test_binary_detector.BinaryDetectorTester.test_fill_image_noise" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Test the helper method <cite>fill_image</cite>.</p>
+</dd></dl>
 
 <dl class="method">
 <dt id="tests.test_binary_detector.BinaryDetectorTester.test_holes">
 <code class="descname">test_holes</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tests.test_binary_detector.BinaryDetectorTester.test_holes" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Test the method <cite>detect</cite> for only holes.</p>
+</dd></dl>
 
 <dl class="method">
 <dt id="tests.test_binary_detector.BinaryDetectorTester.test_holesislands">
 <code class="descname">test_holesislands</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tests.test_binary_detector.BinaryDetectorTester.test_holesislands" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Test the method <cite>detect</cite> for holes and islands.</p>
+</dd></dl>
 
 <dl class="method">
 <dt id="tests.test_binary_detector.BinaryDetectorTester.test_indentations">
 <code class="descname">test_indentations</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tests.test_binary_detector.BinaryDetectorTester.test_indentations" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Test the method <cite>detect</cite> for only indentations.</p>
+</dd></dl>
 
 <dl class="method">
 <dt id="tests.test_binary_detector.BinaryDetectorTester.test_islands">
 <code class="descname">test_islands</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tests.test_binary_detector.BinaryDetectorTester.test_islands" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Test the method <cite>detect</cite> for only islands.</p>
+</dd></dl>
 
 <dl class="method">
 <dt id="tests.test_binary_detector.BinaryDetectorTester.test_protrusions">
 <code class="descname">test_protrusions</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tests.test_binary_detector.BinaryDetectorTester.test_protrusions" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Test the method <cite>detect</cite> for only protrusions.</p>
+</dd></dl>
 
 <dl class="method">
 <dt id="tests.test_binary_detector.BinaryDetectorTester.test_protsindents">
 <code class="descname">test_protsindents</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tests.test_binary_detector.BinaryDetectorTester.test_protsindents" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Test the method <cite>detect</cite> for protrusions and indentations.</p>
+</dd></dl>
 
 </dd></dl>
 
@@ -244,20 +294,10 @@
 <div class="section" id="module-tests.test_detectors">
 <span id="tests-test-detectors-module"></span><h2>tests.test_detectors module<a class="headerlink" href="#module-tests.test_detectors" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
-<dt id="tests.test_detectors.DetectorForTesting">
-<em class="property">class </em><code class="descclassname">tests.test_detectors.</code><code class="descname">DetectorForTesting</code><span class="sig-paren">(</span><em>SE_size_factor=0.15</em>, <em>lam_factor=5</em>, <em>area_factor=0.05</em>, <em>connectivity=4</em><span class="sig-paren">)</span><a class="headerlink" href="#tests.test_detectors.DetectorForTesting" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="salientregions.html#salientregions.detectors.Detector" title="salientregions.detectors.Detector"><code class="xref py py-class docutils literal"><span class="pre">salientregions.detectors.Detector</span></code></a></p>
-<dl class="method">
-<dt id="tests.test_detectors.DetectorForTesting.detect">
-<code class="descname">detect</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tests.test_detectors.DetectorForTesting.detect" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="class">
 <dt id="tests.test_detectors.SETester">
 <em class="property">class </em><code class="descclassname">tests.test_detectors.</code><code class="descname">SETester</code><span class="sig-paren">(</span><em>methodName='runTest'</em><span class="sig-paren">)</span><a class="headerlink" href="#tests.test_detectors.SETester" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">unittest.case.TestCase</span></code></p>
+<p>Test class for the Detector method <cite>getSE</cite></p>
 <dl class="method">
 <dt id="tests.test_detectors.SETester.setUp">
 <code class="descname">setUp</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tests.test_detectors.SETester.setUp" title="Permalink to this definition">¶</a></dt>
@@ -266,12 +306,14 @@
 <dl class="method">
 <dt id="tests.test_detectors.SETester.test_getSE">
 <code class="descname">test_getSE</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tests.test_detectors.SETester.test_getSE" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Test the method <cite>getSE</cite> and assert that the Structuring Element is correct.</p>
+</dd></dl>
 
 <dl class="method">
 <dt id="tests.test_detectors.SETester.test_getlam">
 <code class="descname">test_getlam</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tests.test_detectors.SETester.test_getlam" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Test the method <cite>getSE</cite> and assert that the value of lamda is correct.</p>
+</dd></dl>
 
 </dd></dl>
 
@@ -288,32 +330,38 @@
 <dl class="method">
 <dt id="tests.test_helpers.HelpersEllipseTester.setUp">
 <code class="descname">setUp</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tests.test_helpers.HelpersEllipseTester.setUp" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Load the binary masks to make ellipses from, and create the ground truths.</p>
+</dd></dl>
 
 <dl class="method">
-<dt id="tests.test_helpers.HelpersEllipseTester.test_mask2features_ellipse1">
-<code class="descname">test_mask2features_ellipse1</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tests.test_helpers.HelpersEllipseTester.test_mask2features_ellipse1" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dt id="tests.test_helpers.HelpersEllipseTester.test_mask2features_poly_ellipse1">
+<code class="descname">test_mask2features_poly_ellipse1</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tests.test_helpers.HelpersEllipseTester.test_mask2features_poly_ellipse1" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test the function <cite>binary_mask2ellipse_features_single</cite> for test image 1.</p>
+</dd></dl>
 
 <dl class="method">
-<dt id="tests.test_helpers.HelpersEllipseTester.test_mask2features_ellipse2">
-<code class="descname">test_mask2features_ellipse2</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tests.test_helpers.HelpersEllipseTester.test_mask2features_ellipse2" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dt id="tests.test_helpers.HelpersEllipseTester.test_mask2features_poly_ellipse2">
+<code class="descname">test_mask2features_poly_ellipse2</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tests.test_helpers.HelpersEllipseTester.test_mask2features_poly_ellipse2" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test the function <cite>binary_mask2ellipse_features_single</cite> for test image 2.</p>
+</dd></dl>
 
 <dl class="method">
-<dt id="tests.test_helpers.HelpersEllipseTester.test_mask2features_ellipse3">
-<code class="descname">test_mask2features_ellipse3</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tests.test_helpers.HelpersEllipseTester.test_mask2features_ellipse3" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dt id="tests.test_helpers.HelpersEllipseTester.test_mask2features_poly_ellipse3">
+<code class="descname">test_mask2features_poly_ellipse3</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tests.test_helpers.HelpersEllipseTester.test_mask2features_poly_ellipse3" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test the function <cite>binary_mask2ellipse_features_single</cite> for test image 3.</p>
+</dd></dl>
 
 <dl class="method">
-<dt id="tests.test_helpers.HelpersEllipseTester.test_mask2features_ellipse4">
-<code class="descname">test_mask2features_ellipse4</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tests.test_helpers.HelpersEllipseTester.test_mask2features_ellipse4" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dt id="tests.test_helpers.HelpersEllipseTester.test_mask2features_poly_ellipse4">
+<code class="descname">test_mask2features_poly_ellipse4</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tests.test_helpers.HelpersEllipseTester.test_mask2features_poly_ellipse4" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test the function <cite>binary_mask2ellipse_features_single</cite> for test image 4.</p>
+</dd></dl>
 
 <dl class="method">
 <dt id="tests.test_helpers.HelpersEllipseTester.test_region2ellipse">
 <code class="descname">test_region2ellipse</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tests.test_helpers.HelpersEllipseTester.test_region2ellipse" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Test the function <cite>region2ellipse</cite>.</p>
+</dd></dl>
 
 </dd></dl>
 

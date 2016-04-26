@@ -102,7 +102,7 @@
         <div class="rst-content">
           
 
-
+ 
 
 
 
@@ -184,8 +184,7 @@ components is maximized.</p>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>binarized</strong> &#8211;
-Binary image with values 0 and 255</p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>binarized</strong> &#8211; Binary image with values 0 and 255</p>
 </td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">numpy array</p>
@@ -211,10 +210,8 @@ components is maximized. Also returns the optimal threshold.</p>
 </td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><ul class="simple">
-<li><strong>t_opt</strong> (<em>int</em>) &#8211;
-Optimal threshold</li>
-<li><strong>binarized</strong> (<em>numpy array</em>) &#8211;
-Binary image with values 0 and 255</li>
+<li><strong>t_opt</strong> (<em>int</em>) &#8211; Optimal threshold</li>
+<li><strong>binarized</strong> (<em>numpy array</em>) &#8211; Binary image with values 0 and 255</li>
 </ul>
 </p>
 </td>
@@ -244,8 +241,7 @@ Binary image with values 0 and 255</li>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>binarized</strong> &#8211;
-Binary image with values 0 and 255</p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>binarized</strong> &#8211; Binary image with values 0 and 255</p>
 </td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">numpy array</p>
@@ -284,8 +280,7 @@ Binary image with values 0 and 255</p>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>binarized</strong> &#8211;
-Binary image with values 0 and 255</p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>binarized</strong> &#8211; Binary image with values 0 and 255</p>
 </td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">numpy array</p>
@@ -322,29 +317,25 @@ Binary image with values 0 and 255</p>
 <dl class="attribute">
 <dt id="salientregions.binarydetector.BinaryDetector.holes">
 <code class="descname">holes</code><a class="headerlink" href="#salientregions.binarydetector.BinaryDetector.holes" title="Permalink to this definition">¶</a></dt>
-<dd><p><em>numpy array</em></p>
-<p>binary mask of the holes</p>
+<dd><p><em>numpy array</em> &#8211; binary mask of the holes</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="salientregions.binarydetector.BinaryDetector.islands">
 <code class="descname">islands</code><a class="headerlink" href="#salientregions.binarydetector.BinaryDetector.islands" title="Permalink to this definition">¶</a></dt>
-<dd><p><em>numpy array</em></p>
-<p>binary mask of the islands</p>
+<dd><p><em>numpy array</em> &#8211; binary mask of the islands</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="salientregions.binarydetector.BinaryDetector.indentations">
 <code class="descname">indentations</code><a class="headerlink" href="#salientregions.binarydetector.BinaryDetector.indentations" title="Permalink to this definition">¶</a></dt>
-<dd><p><em>numpy array</em></p>
-<p>binary mask of the indentations</p>
+<dd><p><em>numpy array</em> &#8211; binary mask of the indentations</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="salientregions.binarydetector.BinaryDetector.protrusions">
 <code class="descname">protrusions</code><a class="headerlink" href="#salientregions.binarydetector.BinaryDetector.protrusions" title="Permalink to this definition">¶</a></dt>
-<dd><p><em>numpy array</em></p>
-<p>binary mask of the protrusions</p>
+<dd><p><em>numpy array</em> &#8211; binary mask of the protrusions</p>
 </dd></dl>
 
 <div class="admonition note">
@@ -372,8 +363,7 @@ and <cite>protrusions</cite>.</p>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>regions</strong> &#8211;
-For each type of region, the maks with detected regions.</p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>regions</strong> &#8211; For each type of region, the maks with detected regions.</p>
 </td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">dict</p>
@@ -467,10 +457,8 @@ but it is possible to pass a different Binarizer.</p>
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>imgsize</strong> (<em>int</em>) &#8211; size (nr of pixels) of the image</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><ul class="simple">
-<li><strong>SE</strong> (<em>numpy array</em>) &#8211;
-The structuring element for this image</li>
-<li><strong>lam</strong> (<em>float</em>) &#8211;
-lambda, minimumm area of a salient region</li>
+<li><strong>SE</strong> (<em>numpy array</em>) &#8211; The structuring element for this image</li>
+<li><strong>lam</strong> (<em>float</em>) &#8211; lambda, minimumm area of a salient region</li>
 </ul>
 </td>
 </tr>
@@ -495,8 +483,7 @@ It uses MSSR, meaning that it detects on a series of threshold levels.</p>
 <li><strong>max_thres</strong> (<em>int, optional</em>) &#8211; Maximum threshold level</li>
 <li><strong>step</strong> (<em>int, optional</em>) &#8211; Stepsize for looping through threshold levels</li>
 <li><strong>perc</strong> (<em>float, optional</em>) &#8211; The percentile at which the threshold is taken</li>
-<li><strong>**kwargs</strong> &#8211; <p>Other arguments to pass along to the constructor of the superclass <cite>Detector</cite></p>
-</li>
+<li><strong>**kwargs</strong> &#8211; Other arguments to pass along to the constructor of the superclass <cite>Detector</cite></li>
 </ul>
 </td>
 </tr>
@@ -505,15 +492,13 @@ It uses MSSR, meaning that it detects on a series of threshold levels.</p>
 <dl class="attribute">
 <dt id="salientregions.detectors.MSSRDetector.gray">
 <code class="descname">gray</code><a class="headerlink" href="#salientregions.detectors.MSSRDetector.gray" title="Permalink to this definition">¶</a></dt>
-<dd><p><em>numpy array</em></p>
-<p>The image converted to grayscale</p>
+<dd><p><em>numpy array</em> &#8211; The image converted to grayscale</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="salientregions.detectors.MSSRDetector.regions_sum">
 <code class="descname">regions_sum</code><a class="headerlink" href="#salientregions.detectors.MSSRDetector.regions_sum" title="Permalink to this definition">¶</a></dt>
-<dd><p><em>numpy array</em></p>
-<p>The sum of the regions of all levels, before thresholding</p>
+<dd><p><em>numpy array</em> &#8211; The sum of the regions of all levels, before thresholding</p>
 </dd></dl>
 
 <div class="admonition note">
@@ -538,8 +523,7 @@ It uses MSSR, meaning that it detects on a series of threshold levels.</p>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>regions</strong> &#8211;
-For each type of region, the maks with detected regions.</p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>regions</strong> &#8211; For each type of region, the maks with detected regions.</p>
 </td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">dict</p>
@@ -559,8 +543,7 @@ For each type of region, the maks with detected regions.</p>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>data</strong> (<em>2-dimensional numpy array</em>) &#8211; the image to threshold</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><strong>binarized</strong> &#8211;
-Thresholded image</td>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><strong>binarized</strong> &#8211; Thresholded image</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">numpy array</td>
 </tr>
@@ -584,8 +567,7 @@ then a binary detector is used.</p>
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
 <li><strong>binarizer</strong> (<em>Binerizer object, optional</em>) &#8211; Binerizer object that handles the binarization.
 By default, we use datadriven binarization</li>
-<li><strong>**kwargs</strong> &#8211; <p>Other arguments to pass along to the constructor of the superclass Detector</p>
-</li>
+<li><strong>**kwargs</strong> &#8211; Other arguments to pass along to the constructor of the superclass Detector</li>
 </ul>
 </td>
 </tr>
@@ -594,15 +576,13 @@ By default, we use datadriven binarization</li>
 <dl class="attribute">
 <dt id="salientregions.detectors.SalientDetector.gray">
 <code class="descname">gray</code><a class="headerlink" href="#salientregions.detectors.SalientDetector.gray" title="Permalink to this definition">¶</a></dt>
-<dd><p><em>numpy array</em></p>
-<p>The image converted to grayscale</p>
+<dd><p><em>numpy array</em> &#8211; The image converted to grayscale</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="salientregions.detectors.SalientDetector.binarized">
 <code class="descname">binarized</code><a class="headerlink" href="#salientregions.detectors.SalientDetector.binarized" title="Permalink to this definition">¶</a></dt>
-<dd><p><em>numpy array</em></p>
-<p>The binarized image</p>
+<dd><p><em>numpy array</em> &#8211; The binarized image</p>
 </dd></dl>
 
 <dl class="method">
@@ -623,8 +603,7 @@ By default, we use datadriven binarization</li>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>regions</strong> &#8211;
-For each type of region, the maks with detected regions.</p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>regions</strong> &#8211; For each type of region, the maks with detected regions.</p>
 </td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">dict</p>
@@ -653,8 +632,7 @@ For each type of region, the maks with detected regions.</p>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>is_close</strong> &#8211;
-True if elemetns of the two arrays are close within the defaults tolerance
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>is_close</strong> &#8211; True if elemetns of the two arrays are close within the defaults tolerance
 (see numpy.allclose documentaiton for tolerance values)</p>
 </td>
 </tr>
@@ -667,23 +645,24 @@ True if elemetns of the two arrays are close within the defaults tolerance
 
 <dl class="function">
 <dt id="salientregions.helpers.binary_mask2ellipse_features">
-<code class="descclassname">salientregions.helpers.</code><code class="descname">binary_mask2ellipse_features</code><span class="sig-paren">(</span><em>regions</em>, <em>connectivity=4</em><span class="sig-paren">)</span><a class="headerlink" href="#salientregions.helpers.binary_mask2ellipse_features" title="Permalink to this definition">¶</a></dt>
-<dd><p>Conversion of multiple types of regions to ellipse features.</p>
+<code class="descclassname">salientregions.helpers.</code><code class="descname">binary_mask2ellipse_features</code><span class="sig-paren">(</span><em>regions</em>, <em>connectivity=4</em>, <em>min_square=False</em><span class="sig-paren">)</span><a class="headerlink" href="#salientregions.helpers.binary_mask2ellipse_features" title="Permalink to this definition">¶</a></dt>
+<dd><p>Conversion of all types of regions to ellipse features.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
 <li><strong>regions</strong> (<em>dict</em>) &#8211; Dict of binary masks of the detected salient regions</li>
-<li><strong>connectivity</strong> (<em>int</em>) &#8211; Neighborhood connectivity</li>
+<li><strong>connectivity</strong> (<em>int, optional</em>) &#8211; Neighborhood connectivity</li>
+<li><strong>min_square</strong> (<em>bool, optional</em>) &#8211; whether to use minimum sqrt fitting for ellipses
+(default is bounded rotated rectangle fitting)</li>
 </ul>
 </td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><ul class="simple">
-<li><strong>num_regions</strong> (<em>dict</em>) &#8211;
-The number of saleint regions for each saliency_type</li>
-<li><strong>features</strong> (<em>dict</em>) &#8211;
-array with ellipse features for each of the ellipses, for each saliency type</li>
+<li><strong>num_regions</strong> (<em>dict</em>) &#8211; The number of saleint regions for each saliency_type</li>
+<li><strong>features_standard</strong> (<em>dict</em>) &#8211; dictionary with standard ellipse features for each of the ellipses</li>
+<li><strong>features_poly</strong> (<em>dict</em>) &#8211; dictionary with polynomial ellipse features for each of the ellipses</li>
 </ul>
 </p>
 </td>
@@ -692,7 +671,14 @@ array with ellipse features for each of the ellipses, for each saliency type</li
 </table>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">Every row in the resulting feature array corresponds to a single
+<p>The keys of the dictionaries are the saliency type.</p>
+<p>Every row in the array per key of  features_standard corresponds to a single
+region/ellipse and is of format:
+<code class="docutils literal"><span class="pre">x0</span> <span class="pre">y0</span> <span class="pre">a</span> <span class="pre">b</span> <span class="pre">angle</span> <span class="pre">saliency_type</span></code> ,
+where <code class="docutils literal"><span class="pre">(x0,y0)</span></code> are the coordinates of the ellipse centroid and <code class="docutils literal"><span class="pre">a</span></code>, <code class="docutils literal"><span class="pre">b</span></code> and <a href="#id1"><span class="problematic" id="id2">``</span></a>angle``(in degrees)
+are the standard parameters from the ellipse equation:
+math:<cite>(x+cos(angle) + y+sin(angle))^2/a^2 + (x*sin(angle) - y*cos(angle))^2/b^2  = 1</cite></p>
+<p class="last">Every row in the array per key of  features_poly corresponds to a single
 region/ellipse and is of format:
 <code class="docutils literal"><span class="pre">x0</span> <span class="pre">y0</span> <span class="pre">A</span> <span class="pre">B</span> <span class="pre">C</span> <span class="pre">saliency_type</span></code> ,
 where <code class="docutils literal"><span class="pre">(x0,y0)</span></code> are the coordinates of the ellipse centroid and <code class="docutils literal"><span class="pre">A</span></code>, <code class="docutils literal"><span class="pre">B</span></code> and <code class="docutils literal"><span class="pre">C</span></code>
@@ -702,8 +688,8 @@ are the polynomial coefficients from the ellipse equation <img class="math" src=
 
 <dl class="function">
 <dt id="salientregions.helpers.binary_mask2ellipse_features_single">
-<code class="descclassname">salientregions.helpers.</code><code class="descname">binary_mask2ellipse_features_single</code><span class="sig-paren">(</span><em>binary_mask</em>, <em>connectivity=4</em>, <em>saliency_type=1</em><span class="sig-paren">)</span><a class="headerlink" href="#salientregions.helpers.binary_mask2ellipse_features_single" title="Permalink to this definition">¶</a></dt>
-<dd><p>Conversion of a single type of binary regions to ellipse features.</p>
+<code class="descclassname">salientregions.helpers.</code><code class="descname">binary_mask2ellipse_features_single</code><span class="sig-paren">(</span><em>binary_mask</em>, <em>connectivity=4</em>, <em>saliency_type=1</em>, <em>min_square=False</em><span class="sig-paren">)</span><a class="headerlink" href="#salientregions.helpers.binary_mask2ellipse_features_single" title="Permalink to this definition">¶</a></dt>
+<dd><p>Conversion of a single saliency type of binary regions to ellipse features.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -716,28 +702,33 @@ are the polynomial coefficients from the ellipse equation <img class="math" src=
 2: islands
 3: indentations
 4: protrusions</li>
+<li><strong>min_square</strong> (<em>bool, optional</em>) &#8211; whether to use minimum sqrt fitting for ellipses
+(default is bounded rotated rectangle fitting)</li>
 </ul>
 </td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><ul class="simple">
-<li><strong>num_regions</strong> (<em>int</em>) &#8211;
-The number of saleint regions of saliency_type</li>
-<li><strong>features</strong> (<em>numpy array</em>) &#8211;
-array with ellipse features for each of the ellipses</li>
+<li><strong>num_regions</strong> (<em>int</em>) &#8211; The number of saleint regions of saliency_type</li>
+<li><strong>features_standard</strong> (<em>numpy array</em>) &#8211; array with standard ellipse features for each of the ellipses for a given saliency type</li>
+<li><strong>features_poly</strong> (<em>numpy array</em>) &#8211; array with polynomial ellipse features for each of the ellipses  for a given saliency type</li>
 </ul>
 </p>
 </td>
 </tr>
 </tbody>
 </table>
-<div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">Every row in the resulting feature array corresponds to a single
+<p class="rubric">Notes</p>
+<p>Every row in the resulting feature_standard array corresponds to a single
+region/ellipse and is of format:
+<code class="docutils literal"><span class="pre">x0</span> <span class="pre">y0</span> <span class="pre">a</span> <span class="pre">b</span> <span class="pre">angle</span> <span class="pre">saliency_type</span></code> ,
+where <code class="docutils literal"><span class="pre">(x0,y0)</span></code> are the coordinates of the ellipse centroid and <code class="docutils literal"><span class="pre">a</span></code>, <code class="docutils literal"><span class="pre">b</span></code> and <a href="#id3"><span class="problematic" id="id4">``</span></a>angle``(in degrees)
+are the standard parameters from the ellipse equation:
+math:<cite>(x+cos(angle) + y+sin(angle))^2/a^2 + (x*sin(angle) - y*cos(angle))^2/b^2  = 1</cite></p>
+<p>Every row in the resulting feature_poly array corresponds to a single
 region/ellipse and is of format:
 <code class="docutils literal"><span class="pre">x0</span> <span class="pre">y0</span> <span class="pre">A</span> <span class="pre">B</span> <span class="pre">C</span> <span class="pre">saliency_type</span></code> ,
 where <code class="docutils literal"><span class="pre">(x0,y0)</span></code> are the coordinates of the ellipse centroid and <code class="docutils literal"><span class="pre">A</span></code>, <code class="docutils literal"><span class="pre">B</span></code> and <code class="docutils literal"><span class="pre">C</span></code>
 are the polynomial coefficients from the ellipse equation <img class="math" src="_images/math/f95a6cdca86017eca71d2c11c6c20f704c52c02a.png" alt="Ax^2 + Bxy + Cy^2 = 1"/>.</p>
-</div>
 </dd></dl>
 
 <dl class="function">
@@ -756,8 +747,7 @@ Useful for testing purposes.</p>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>is_same</strong> &#8211;
-True if all pixels of the two images are equal</p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>is_same</strong> &#8211; True if all pixels of the two images are equal</p>
 </td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">bool</p>
@@ -765,6 +755,29 @@ True if all pixels of the two images are equal</p>
 </tr>
 </tbody>
 </table>
+</dd></dl>
+
+<dl class="function">
+<dt id="salientregions.helpers.load_ellipse_features_from_file">
+<code class="descclassname">salientregions.helpers.</code><code class="descname">load_ellipse_features_from_file</code><span class="sig-paren">(</span><em>filename</em><span class="sig-paren">)</span><a class="headerlink" href="#salientregions.helpers.load_ellipse_features_from_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>Load  elipse features (polynomial or standard) from, file.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>filename</strong> (<em>str</em>) &#8211; the filename where to load the features from</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><ul class="simple">
+<li><strong>total_num_regions</strong> (<em>int</em>) &#8211; the total number of salient regions of saliency types</li>
+<li><strong>num_regions</strong> (<em>dict</em>) &#8211; The number of saleint regions for each saliency type</li>
+<li><strong>features</strong> (<em>dict</em>) &#8211; dictionary with ellipse features for each of the ellipses</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Notes</p>
+<p>see save_ellipse_features2file</p>
 </dd></dl>
 
 <dl class="function">
@@ -783,14 +796,10 @@ Returns the masks with 0/255 values for the 4 salient types</p>
 </td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><ul class="simple">
-<li><strong>holes</strong> (<em>numpy array</em>) &#8211;
-Binary image with holes as foreground</li>
-<li><strong>islands</strong> (<em>numpy array</em>) &#8211;
-Binary image with islands as foreground</li>
-<li><strong>protrusions</strong> (<em>numpy array</em>) &#8211;
-Binary image with protrusions as foreground</li>
-<li><strong>indentations</strong> (<em>numpy array</em>) &#8211;
-Binary image with indentations as foreground</li>
+<li><strong>holes</strong> (<em>numpy array</em>) &#8211; Binary image with holes as foreground</li>
+<li><strong>islands</strong> (<em>numpy array</em>) &#8211; Binary image with islands as foreground</li>
+<li><strong>protrusions</strong> (<em>numpy array</em>) &#8211; Binary image with protrusions as foreground</li>
+<li><strong>indentations</strong> (<em>numpy array</em>) &#8211; Binary image with indentations as foreground</li>
 </ul>
 </p>
 </td>
@@ -814,8 +823,7 @@ Binary image with indentations as foreground</li>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>A, B, C</strong> &#8211;
-The coefficients of the polynomial equation of an ellipse <img class="math" src="_images/math/f95a6cdca86017eca71d2c11c6c20f704c52c02a.png" alt="Ax^2 + Bxy + Cy^2 = 1"/></p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>A, B, C</strong> &#8211; The coefficients of the polynomial equation of an ellipse <img class="math" src="_images/math/f95a6cdca86017eca71d2c11c6c20f704c52c02a.png" alt="Ax^2 + Bxy + Cy^2 = 1"/></p>
 </td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">floats</p>
@@ -823,6 +831,33 @@ The coefficients of the polynomial equation of an ellipse <img class="math" src=
 </tr>
 </tbody>
 </table>
+</dd></dl>
+
+<dl class="function">
+<dt id="salientregions.helpers.save_ellipse_features2file">
+<code class="descclassname">salientregions.helpers.</code><code class="descname">save_ellipse_features2file</code><span class="sig-paren">(</span><em>num_regions</em>, <em>features</em>, <em>filename</em><span class="sig-paren">)</span><a class="headerlink" href="#salientregions.helpers.save_ellipse_features2file" title="Permalink to this definition">¶</a></dt>
+<dd><p>Saving the ellipse features (polynomial or standard) to file.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>num_regions</strong> (<em>dict</em>) &#8211; The number of saleint regions for each saliency type</li>
+<li><strong>features</strong> (<em>dict</em>) &#8211; dictionary with ellipse features for each of the ellipses</li>
+<li><strong>filename</strong> (<em>str</em>) &#8211; the filename where to save the features</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>total_num_regions</strong> &#8211; the total number of salient regions of saliency types</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">int</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Notes</p>
+<p>see load_ellipse_features_from_file</p>
 </dd></dl>
 
 <dl class="function">
@@ -864,8 +899,59 @@ When a key is pressed, the window is closed</p>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>img_to_show</strong> &#8211;
-image with the colored regions</p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>img_to_show</strong> &#8211; image with the colored regions</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">numpy array</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="salientregions.helpers.visualize_elements_ellipses">
+<code class="descclassname">salientregions.helpers.</code><code class="descname">visualize_elements_ellipses</code><span class="sig-paren">(</span><em>img</em>, <em>features</em>, <em>visualize=True</em>, <em>title='salient regions'</em><span class="sig-paren">)</span><a class="headerlink" href="#salientregions.helpers.visualize_elements_ellipses" title="Permalink to this definition">¶</a></dt>
+<dd><p>Display the image with the salient regions provided.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>img</strong> (<em>numpy array</em>) &#8211; image</li>
+<li><strong>features</strong> (<em>dict</em>) &#8211; dictionary with the ellipse features of the regions to show</li>
+<li><strong>visualize</strong> (<em>bool, optional</em>) &#8211; visualizations flag</li>
+<li><strong>display_name</strong> (<em>str, optional</em>) &#8211; name of the window</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>img_to_show</strong> &#8211; image with the colored regions</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">numpy array</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="salientregions.helpers.visualize_ellipses">
+<code class="descclassname">salientregions.helpers.</code><code class="descname">visualize_ellipses</code><span class="sig-paren">(</span><em>img</em>, <em>features</em>, <em>color=(0</em>, <em>0</em>, <em>255)</em>, <em>visualize=True</em><span class="sig-paren">)</span><a class="headerlink" href="#salientregions.helpers.visualize_ellipses" title="Permalink to this definition">¶</a></dt>
+<dd><p>Visualise ellipses in an image</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>regions</strong> (<em>img</em>) &#8211; image to show the ellipses on</li>
+<li><strong>features</strong> (<em>numpy array</em>) &#8211; standard ellipse features for each of the ellipses</li>
+<li><strong>color</strong> (<em>tuple of ints, optional</em>) &#8211; color to show the ellipses</li>
+<li><strong>visualize</strong> (<em>bool, optional</em>) &#8211; visualizations flag</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>img_to_show</strong> &#8211; image with the colored ellipses</p>
 </td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">numpy array</p>
