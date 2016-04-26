@@ -12,11 +12,15 @@ import scipy.io as sio
 
 
 class BinaryDetectorTester(unittest.TestCase):
+
     '''
     Tests for the binary detector
     '''
 
     def setUp(self):
+        '''
+        Load the binary image and the binary masks for the true regions.
+        '''
         testdata_path = os.path.normpath(
             os.path.join(
                 os.path.dirname(
@@ -51,6 +55,9 @@ class BinaryDetectorTester(unittest.TestCase):
             SE=SE, lam=lam, area_factor=area_factor, connectivity=connectivity)
 
     def test_holes(self):
+        '''
+        Test the method `detect` for only holes.
+        '''
         results = self.binarydetector.detect(
             self.image_noise,
             find_holes=True,
@@ -62,6 +69,9 @@ class BinaryDetectorTester(unittest.TestCase):
         assert sr.image_diff(self.holes_true, holes_my, visualize=False)
 
     def test_islands(self):
+        '''
+        Test the method `detect` for only islands.
+        '''
         results = self.binarydetector.detect(
             self.image_noise,
             find_holes=False,
@@ -73,6 +83,9 @@ class BinaryDetectorTester(unittest.TestCase):
         assert sr.image_diff(self.islands_true, islands_my, visualize=False)
 
     def test_protrusions(self):
+        '''
+        Test the method `detect` for only protrusions.
+        '''
         results = self.binarydetector.detect(
             self.image_noise,
             find_holes=False,
@@ -84,6 +97,9 @@ class BinaryDetectorTester(unittest.TestCase):
         assert sr.image_diff(self.prots_true, prots_my, visualize=False)
 
     def test_indentations(self):
+        '''
+        Test the method `detect` for only indentations.
+        '''
         results = self.binarydetector.detect(
             self.image_noise,
             find_holes=False,
@@ -95,6 +111,9 @@ class BinaryDetectorTester(unittest.TestCase):
         assert sr.image_diff(self.indents_true, indents_my, visualize=False)
 
     def test_holesislands(self):
+        '''
+        Test the method `detect` for holes and islands.
+        '''
         results = self.binarydetector.detect(
             self.image_noise,
             find_holes=True,
@@ -108,6 +127,9 @@ class BinaryDetectorTester(unittest.TestCase):
         assert sr.image_diff(self.islands_true, islands_my, visualize=False)
 
     def test_protsindents(self):
+        '''
+        Test the method `detect` for protrusions and indentations.
+        '''
         results = self.binarydetector.detect(
             self.image_noise,
             find_holes=False,
@@ -125,6 +147,9 @@ class BinaryDetectorTester(unittest.TestCase):
             visualize=False)
 
     def test_detect(self):
+        '''
+        Test the method `detect` for all regions.
+        '''
         results = self.binarydetector.detect(
             self.image_noise,
             find_holes=True,
@@ -150,14 +175,20 @@ class BinaryDetectorTester(unittest.TestCase):
             visualize=False)
 
     def test_fill_image_noise(self):
-        filled =  self.binarydetector._fill_image(self.image_noise)
+        '''
+        Test the helper method `fill_image`.
+        '''
+        filled = self.binarydetector._fill_image(self.image_noise)
         assert sr.image_diff(
             self.filled_image_noise_true,
             filled,
             visualize=False)
 
     def test_fill_image_nested(self):
-        filled =  self.binarydetector._fill_image(self.image_nested)
+        '''
+        Test the helper method `fill_image` for an image with nested regions..
+        '''
+        filled = self.binarydetector._fill_image(self.image_nested)
         assert sr.image_diff(
             self.filled_image_nested_true,
             filled,

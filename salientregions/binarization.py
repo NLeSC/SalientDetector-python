@@ -7,6 +7,7 @@ import numpy as np
 
 
 class Binarizer(object):
+
     """ Abstract class for objects that can binarize an image.
     """
     @abstractmethod
@@ -17,6 +18,7 @@ class Binarizer(object):
 
 
 class ThresholdBinarizer(Binarizer):
+
     """
     Binarizes the image with a given threshold.
 
@@ -58,6 +60,7 @@ class ThresholdBinarizer(Binarizer):
 
 
 class OtsuBinarizer(Binarizer):
+
     """
     Binarizes the image with the Otsu method.
     """
@@ -91,6 +94,7 @@ class OtsuBinarizer(Binarizer):
 
 
 class DatadrivenBinarizer(Binarizer):
+
     """
     Binarizes the image such that the desired number of (large) connected
     components is maximized.
@@ -195,7 +199,8 @@ class DatadrivenBinarizer(Binarizer):
             fig.suptitle('Weighted number of CCs per threshold level')
             l1 = plt.axvline(x=t_opt, color='red')
             l2 = plt.axvline(x=t_otsu, color='green')
-            plt.legend(handles=[s, l1, l2], labels=['Score', 'Optimal level', 'Otsu level'])
+            plt.legend(handles=[s, l1, l2], labels=[
+                       'Score', 'Optimal level', 'Otsu level'])
             plt.xlim(0, 255)
             plt.gcf().canvas.mpl_connect(
                 'key_press_event',
@@ -207,7 +212,6 @@ class DatadrivenBinarizer(Binarizer):
                     'Binarized with threshold %i' %
                     t_opt))
         return t_opt, binarized
-        
 
     def binarize(self, img, visualize=True):
         """

@@ -4,6 +4,7 @@ import numpy as np
 
 
 class BinaryDetector(object):
+
     """
     Class for detecting salient regions in binary images.
 
@@ -100,7 +101,7 @@ class BinaryDetector(object):
                     'islands', None), indentations=regions.get(
                     'indentations', None), protrusions=regions.get(
                     'protrusions', None),
-                    title='Salient regions in binary image')
+                title='Salient regions in binary image')
         return regions
 
     def reset(self):
@@ -177,7 +178,7 @@ class BinaryDetector(object):
         all_the_holes = cv2.bitwise_and(filled, cv2.bitwise_not(img))
         # Substract the noise elements
         theholes = self._remove_small_elements(all_the_holes,
-                                              remove_border_elements=True)
+                                               remove_border_elements=True)
         return theholes
 
     def _detect_protrusionlike(self, img, filled, holes):
