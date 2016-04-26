@@ -245,12 +245,7 @@ class MSSRDetector(Detector):
         super(
             MSSRDetector,
             self).detect(
-            img,
-            find_holes=find_holes,
-            find_islands=find_islands,
-            find_indentations=find_indentations,
-            find_protrusions=find_protrusions,
-            visualize=visualize)
+            img)
         if len(img.shape) == 3:
             self.gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
         else:
