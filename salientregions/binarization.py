@@ -7,6 +7,7 @@ import numpy as np
 
 
 class Binarizer(object):
+
     """ Abstract class for objects that can binarize an image.
     """
     @abstractmethod
@@ -17,6 +18,7 @@ class Binarizer(object):
 
 
 class ThresholdBinarizer(Binarizer):
+
     """
     Binarizes the image with a given threshold.
 
@@ -58,6 +60,7 @@ class ThresholdBinarizer(Binarizer):
 
 
 class OtsuBinarizer(Binarizer):
+
     """
     Binarizes the image with the Otsu method.
     """
@@ -91,6 +94,7 @@ class OtsuBinarizer(Binarizer):
 
 
 class DatadrivenBinarizer(Binarizer):
+
     """
     Binarizes the image such that the desired number of (large) connected
     components is maximized.
@@ -163,6 +167,9 @@ class DatadrivenBinarizer(Binarizer):
         a_nccs_verylarge = np.zeros(256)
 
         step = 256 / self.num_levels
+        print "stepsize:", step
+        print "min: ", max(t_otsu - self.offset, 0)
+        print "max: ", min(t_otsu + self.offset, 255)
         for t in xrange(max(t_otsu - self.offset, 0),
                         min(t_otsu + self.offset, 255),
                         step):
@@ -172,8 +179,8 @@ class DatadrivenBinarizer(Binarizer):
                 bint, connectivity=self.connectivity)
             areas = stats[:, cv2.CC_STAT_AREA]
             a_nccs[t] = sum(areas > self.lam)
-            a_nccs_large[t] = sum(areas > area_large)
-            a_nccs_verylarge[t] = sum(areas > area_verylarge)
+            a_nccs_large[t] = sum(areas >= area_large)
+            a_nccs_verylarge[t] = sum(areas >= area_verylarge)
 
         # Normalize
         a_nccs = a_nccs / float(a_nccs.max())
@@ -192,7 +199,8 @@ class DatadrivenBinarizer(Binarizer):
             fig.suptitle('Weighted number of CCs per threshold level')
             l1 = plt.axvline(x=t_opt, color='red')
             l2 = plt.axvline(x=t_otsu, color='green')
-            plt.legend(handles=[s, l1, l2], labels=['Score', 'Optimal level', 'Otsu level'])
+            plt.legend(handles=[s, l1, l2], labels=[
+                       'Score', 'Optimal level', 'Otsu level'])
             plt.xlim(0, 255)
             plt.gcf().canvas.mpl_connect(
                 'key_press_event',

@@ -6,46 +6,68 @@ import os
 
 
 class DataDrivenBinarizerTester(unittest.TestCase):
+
     '''
-    Tests for the helper functions related to images
+    Tests for the DataDriven binarizer
     '''
 
     def setUp(self):
+        '''
+        Load the test image and the 'true' binarized image
+        '''
         testdata_path = os.path.normpath(
             os.path.join(
                 os.path.dirname(
                     os.path.abspath(__file__)),
                 'images/Gray/'))
-        self.image = cv2.imread(os.path.join(testdata_path, 'gray.png'), cv2.IMREAD_GRAYSCALE)
+        self.image = cv2.imread(
+            os.path.join(
+                testdata_path,
+                'gray.png'),
+            cv2.IMREAD_GRAYSCALE)
         self.binarized_true = cv2.imread(
             os.path.join(
                 testdata_path,
                 'gray_data_binarization.png.png'), cv2.IMREAD_GRAYSCALE)
-        self.binarizer = sr.DatadrivenBinarizer( lam=27,
-                 area_factor_large=0.001,
-                 area_factor_verylarge=0.01,
-                 weights=(0.33, 0.33, 0.33),
-                 offset=80,
-                 num_levels=255,
-                 connectivity=8)
+        self.binarizer = sr.DatadrivenBinarizer(lam=27,
+                                                area_factor_large=0.001,
+                                                area_factor_verylarge=0.01,
+                                                weights=(0.33, 0.33, 0.33),
+                                                offset=80,
+                                                num_levels=255,
+                                                connectivity=8)
         self.threshold_true = 106
-        
+
     def test_binarize(self):
+        '''
+        Test the function `binarize`
+        Compare the binarized image.
+        '''
         binarized = self.binarizer.binarize(self.image, visualize=False)
-        #assert sr.image_diff(self.binarized_true,
+        # assert sr.image_diff(self.binarized_true,
         #    binarized,
         #    visualize=False)
-            
+
     def test_binarize_threshold(self):
-        threshold, _ = self.binarizer.binarize_withthreshold(self.image, visualize=False)
-        #assert threshold ==  self.threshold_true
+        '''
+        Test the function `binarize_withthreshold`
+        Compare the resulting threshold.
+        '''
+        threshold, _ = self.binarizer.binarize_withthreshold(
+            self.image, visualize=False)
+        # assert threshold ==  self.threshold_true
+
 
 class ThresholdBinarizerTester(unittest.TestCase):
+
     '''
-    Tests for the helper functions related to images
+    Tests for the Threshold Binarizer
     '''
 
     def setUp(self):
+        '''
+        Load the test image and the 'true' binarized images for several thresholds
+        '''
         testdata_path = os.path.normpath(
             os.path.join(
                 os.path.dirname(
@@ -76,6 +98,10 @@ class ThresholdBinarizerTester(unittest.TestCase):
         self.thresholdneg1 = sr.ThresholdBinarizer(-1)
 
     def test_binarize175(self):
+        '''
+        Test the function `binarize` for threshold 175.
+        Compare the binarized image.
+        '''
         binarized = self.threshold175.binarize(self.image, visualize=False)
         assert sr.image_diff(
             self.binarized_true_175,
@@ -83,6 +109,10 @@ class ThresholdBinarizerTester(unittest.TestCase):
             visualize=False)
 
     def test_binarize57(self):
+        '''
+        Test the function `binarize` for threshold 57.
+        Compare the binarized image.
+        '''
         binarized = self.threshold57.binarize(self.image, visualize=False)
         assert sr.image_diff(
             self.binarized_true_57,
@@ -90,10 +120,18 @@ class ThresholdBinarizerTester(unittest.TestCase):
             visualize=False)
 
     def test_binarize0(self):
+        '''
+        Test the function `binarize` for threshold 0.
+        Compare the binarized image.
+        '''
         binarized = self.threshold0.binarize(self.image, visualize=False)
         assert sr.image_diff(self.binarized_true_0, binarized, visualize=False)
 
     def test_binarize255(self):
+        '''
+        Test the function `binarize` for threshold 255.
+        Compare the binarized image.
+        '''
         binarized = self.threshold255.binarize(self.image, visualize=False)
         assert sr.image_diff(
             self.binarized_true_255,
@@ -102,6 +140,10 @@ class ThresholdBinarizerTester(unittest.TestCase):
 
     # Edge cases: if threshold outside of allowed range, it should be capped
     def test_binarize256(self):
+        '''
+        Test the function `binarize` for threshold 256.
+        Compare the binarized image.
+        '''
         binarized = self.threshold256.binarize(self.image, visualize=False)
         assert sr.image_diff(
             self.binarized_true_255,
@@ -109,6 +151,10 @@ class ThresholdBinarizerTester(unittest.TestCase):
             visualize=False)
 
     def test_binarizeneg1(self):
+        '''
+        Test the function `binarize` for threshold -1.
+        Compare the binarized image.
+        '''
         binarized = self.thresholdneg1.binarize(self.image, visualize=False)
         assert sr.image_diff(
             self.binarized_true_0,

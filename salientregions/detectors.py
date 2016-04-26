@@ -5,12 +5,13 @@ from abc import ABCMeta, abstractmethod
 import cv2
 import helpers
 import binarization
-#import binarydetector
+# import binarydetector
 import numpy as np
 from binarydetector import BinaryDetector
 
 
 class Detector(object):
+
     """
     Abstract class for salient region detectors.
 
@@ -80,6 +81,7 @@ class Detector(object):
 
 
 class SalientDetector(Detector):
+
     """Find salient regions of all four types, in color or greyscale images.
     The image is first binarized using the specified binarizer,
     then a binary detector is used.
@@ -170,11 +172,12 @@ class SalientDetector(Detector):
                     'islands', None), indentations=result.get(
                     'indentations', None), protrusions=result.get(
                     'protrusions', None),
-                    title="Salient Regions visualized in grayscale image")        
+                title="Salient Regions visualized in grayscale image")
         return result
 
 
 class MSSRDetector(Detector):
+
     """Find salient regions of all four types, in color or greyscale images.
     It uses MSSR, meaning that it detects on a series of threshold levels.
 
@@ -197,7 +200,7 @@ class MSSRDetector(Detector):
         The image converted to grayscale
     regions_sum : numpy array
         The sum of the regions of all levels, before thresholding
-        
+
     Note
     ------
     This algorithm is much slower than the DMSR, so should be used with care.
@@ -245,12 +248,7 @@ class MSSRDetector(Detector):
         super(
             MSSRDetector,
             self).detect(
-            img,
-            find_holes=find_holes,
-            find_islands=find_islands,
-            find_indentations=find_indentations,
-            find_protrusions=find_protrusions,
-            visualize=visualize)
+            img)
         if len(img.shape) == 3:
             self.gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
         else:

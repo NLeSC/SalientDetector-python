@@ -153,10 +153,10 @@ def read_matfile(filename, visualize=True):
     """
     matfile = sio.loadmat(filename)
     regions = matfile['saliency_masks'] * 255
-    holes = regions[:, :, 0]
-    islands = regions[:, :, 1]
-    indentations = regions[:, :, 2]
-    protrusions = regions[:, :, 3]
+    holes = regions[:,:, 0]
+    islands = regions[:,:, 1]
+    indentations = regions[:,:, 2]
+    protrusions = regions[:,:, 3]
     if visualize:
         show_image(holes, 'holes')
         show_image(islands, 'islands')
@@ -289,12 +289,12 @@ def binary_mask2ellipse_features_single(binary_mask, connectivity=4, saliency_ty
     are the polynomial coefficients from the ellipse equation :math:`Ax^2 + Bxy + Cy^2 = 1`.
     """
 
-    #num_regions, labels, stats, centroids = cv2.connectedComponentsWithStats(binary_mask, connectivity=connectivity)
+    # num_regions, labels, stats, centroids = cv2.connectedComponentsWithStats(binary_mask, connectivity=connectivity)
     binary_mask2 = binary_mask.copy()
     _, contours, hierarchy = cv2.findContours(
         binary_mask2, cv2.RETR_CCOMP, cv2.CHAIN_APPROX_SIMPLE)
 
-    indices_regions = np.where(hierarchy[0,:,3]==-1)[0]
+    indices_regions = np.where(hierarchy[0,:, 3] == -1)[0]
     num_regions = len(indices_regions)
     features_standard = np.zeros((num_regions, 6), float)
     features_poly = np.zeros((num_regions, 6), float)
@@ -333,7 +333,7 @@ def binary_mask2ellipse_features_single(binary_mask, connectivity=4, saliency_ty
         i += 1
     return num_regions, features_standard, features_poly
 
-def visualize_ellipses(img, features, color=(0,0,255), visualize=True):
+def visualize_ellipses(img, features, color=(0, 0, 255), visualize=True):
     """ Visualise ellipses in an image
 
     Parameters
@@ -360,7 +360,7 @@ def visualize_ellipses(img, features, color=(0,0,255), visualize=True):
         img_to_show = img.copy()
         
     for (x, y, a, b, angle, _) in features:
-        img_to_show = cv2.ellipse(img_to_show,(int(x),int(y)),(int(b),int(a)),int(angle),0,360,color,2)
+        img_to_show = cv2.ellipse(img_to_show, (int(x), int(y)), (int(b), int(a)), int(angle), 0, 360, color, 2)
     if visualize:
         show_image(img_to_show)
     return img_to_show
@@ -412,14 +412,14 @@ def binary_mask2ellipse_features(regions, connectivity=4, min_square=False):
                   "protrusions": 4}
     num_regions = {}
     features_standard = {}
-    features_poly ={}
+    features_poly = {}
     
     for saltype in regions.keys():
        # print "Saliency type: ", saltype
         num_regions_s, features_standard_s, features_poly_s =  binary_mask2ellipse_features_single(regions[saltype], 
                                                 connectivity=connectivity,  saliency_type=region2int[saltype], min_square=min_square)
         num_regions[saltype] = num_regions_s
-        #print "Number of regions for that saliency type: ", num_regions_s
+        # print "Number of regions for that saliency type: ", num_regions_s
         features_standard[saltype] = features_standard_s
         features_poly[saltype] = features_poly_s
         
@@ -462,12 +462,12 @@ def save_ellipse_features2file(num_regions, features, filename):
     
     for saltype in num_regions.keys():
         features_s = features[saltype]
-        #print "saliency type: ", saltype
+        # print "saliency type: ", saltype
         # write into the file per ellipse        
-        #for ellipse_entry in features_poly_s: #
+        # for ellipse_entry in features_poly_s: #
         for n in range(num_regions[saltype]):
             ellipse_entry = features_s[n,:]
-            #print "n: features", n,":", ellipse_entry
+            # print "n: features", n,":", ellipse_entry
             for e in ellipse_entry:            
                 f.write(str(e)) 
                 f.write(' ')
@@ -506,7 +506,7 @@ def load_ellipse_features_from_file(filename):
                   "islands":2,
                   "indentations": 3,
                   "protrusions": 4}
-    int2region = {v: k for (k,v) in region2int.iteritems()}
+    int2region = {v: k for (k, v) in region2int.iteritems()}
     keys = region2int.keys()
     
     total_num_regions = 0
@@ -536,7 +536,7 @@ def load_ellipse_features_from_file(filename):
     f.close()   
     
     # make numpy arrays from the lists 
-    features = {k: np.array(v) for (k,v) in features_lists.iteritems()}
+    features = {k: np.array(v) for (k, v) in features_lists.iteritems()}
   
     return total_num_regions, num_regions, features
     
