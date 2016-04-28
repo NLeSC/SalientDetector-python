@@ -16,7 +16,13 @@ install:
   # Create conda environment
   - conda create -q -n test-environment python=$TRAVIS_PYTHON_VERSION numpy
   - source activate test-environment
+  - pip install coverage
+  - pip install codacy-coverage
   - make
   - make install
 # command to run tests
 script: make test
+
+after_success:
+  - coverage xml
+  - python-codacy-coverage -v -r coverage.xml
