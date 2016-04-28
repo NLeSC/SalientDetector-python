@@ -23,12 +23,12 @@ class DataDrivenBinarizerTester(unittest.TestCase):
         self.image = cv2.imread(
             os.path.join(
                 testdata_path,
-                'gray.png'),
+                'Gray_scale.png'),
             cv2.IMREAD_GRAYSCALE)
         self.binarized_true = cv2.imread(
             os.path.join(
                 testdata_path,
-                'gray_data_binarization.png.png'), cv2.IMREAD_GRAYSCALE)
+                'Binarization_data_driven.png'), cv2.IMREAD_GRAYSCALE)
         self.binarizer = sr.DatadrivenBinarizer(lam=27,
                                                 area_factor_large=0.001,
                                                 area_factor_verylarge=0.01,

@@ -72,7 +72,7 @@ class Detector(object):
             lambda, minimumm area of a salient region
         """
 
-        SE_size = int(np.round(self.SE_size_factor * np.sqrt(imgsize / np.pi)))
+        SE_size = int(np.floor(self.SE_size_factor * np.sqrt(imgsize / np.pi)))
         SE_dim_size = SE_size * 2 - 1
         self.SE = cv2.getStructuringElement(cv2.MORPH_ELLIPSE,
                                             (SE_dim_size, SE_dim_size))

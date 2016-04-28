@@ -24,13 +24,17 @@ class SETester(unittest.TestCase):
     '''
 
     def setUp(self):
-        self.SE_true = np.array([[0, 0, 1, 0, 0],
-                                 [1, 1, 1, 1, 1],
-                                 [1, 1, 1, 1, 1],
-                                 [1, 1, 1, 1, 1],
-                                 [0, 0, 1, 0, 0]],
+#        self.SE_true = np.array([[0, 0, 1, 0, 0],
+#                                 [1, 1, 1, 1, 1],
+#                                 [1, 1, 1, 1, 1],
+#                                 [1, 1, 1, 1, 1],
+#                                 [0, 0, 1, 0, 0]],
+#                                dtype='uint8')
+        self.SE_true = np.array([[0, 1, 0],
+                                 [1, 1, 1],
+                                 [0, 1, 0]],
                                 dtype='uint8')
-        self.lam_true = 15
+        self.lam_true = 10
         self.detector = _DetectorForTesting(SE_size_factor=0.05,
                                             lam_factor=5,
                                             area_factor=0.05,
