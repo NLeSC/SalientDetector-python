@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
+from .context import salientregions as sr
 from .context import salientregions_detectors as srd
 import unittest
-#import cv2
-#import os
+import cv2
+import os
 import numpy as np
 
 
@@ -48,3 +49,206 @@ class SETester(unittest.TestCase):
         self.detector.get_SE(100 * 110)
         lam = self.detector.lam
         assert lam == self.lam_true
+
+
+class SalientRegionDetectorTester(unittest.TestCase):
+
+    '''
+    Test class for the SalientRegionDetector
+    '''
+
+    def setUp(self):
+        '''
+        loads images and create detector objects
+        '''
+        SE_size_factor = 0.02
+        area_factor_very_large = 0.01
+        area_factor_large = 0.001
+        lam_factor = 3
+        num_levels = 256
+        offset = 80
+        connectivity = 8
+        weight_all = 0.33
+        weight_large = 0.33
+        weight_very_large = 0.33
+        self.lam_gray = 24
+        self.lam_color = 24
+
+        binarizer_gray = sr.DatadrivenBinarizer(lam=self.lam_gray,
+                                                area_factor_large=area_factor_large,
+                                                area_factor_verylarge=area_factor_very_large,
+                                                weights=(
+                                                weight_all,
+                                                weight_large,
+                                                weight_very_large),
+                                                offset=offset,
+                                                num_levels=num_levels,
+                                                connectivity=connectivity)
+        self.det_gray = sr.SalientDetector(
+            binarizer=binarizer_gray,
+            SE_size_factor=SE_size_factor,
+            lam_factor=lam_factor,
+            connectivity=connectivity)
+
+        binarizer_color = sr.DatadrivenBinarizer(lam=self.lam_color,
+                                                 area_factor_large=area_factor_large,
+                                                 area_factor_verylarge=area_factor_very_large,
+                                                 weights=(
+                                                 weight_all,
+                                                 weight_large,
+                                                 weight_very_large),
+                                                 offset=offset,
+                                                 num_levels=num_levels,
+                                                 connectivity=connectivity)
+        self.det_color = sr.SalientDetector(
+            binarizer=binarizer_color,
+            SE_size_factor=SE_size_factor,
+            lam_factor=lam_factor,
+            connectivity=connectivity)
+
+        self.det_default = sr.SalientDetector()
+
+        testdata_path = os.path.normpath(
+            os.path.join(
+                os.path.dirname(
+                    os.path.abspath(__file__)),
+                'images/Gray/'))
+        self.img_gray = cv2.imread(
+            os.path.join(
+                testdata_path,
+                'Gray_scale.png'), cv2.IMREAD_GRAYSCALE)
+        testdata_path = os.path.normpath(
+            os.path.join(
+                os.path.dirname(
+                    os.path.abspath(__file__)),
+                'images/Color/'))
+        self.img_color = cv2.imread(
+            os.path.join(
+                testdata_path,
+                'color.png'))
+
+    def test_gray_image_specific(self):
+        '''
+        Tests the salient detector on a gray scale image with specific settings
+        '''
+        regions = self.det_gray.detect(self.img_gray,
+                                       find_holes=True,
+                                       find_islands=True,
+                                       find_indentations=True,
+                                       find_protrusions=True,
+                                       visualize=False)
+        # TODO: compare with known regions
+        assert 'holes' in regions
+        assert 'islands' in regions
+        assert 'indentations' in regions
+        assert 'protrusions' in regions
+        assert self.det_gray.lam == self.lam_gray
+
+    def test_gray_image_default(self):
+        '''
+        Tests the salient detector on a gray scale image with specific settings
+        '''
+        regions = self.det_default.detect(self.img_gray,
+                                          find_holes=True,
+                                          find_islands=True,
+                                          find_indentations=True,
+                                          find_protrusions=True,
+                                          visualize=False)
+        # TODO: compare with known regions
+        assert 'holes' in regions
+        assert 'islands' in regions
+        assert 'indentations' in regions
+        assert 'protrusions' in regions
+
+    def test_color_image_specific(self):
+        '''
+        Tests the salient detector on a gray scale image with specific settings
+        '''
+        regions = self.det_color.detect(self.img_color,
+                                        find_holes=True,
+                                        find_islands=True,
+                                        find_indentations=True,
+                                        find_protrusions=True,
+                                        visualize=False)
+        # TODO: compare with known regions
+        assert 'holes' in regions
+        assert 'islands' in regions
+        assert 'indentations' in regions
+        assert 'protrusions' in regions
+
+    def test_color_image_default(self):
+        '''
+        Tests the salient detector on a gray scale image with specific settings
+        '''
+        regions = self.det_default.detect(self.img_color,
+                                          find_holes=True,
+                                          find_islands=True,
+                                          find_indentations=True,
+                                          find_protrusions=True,
+                                          visualize=False)
+        # TODO: compare with known regions
+        assert 'holes' in regions
+        assert 'islands' in regions
+        assert 'indentations' in regions
+        assert 'protrusions' in regions
+
+
+class MSSRDetectorTester(unittest.TestCase):
+
+    '''
+    Test class for the SalientRegionDetector
+    '''
+
+    def setUp(self):
+        '''
+        loads images and create detector objects
+        '''
+        testdata_path = os.path.normpath(
+            os.path.join(
+                os.path.dirname(
+                    os.path.abspath(__file__)),
+                'images/Gray/'))
+        self.img_gray = cv2.imread(
+            os.path.join(
+                testdata_path,
+                'Gray_scale.png'), cv2.IMREAD_GRAYSCALE)
+        testdata_path = os.path.normpath(
+            os.path.join(
+                os.path.dirname(
+                    os.path.abspath(__file__)),
+                'images/Color/'))
+        self.img_color = cv2.imread(
+            os.path.join(
+                testdata_path,
+                'color.png'))
+
+        SE_size_factor = 0.02
+        area_factor = 0.03
+        num_levels = 20
+        lam_factor = 3
+        perc = 0.6
+        connectivity = 8
+        self.lam = 24
+
+        self.det = sr.MSSRDetector(
+            min_thres=0, max_thres=255, step=(254 / num_levels), perc=perc, SE_size_factor=SE_size_factor,
+            lam_factor=lam_factor,
+            area_factor=area_factor,
+            connectivity=connectivity)
+
+    def test_gray(self):
+        regions = self.det.detect(self.img_gray,
+                                  visualize=False)
+        assert self.det.lam == self.lam
+        assert 'holes' in regions
+        assert 'islands' in regions
+        assert 'indentations' in regions
+        assert 'protrusions' in regions
+
+    def test_color(self):
+        regions = self.det.detect(self.img_color,
+                                  visualize=False)
+        assert 'holes' in regions
+        assert 'islands' in regions
+        assert 'indentations' in regions
+        assert 'protrusions' in regions

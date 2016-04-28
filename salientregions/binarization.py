@@ -167,9 +167,6 @@ class DatadrivenBinarizer(Binarizer):
         a_nccs_verylarge = np.zeros(256)
 
         step = 256 / self.num_levels
-        print "stepsize:", step
-        print "min: ", max(t_otsu - self.offset, 0)
-        print "max: ", min(t_otsu + self.offset, 255)
         for t in xrange(max(t_otsu - self.offset, 0),
                         min(t_otsu + self.offset, 255),
                         step):
