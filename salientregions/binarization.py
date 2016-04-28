@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from abc import ABCMeta, abstractmethod
+from abc import abstractmethod
 import cv2
 import helpers
 import matplotlib.pyplot as plt
@@ -154,7 +154,7 @@ class DatadrivenBinarizer(Binarizer):
         binarized : numpy array
             Binary image with values 0 and 255
         """
-        t_otsu, binarized_otsu = cv2.threshold(
+        t_otsu, _ = cv2.threshold(
             img, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
         t_otsu = int(t_otsu)
         area = img.size

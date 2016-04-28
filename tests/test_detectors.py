@@ -1,9 +1,8 @@
 # -*- coding: utf-8 -*-
-from .context import salientregions as sr
 from .context import salientregions_detectors as srd
 import unittest
-import cv2
-import os
+#import cv2
+#import os
 import numpy as np
 
 

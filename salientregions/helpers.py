@@ -522,7 +522,7 @@ def load_ellipse_features_from_file(filename):
     total_num_regions = int(f.readline())
         
     # read off the feautres line by line
-    for i in range(total_num_regions):
+    for i in xrange(total_num_regions):
         line = f.readline()
         # get the last element- the type
         line_numbers = line.split()

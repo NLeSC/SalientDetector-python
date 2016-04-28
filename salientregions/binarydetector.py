@@ -307,7 +307,7 @@ def _fill_image(img):
     """
 
     filled = img.copy()
-    _, contours, hierarchy = cv2.findContours(filled,
+    _, contours, _ = cv2.findContours(filled,
                                               cv2.RETR_CCOMP,
                                               cv2.CHAIN_APPROX_SIMPLE)
     for cnt in contours:
