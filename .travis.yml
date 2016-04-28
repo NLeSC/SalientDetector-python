@@ -21,7 +21,7 @@ install:
   - make
   - make install
 # command to run tests
-script: make test
+script: nosetests --with-coverage --cover-package=salientregions tests/
 
 after_success:
   - coverage xml
