@@ -121,7 +121,7 @@ class BinaryDetector(object):
         """
         if self.holes is None:
             # Fill the image
-            self._filled = self._fill_image(self._img)
+            self._filled = _fill_image(self._img)
 
             # Detect the holes
             self.holes = self._detect_holelike(
@@ -135,7 +135,7 @@ class BinaryDetector(object):
             # Get the inverse image
             self._invimg = cv2.bitwise_not(self._img)
             # Fill the inverse image
-            self._invfilled = self._fill_image(self._invimg)
+            self._invfilled = _fill_image(self._invimg)
             self.islands = self._detect_holelike(
                 img=self._invimg, filled=self._invfilled)
         return self.islands
@@ -225,7 +225,7 @@ class BinaryDetector(object):
         for i in xrange(1, nccs2):
             area = stats2[i, cv2.CC_STAT_AREA]
             ccimage = np.array(255 * (labels2 == i), dtype='uint8')
-            ccimage_filled = self._fill_image(ccimage)
+            ccimage_filled = _fill_image(ccimage)
             # For the significant CCs, perform tophat
             if area > min_area:
                 bth = cv2.morphologyEx(
@@ -291,28 +291,29 @@ class BinaryDetector(object):
             helpers.show_image(result, 'Small elements removed')
         return result
 
-    def _fill_image(self, img):
-        """Fills all holes in connected components in a binary image.
 
-        Parameters
-        ------
-        img : numpy array
-            binary image to fill
+def _fill_image(img):
+    """Fills all holes in connected components in a binary image.
 
-        Returns
-        ------
-        filled : numpy array
-            The filled image
-        """
+    Parameters
+    ------
+    img : numpy array
+        binary image to fill
 
-        filled = img.copy()
-        _, contours, hierarchy = cv2.findContours(filled,
-                                                  cv2.RETR_CCOMP,
-                                                  cv2.CHAIN_APPROX_SIMPLE)
-        for cnt in contours:
-            # Fill the original image for all the contours
-            cv2.drawContours(filled, [cnt], 0, 255, -1)
+    Returns
+    ------
+    filled : numpy array
+        The filled image
+    """
 
-        filled = cv2.bitwise_or(filled, img)
+    filled = img.copy()
+    _, contours, hierarchy = cv2.findContours(filled,
+                                              cv2.RETR_CCOMP,
+                                              cv2.CHAIN_APPROX_SIMPLE)
+    for cnt in contours:
+        # Fill the original image for all the contours
+        cv2.drawContours(filled, [cnt], 0, 255, -1)
 
-        return filled
+    filled = cv2.bitwise_or(filled, img)
+
+    return filled

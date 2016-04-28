@@ -9,5 +9,5 @@ from binarization import Binarizer, ThresholdBinarizer, \
 __all__ = [
     'helpers',
     'binarydetector',
-    'salientregiondetector',
+    'detectors',
     'binarization']

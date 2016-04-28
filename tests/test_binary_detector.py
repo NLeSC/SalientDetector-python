@@ -5,6 +5,7 @@ Created on Mon Mar 14 13:10:40 2016
 @author: dafne
 """
 from .context import salientregions as sr
+from .context import salientregions_binarydetector
 import unittest
 import cv2
 import os
@@ -178,7 +179,7 @@ class BinaryDetectorTester(unittest.TestCase):
         '''
         Test the helper method `fill_image`.
         '''
-        filled = self.binarydetector._fill_image(self.image_noise)
+        filled = salientregions_binarydetector._fill_image(self.image_noise)
         assert sr.image_diff(
             self.filled_image_noise_true,
             filled,
@@ -188,7 +189,7 @@ class BinaryDetectorTester(unittest.TestCase):
         '''
         Test the helper method `fill_image` for an image with nested regions..
         '''
-        filled = self.binarydetector._fill_image(self.image_nested)
+        filled = salientregions_binarydetector._fill_image(self.image_nested)
         assert sr.image_diff(
             self.filled_image_nested_true,
             filled,

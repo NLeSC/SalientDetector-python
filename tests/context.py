@@ -11,3 +11,4 @@ sys.path.insert(0, os.path.abspath('..'))
 
 import salientregions
 import salientregions.detectors as salientregions_detectors
+import salientregions.binarydetector as salientregions_binarydetector

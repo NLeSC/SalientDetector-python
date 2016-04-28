@@ -24,12 +24,6 @@ class SETester(unittest.TestCase):
     '''
 
     def setUp(self):
-#        self.SE_true = np.array([[0, 0, 1, 0, 0],
-#                                 [1, 1, 1, 1, 1],
-#                                 [1, 1, 1, 1, 1],
-#                                 [1, 1, 1, 1, 1],
-#                                 [0, 0, 1, 0, 0]],
-#                                dtype='uint8')
         self.SE_true = np.array([[0, 1, 0],
                                  [1, 1, 1],
                                  [0, 1, 0]],
