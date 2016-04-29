@@ -175,9 +175,9 @@ class DatadrivenBinarizer(Binarizer):
             nccs, labels, stats, centroids = cv2.connectedComponentsWithStats(
                 bint, connectivity=self.connectivity)
             areas = stats[:, cv2.CC_STAT_AREA]
-            a_nccs[t] = sum(areas >= self.lam)
-            a_nccs_large[t] = sum(areas >= area_large)
-            a_nccs_verylarge[t] = sum(areas >= area_verylarge)
+            a_nccs[t] = (areas >= self.lam).sum()
+            a_nccs_large[t] = (areas >= area_large).sum()
+            a_nccs_verylarge[t] = (areas >= area_verylarge).sum()
 
         # Normalize
         a_nccs = a_nccs / float(a_nccs.max())
