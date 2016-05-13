@@ -13,13 +13,15 @@ install:
   # Useful for debugging any issues with conda
   - conda info -a
 
-  # Create conda environment
-  - conda create -q -n test-environment python=$TRAVIS_PYTHON_VERSION numpy
+  # Create conda environment and install requirements
+  - conda create -q -n test-environment python=$TRAVIS_PYTHON_VERSION --file requirements.txt
   - source activate test-environment
+  - conda install -c https://conda.anaconda.org/menpo opencv3
   - pip install coverage
   - pip install codacy-coverage
-  - make
-  - make install
+
+
+  - pip install .
 # command to run tests
 script: nosetests --with-coverage --cover-package=salientregions tests/
 
