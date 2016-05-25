@@ -1,6 +1,8 @@
+from __future__ import absolute_import
 import cv2
-import helpers
+from . import helpers
 import numpy as np
+from six.moves import range
 
 
 class BinaryDetector(object):
@@ -209,7 +211,7 @@ class BinaryDetector(object):
         # Retrieve all connected components
         nccs, labels, stats, centroids = cv2.connectedComponentsWithStats(
             filled, connectivity=self.connectivity)
-        for i in xrange(1, nccs):
+        for i in range(1, nccs):
             area = stats[i, cv2.CC_STAT_AREA]
             # For the significant CCs, perform tophat
             if area > min_area:
@@ -222,7 +224,7 @@ class BinaryDetector(object):
         # Now get indentations of significant holes
         nccs2, labels2, stats2, centroids2 = cv2.connectedComponentsWithStats(
             holes, connectivity=self.connectivity)
-        for i in xrange(1, nccs2):
+        for i in range(1, nccs2):
             area = stats2[i, cv2.CC_STAT_AREA]
             ccimage = np.array(255 * (labels2 == i), dtype='uint8')
             ccimage_filled = _fill_image(ccimage)
@@ -272,7 +274,7 @@ class BinaryDetector(object):
         rightborder = elements.shape[1]
         upperborder = 0
         lowerborder = elements.shape[0]
-        for i in xrange(1, nr_elements):
+        for i in range(1, nr_elements):
             area = stats[i, cv2.CC_STAT_AREA]
             if area < self.lam:
                 result[[labels == i]] = 0

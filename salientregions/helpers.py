@@ -1,9 +1,12 @@
 # -*- coding: utf-8 -*-
+from __future__ import absolute_import
 import cv2
 import numpy as np
 import scipy.io as sio
 import matplotlib.pyplot as plt
 import math
+import six
+from six.moves import range
 
 
 def show_image(img, title=None):
@@ -506,8 +509,8 @@ def load_ellipse_features_from_file(filename):
                   "islands":2,
                   "indentations": 3,
                   "protrusions": 4}
-    int2region = {v: k for (k, v) in region2int.iteritems()}
-    keys = region2int.keys()
+    int2region = {v: k for (k, v) in six.iteritems(region2int)}
+    keys = list(region2int.keys())
     
     total_num_regions = 0
     num_regions = {k: 0 for k in keys}
@@ -522,7 +525,7 @@ def load_ellipse_features_from_file(filename):
     total_num_regions = int(f.readline())
         
     # read off the feautres line by line
-    for i in xrange(total_num_regions):
+    for i in range(total_num_regions):
         line = f.readline()
         # get the last element- the type
         line_numbers = line.split()
@@ -536,7 +539,7 @@ def load_ellipse_features_from_file(filename):
     f.close()   
     
     # make numpy arrays from the lists 
-    features = {k: np.array(v) for (k, v) in features_lists.iteritems()}
+    features = {k: np.array(v) for (k, v) in six.iteritems(features_lists)}
   
     return total_num_regions, num_regions, features
     

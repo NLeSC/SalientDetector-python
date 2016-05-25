@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from __future__ import absolute_import
 from .context import salientregions as sr
 import unittest
 import cv2

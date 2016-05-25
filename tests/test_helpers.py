@@ -4,6 +4,8 @@ Created on Wed Mar 23 16:10:57 2016
 
 @author: elena
 """
+from __future__ import absolute_import
+from __future__ import print_function
 from .context import salientregions as sr
 import unittest
 import cv2
@@ -131,10 +133,10 @@ class HelpersEllipseTester(unittest.TestCase):
         _, _, features = sr.helpers.binary_mask2ellipse_features_single(
             self.ellipse1_mask, self.connectivty, 2)
 
-        print "MATLAB features:", self.features_poly_ellipse1
-        print "Python features:", features
-        print 'Difference: ', features - self.features_poly_ellipse1
-        print 'Max abs. difference: ', np.max(np.max(np.abs(features - self.features_poly_ellipse1)))
+        print("MATLAB features:", self.features_poly_ellipse1)
+        print("Python features:", features)
+        print('Difference: ', features - self.features_poly_ellipse1)
+        print('Max abs. difference: ', np.max(np.max(np.abs(features - self.features_poly_ellipse1))))
 
         assert sr.helpers.array_diff(
             self.features_poly_ellipse1,
@@ -149,10 +151,10 @@ class HelpersEllipseTester(unittest.TestCase):
         _, _, features = sr.helpers.binary_mask2ellipse_features_single(
             self.ellipse2_mask, self.connectivty, 2)
 
-        print "MATLAB features:", self.features_poly_ellipse2
-        print "Python features:", features
-        print 'Difference: ', features - self.features_poly_ellipse2
-        print 'Max abs.difference: ', np.max(np.max(np.abs(features - self.features_poly_ellipse2)))
+        print("MATLAB features:", self.features_poly_ellipse2)
+        print("Python features:", features)
+        print('Difference: ', features - self.features_poly_ellipse2)
+        print('Max abs.difference: ', np.max(np.max(np.abs(features - self.features_poly_ellipse2))))
 
         assert sr.helpers.array_diff(
             self.features_poly_ellipse2,

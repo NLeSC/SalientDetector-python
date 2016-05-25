@@ -1,16 +1,19 @@
 # -*- coding: utf-8 -*-
 
 # -*- coding: utf-8 -*-
+from __future__ import absolute_import
 from abc import ABCMeta, abstractmethod
 import cv2
-import helpers
-import binarization
+from . import helpers
+from . import binarization
 # import binarydetector
 import numpy as np
-from binarydetector import BinaryDetector
+from .binarydetector import BinaryDetector
+import six
+from six.moves import range
 
 
-class Detector(object):
+class Detector(six.with_metaclass(ABCMeta, object)):
 
     """
     Abstract class for salient region detectors.
@@ -27,8 +30,6 @@ class Detector(object):
         What connectivity to use to define CCs
 
     """
-
-    __metaclass__ = ABCMeta
 
     def __init__(self, SE_size_factor=0.15,
                  lam_factor=5,
@@ -270,7 +271,7 @@ class MSSRDetector(Detector):
         # Remember image from previous theshold
         previmg = np.zeros_like(self.gray, dtype='uint8')
         regions = result.copy()
-        for t in xrange(self.min_thres, self.max_thres, self.step):
+        for t in range(self.min_thres, self.max_thres, self.step):
             _, bint = cv2.threshold(self.gray, t, 255, cv2.THRESH_BINARY)
             # Only search for regions if the thresholded image is not
             # different:

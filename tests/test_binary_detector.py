@@ -4,6 +4,7 @@ Created on Mon Mar 14 13:10:40 2016
 
 @author: dafne
 """
+from __future__ import absolute_import
 from .context import salientregions as sr
 from .context import salientregions_binarydetector
 import unittest

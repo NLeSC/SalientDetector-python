@@ -1,9 +1,11 @@
 # -*- coding: utf-8 -*-
+from __future__ import absolute_import
 from abc import abstractmethod
 import cv2
-import helpers
+from . import helpers
 import matplotlib.pyplot as plt
 import numpy as np
+from six.moves import range
 
 
 class Binarizer(object):
@@ -166,10 +168,10 @@ class DatadrivenBinarizer(Binarizer):
         a_nccs_large = np.zeros(256)
         a_nccs_verylarge = np.zeros(256)
 
-        step = 256 / self.num_levels
-        for t in xrange(max(t_otsu - self.offset, 0),
-                        min(t_otsu + self.offset, 255),
-                        step):
+        step = int(256 / self.num_levels)
+        for t in range(max(t_otsu - self.offset, 0),
+                       min(t_otsu + self.offset, 255),
+                       step):
             _, bint = cv2.threshold(img, t, 255,
                                     cv2.THRESH_BINARY)
             nccs, labels, stats, centroids = cv2.connectedComponentsWithStats(

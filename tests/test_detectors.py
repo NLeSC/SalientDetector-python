@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from __future__ import absolute_import
 from .context import salientregions as sr
 from .context import salientregions_detectors as srd
 import unittest
@@ -231,7 +232,7 @@ class MSSRDetectorTester(unittest.TestCase):
         self.lam = 24
 
         self.det = sr.MSSRDetector(
-            min_thres=0, max_thres=255, step=(254 / num_levels), perc=perc, SE_size_factor=SE_size_factor,
+            min_thres=0, max_thres=255, step=int(254 / num_levels), perc=perc, SE_size_factor=SE_size_factor,
             lam_factor=lam_factor,
             area_factor=area_factor,
             connectivity=connectivity)
