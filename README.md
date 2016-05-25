@@ -18,7 +18,7 @@ Unit tests for the code in salientregions.
 
 # Installation
 ## Prerequisites
-* Python 2.7
+* Python 2.7 or 3.5
 * pip
 * The python packages in `requirements.txt`.
 * OpenCV 3.1. There is two ways to install OpenCV:
@@ -41,7 +41,7 @@ To perform tests:
 # Getting started
 The source code documentation can be found [here](http://nlesc.github.io/SalientDetector-python/)
 
-This code makes heavily use of the OpenCV library, so in order to understand how the code works, it helps to have a look at the [OpenCV Documentation](http://docs.opencv.org/3.1.0/). 
+This code makes heavily use of the OpenCV library, so in order to understand how the code works, it helps to have a look at the [OpenCV Documentation](http://docs.opencv.org/3.1.0/).
 
 ## Images
 In OpenCV, images are represented as numpy arrays. Grayscale images are represented by a 2-dimensional array. Color images have a third dimension for the color channel. The Salient Region Detector has a few simplifying assumptions:
