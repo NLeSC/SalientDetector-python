@@ -58,4 +58,6 @@ If you want to contribute to the code, please have a look at the [eStep standart
 We use numpy-style code documentation.
 
 # References
-TODO
+Ranguelova, E.B. - Pauwels, E.J.
+Morphology-based Stable Salient Regions Detector
+Proceedings of International Conference on Image and Vision Computing New Zealand 2006 , Great Barrier Island, New Zealand, p.97–102 
