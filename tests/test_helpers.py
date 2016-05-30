@@ -131,7 +131,7 @@ class HelpersEllipseTester(unittest.TestCase):
         Test the function `binary_mask2ellipse_features_single` for test image 1.
         '''
         _, _, features = sr.helpers.binary_mask2ellipse_features_single(
-            self.ellipse1_mask, self.connectivty, 2)
+            self.ellipse1_mask, self.connectivty, 2, True)
 
         print("MATLAB features:", self.features_poly_ellipse1)
         print("Python features:", features)
@@ -149,7 +149,7 @@ class HelpersEllipseTester(unittest.TestCase):
         Test the function `binary_mask2ellipse_features_single` for test image 2.
         '''
         _, _, features = sr.helpers.binary_mask2ellipse_features_single(
-            self.ellipse2_mask, self.connectivty, 2)
+            self.ellipse2_mask, self.connectivty, 2, True)
 
         print("MATLAB features:", self.features_poly_ellipse2)
         print("Python features:", features)
