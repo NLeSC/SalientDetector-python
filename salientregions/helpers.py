@@ -306,7 +306,15 @@ def binary_mask2ellipse_features_single(binary_mask, connectivity=4, saliency_ty
         cnt = contours[index_regions]
         # fit an ellipse to the contour
         if min_square:
-            (x, y), (ma, MA), angle = cv2.fitEllipse(cnt)
+           # (x, y), (ma, MA), angle = cv2.fitEllipse(cnt)
+            ellipse = cv2.fitEllipse(cnt)
+            # center, axis_length and orientation of ellipse
+            (center,axes,angle) = ellipse
+            # center of the ellipse
+            (x,y) = center
+            # length of MAJOR and minor axis
+            MA = max(axes)
+            ma = min(axes)
         else:
             (x, y), (ma, MA), angle = cv2.minAreaRect(cnt)
         # ellipse parameters
