@@ -23,32 +23,37 @@ class BinaryDetectorTester(unittest.TestCase):
         '''
         Load the binary image and the binary masks for the true regions.
         '''
-        testdata_path = os.path.normpath(
+        testdata_images_path = os.path.normpath(
             os.path.join(
                 os.path.dirname(
                     os.path.abspath(__file__)),
                 'images/Binary/'))
+        testdata_features_path = os.path.normpath(
+            os.path.join(
+                os.path.dirname(
+                    os.path.abspath(__file__)),
+                'features/Binary/'))    
         self.image_noise = cv2.imread(
             os.path.join(
-                testdata_path,
+                testdata_images_path,
                 'Binary_all_types_noise.png'), cv2.IMREAD_GRAYSCALE)
         self.image_nested = cv2.imread(os.path.join(
-            testdata_path,
+            testdata_images_path,
             'Binary_nested.png'), cv2.IMREAD_GRAYSCALE)
         self.holes_true, self.islands_true, self.indents_true, self.prots_true = sr.read_matfile(
-            os.path.join(testdata_path, 'Binary_all_types_noise_binregions.mat'), visualize=False)
+            os.path.join(testdata_features_path, 'Binary_all_types_noise_binregions.mat'), visualize=False)
         self.filled_image_noise_true = cv2.imread(
             os.path.join(
-                testdata_path,
+                testdata_images_path,
                 'Binary_all_types_noise_filled.png'), cv2.IMREAD_GRAYSCALE)
         self.filled_image_nested_true = cv2.imread(
             os.path.join(
-                testdata_path,
+                testdata_images_path,
                 'Binary_nested_filled.png'), cv2.IMREAD_GRAYSCALE)
 
         SE = sio.loadmat(
             os.path.join(
-                testdata_path,
+                testdata_features_path,
                 "SE_neighb_all_other.mat"))['SE_n']
         lam = 50
         area_factor = 0.05
