@@ -3,7 +3,7 @@
 
 This folder contains a Python  implementation of the Salient Region Detector code as part of the [image processing part of eStep](https://www.esciencecenter.nl/technology/expertise/computer-vision). The software conforms with the [eStep standards](https://github.com/NLeSC/estep-checklist).
 
-The original MATLAB implementation can be found at [this repository](https://github.com/NLeSC/LargeScaleImaging)
+The original MATLAB implementation can be found at [this repository](https://github.com/NLeSC/SalientDetector-matlab)
 
 The repository contains the following sub-folders:
 
