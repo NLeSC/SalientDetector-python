@@ -66,7 +66,7 @@ class SalientRegionDetectorTester(unittest.TestCase):
         area_factor_very_large = 0.01
         area_factor_large = 0.001
         lam_factor = 3
-        num_levels = 256
+        stepsize = 1
         offset = 80
         connectivity = 8
         weight_all = 0.33
@@ -83,7 +83,7 @@ class SalientRegionDetectorTester(unittest.TestCase):
                                                 weight_large,
                                                 weight_very_large),
                                                 offset=offset,
-                                                num_levels=num_levels,
+                                                stepsize=stepsize,
                                                 connectivity=connectivity)
         self.det_gray = sr.SalientDetector(
             binarizer=binarizer_gray,
@@ -99,7 +99,7 @@ class SalientRegionDetectorTester(unittest.TestCase):
                                                  weight_large,
                                                  weight_very_large),
                                                  offset=offset,
-                                                 num_levels=num_levels,
+                                                 stepsize=stepsize,
                                                  connectivity=connectivity)
         self.det_color = sr.SalientDetector(
             binarizer=binarizer_color,

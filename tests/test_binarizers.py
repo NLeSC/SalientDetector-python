@@ -35,7 +35,7 @@ class DataDrivenBinarizerTester(unittest.TestCase):
                                                 area_factor_verylarge=0.01,
                                                 weights=(0.33, 0.33, 0.33),
                                                 offset=80,
-                                                num_levels=255,
+                                                stepsize=1,
                                                 connectivity=8)
         self.threshold_true = 106
 

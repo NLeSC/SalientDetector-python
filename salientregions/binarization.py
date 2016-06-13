@@ -114,9 +114,8 @@ class DatadrivenBinarizer(Binarizer):
         and number of very large CC respectively.
     offset: int, optional
         The offset (number of gray levels) to search for around the Otsu level
-    num_levels: int, optional
-        number of gray levels to be considered [1..255],
-        the default number 256 gives a stepsize of 1.
+    stepsize: int, optional
+         the size of the step between consequtive gray levels to process
     connectivity: int, optional
         What connectivity to use to define CCs
     """
@@ -127,14 +126,14 @@ class DatadrivenBinarizer(Binarizer):
                  area_factor_verylarge=0.1,
                  weights=(0.33, 0.33, 0.33),
                  offset=80,
-                 num_levels=256,
+                 stepsize =1,
                  connectivity=4):
         self.area_factor_large = area_factor_large
         self.area_factor_verylarge = area_factor_verylarge
         self.lam = lam
         self.weights = weights
         self.offset = offset
-        self.num_levels = num_levels
+        self.stepsize = stepsize
         self.connectivity = connectivity
 
     def binarize_withthreshold(self, img, visualize=True):
@@ -168,10 +167,9 @@ class DatadrivenBinarizer(Binarizer):
         a_nccs_large = np.zeros(256)
         a_nccs_verylarge = np.zeros(256)
 
-        step = int(256 / self.num_levels)
         for t in range(max(t_otsu - self.offset, 0),
                        min(t_otsu + self.offset, 255),
-                       step):
+                       self.stepsize):
             _, bint = cv2.threshold(img, t, 255,
                                     cv2.THRESH_BINARY)
             nccs, labels, stats, centroids = cv2.connectedComponentsWithStats(
