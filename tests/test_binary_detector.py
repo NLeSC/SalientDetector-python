@@ -54,7 +54,7 @@ class BinaryDetectorTester(unittest.TestCase):
         SE = sio.loadmat(
             os.path.join(
                 testdata_features_path,
-                "SE_neighb_all_other.mat"))['SE_n']
+                "SE_all.mat"))['SE_n']
         lam = 50
         area_factor = 0.05
         connectivity = 4
