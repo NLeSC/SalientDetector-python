@@ -136,7 +136,7 @@ class DatadrivenBinarizer(Binarizer):
         self.stepsize = stepsize
         self.connectivity = connectivity
 
-    def binarize_withthreshold(self, img, visualize=True):
+    def binarize_withthreshold(self, img, visualize=True, output_scores=False):
         """
         Binarizes the image  such that the desired number of (large) connected
         components is maximized. Also returns the optimal threshold.
@@ -208,7 +208,15 @@ class DatadrivenBinarizer(Binarizer):
                 binarized, title=(
                     'Binarized with threshold %i' %
                     t_opt))
-        return t_opt, binarized
+
+        if output_scores:
+            all_levels = {'level':np.arange(256),
+                                'a_nccs': a_nccs, 'a_nccs_large': a_nccs_large,
+                                'a_nccs_verylarge': a_nccs_verylarge,
+                                'scores': scores}
+            return t_opt, binarized, all_levels
+        else:
+            return t_opt, binarized
 
     def binarize(self, img, visualize=True):
         """
