@@ -32,7 +32,7 @@ class BinaryDetectorTester(unittest.TestCase):
             os.path.join(
                 os.path.dirname(
                     os.path.abspath(__file__)),
-                'features/Binary/'))    
+                'features/Binary/'))
         self.image_noise = cv2.imread(
             os.path.join(
                 testdata_images_path,
@@ -56,16 +56,24 @@ class BinaryDetectorTester(unittest.TestCase):
                 testdata_features_path,
                 "SE_all.mat"))['SE_n']
         lam = 50
+        print('SE size', SE.shape)
         area_factor = 0.05
         connectivity = 4
-        self.binarydetector = sr.BinaryDetector(
+        self.binarydetector_noise = sr.BinaryDetector(
             SE=SE, lam=lam, area_factor=area_factor, connectivity=connectivity)
+
+        lam = 80
+        area_factor = 0.05
+        connectivity = 4
+        self.binarydetector_nested = sr.BinaryDetector(
+            SE=SE, lam=lam, area_factor=area_factor, connectivity=connectivity)
+
 
     def test_holes(self):
         '''
         Test the method `detect` for only holes.
         '''
-        results = self.binarydetector.detect(
+        results = self.binarydetector_noise.detect(
             self.image_noise,
             find_holes=True,
             find_islands=False,
@@ -79,7 +87,7 @@ class BinaryDetectorTester(unittest.TestCase):
         '''
         Test the method `detect` for only islands.
         '''
-        results = self.binarydetector.detect(
+        results = self.binarydetector_noise.detect(
             self.image_noise,
             find_holes=False,
             find_islands=True,
@@ -93,7 +101,7 @@ class BinaryDetectorTester(unittest.TestCase):
         '''
         Test the method `detect` for only protrusions.
         '''
-        results = self.binarydetector.detect(
+        results = self.binarydetector_noise.detect(
             self.image_noise,
             find_holes=False,
             find_islands=False,
@@ -107,7 +115,7 @@ class BinaryDetectorTester(unittest.TestCase):
         '''
         Test the method `detect` for only indentations.
         '''
-        results = self.binarydetector.detect(
+        results = self.binarydetector_noise.detect(
             self.image_noise,
             find_holes=False,
             find_islands=False,
@@ -121,7 +129,7 @@ class BinaryDetectorTester(unittest.TestCase):
         '''
         Test the method `detect` for holes and islands.
         '''
-        results = self.binarydetector.detect(
+        results = self.binarydetector_noise.detect(
             self.image_noise,
             find_holes=True,
             find_islands=True,
@@ -137,7 +145,7 @@ class BinaryDetectorTester(unittest.TestCase):
         '''
         Test the method `detect` for protrusions and indentations.
         '''
-        results = self.binarydetector.detect(
+        results = self.binarydetector_noise.detect(
             self.image_noise,
             find_holes=False,
             find_islands=False,
@@ -157,7 +165,7 @@ class BinaryDetectorTester(unittest.TestCase):
         '''
         Test the method `detect` for all regions.
         '''
-        results = self.binarydetector.detect(
+        results = self.binarydetector_noise.detect(
             self.image_noise,
             find_holes=True,
             find_islands=True,

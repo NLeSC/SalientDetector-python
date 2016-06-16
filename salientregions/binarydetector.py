@@ -219,7 +219,7 @@ class BinaryDetector(object):
                 wth = cv2.morphologyEx(ccimage, cv2.MORPH_TOPHAT, self.SE)
                 prots1 += wth
 
-        prots1_nonoise = self._remove_small_elements(prots1, connectivity=8)
+        prots1_nonoise = self._remove_small_elements(prots1)
 
         # Now get indentations of significant holes
         nccs2, labels2, stats2, centroids2 = cv2.connectedComponentsWithStats(
@@ -234,7 +234,7 @@ class BinaryDetector(object):
                     ccimage_filled, cv2.MORPH_BLACKHAT, self.SE)
                 prots2 += bth
 
-        prots2_nonoise = self._remove_small_elements(prots2, connectivity=8)
+        prots2_nonoise = self._remove_small_elements(prots2)
 
         prots = cv2.add(prots1_nonoise, prots2_nonoise)
         return prots
