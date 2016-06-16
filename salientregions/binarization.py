@@ -180,12 +180,12 @@ class DatadrivenBinarizer(Binarizer):
             a_nccs_verylarge[t] = (areas >= area_verylarge).sum()
 
         # Normalize
-        a_nccs = a_nccs / float(a_nccs.max())
-        a_nccs_large = a_nccs_large / float(a_nccs_large.max())
-        a_nccs_verylarge = a_nccs_verylarge / float(a_nccs_verylarge.max())
-        scores = self.weights[0] * a_nccs + \
-            self.weights[1] * a_nccs_large + \
-            self.weights[2] * a_nccs_verylarge
+        a_nccs_norm = a_nccs / float(a_nccs.max())
+        a_nccs_large_norm = a_nccs_large / float(a_nccs_large.max())
+        a_nccs_verylarge_norm = a_nccs_verylarge / float(a_nccs_verylarge.max())
+        scores = self.weights[0] * a_nccs_norm + \
+            self.weights[1] * a_nccs_large_norm + \
+            self.weights[2] * a_nccs_verylarge_norm
         t_opt = scores.argmax()
         _, binarized = cv2.threshold(img, t_opt, 255,
                                      cv2.THRESH_BINARY)
@@ -213,6 +213,9 @@ class DatadrivenBinarizer(Binarizer):
             all_levels = {'level':np.arange(256),
                                 'a_nccs': a_nccs, 'a_nccs_large': a_nccs_large,
                                 'a_nccs_verylarge': a_nccs_verylarge,
+                                'a_nccs_norm': a_nccs_norm,
+                                'a_nccs_large_norm': a_nccs_large_norm,
+                                'a_nccs_verylarge_norm': a_nccs_verylarge_norm,
                                 'scores': scores}
             return t_opt, binarized, all_levels
         else:
