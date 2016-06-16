@@ -21,7 +21,7 @@ class BinaryDetectorTester(unittest.TestCase):
 
     def setUp(self):
         '''
-        Load the binary image and the binary masks for the true regions.
+        Load the image and features for both the noise image and the nested image.
         '''
         self.testdata_images_path = os.path.normpath(
             os.path.join(
@@ -52,6 +52,10 @@ class BinaryDetectorTester(unittest.TestCase):
 
     def setUpImage(self, image_file, filled_image_file,
                    features_file, SE_file, lam, area_factor, connectivity):
+        '''
+        Set up a specific image: load the image, the filled image,
+        the features, the SE and create a binary detector.
+        '''
         image = cv2.imread(
             os.path.join(
                 self.testdata_images_path,
