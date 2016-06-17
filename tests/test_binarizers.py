@@ -21,6 +21,11 @@ class DataDrivenBinarizerTester(unittest.TestCase):
                 os.path.dirname(
                     os.path.abspath(__file__)),
                 'images/Gray/'))
+        testdata_features_path = os.path.normpath(
+            os.path.join(
+                os.path.dirname(
+                    os.path.abspath(__file__)),
+                'features/Gray/'))
         self.image = cv2.imread(
             os.path.join(
                 testdata_path,
@@ -28,7 +33,7 @@ class DataDrivenBinarizerTester(unittest.TestCase):
             cv2.IMREAD_GRAYSCALE)
         self.binarized_true = cv2.imread(
             os.path.join(
-                testdata_path,
+                testdata_features_path,
                 'Binarization_data_driven.png'), cv2.IMREAD_GRAYSCALE)
         self.binarizer = sr.DatadrivenBinarizer(lam=24,
                                                 area_factor_large=0.001,
@@ -45,9 +50,9 @@ class DataDrivenBinarizerTester(unittest.TestCase):
         Compare the binarized image.
         '''
         binarized = self.binarizer.binarize(self.image, visualize=False)
-        # assert sr.image_diff(self.binarized_true,
-        #                         binarized,
-        #                         visualize=False)
+        assert sr.image_diff(self.binarized_true,
+                                binarized,
+                                visualize=False)
 
     def test_binarize_threshold(self):
         '''
