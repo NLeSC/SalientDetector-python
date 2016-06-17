@@ -30,14 +30,14 @@ class DataDrivenBinarizerTester(unittest.TestCase):
             os.path.join(
                 testdata_path,
                 'Binarization_data_driven.png'), cv2.IMREAD_GRAYSCALE)
-        self.binarizer = sr.DatadrivenBinarizer(lam=27,
+        self.binarizer = sr.DatadrivenBinarizer(lam=24,
                                                 area_factor_large=0.001,
                                                 area_factor_verylarge=0.01,
                                                 weights=(0.33, 0.33, 0.33),
                                                 offset=80,
                                                 stepsize=1,
                                                 connectivity=8)
-        self.threshold_true = 106
+        self.threshold_true = 142
 
     def test_binarize(self):
         '''
@@ -46,8 +46,8 @@ class DataDrivenBinarizerTester(unittest.TestCase):
         '''
         binarized = self.binarizer.binarize(self.image, visualize=False)
         # assert sr.image_diff(self.binarized_true,
-        #    binarized,
-        #    visualize=False)
+        #                         binarized,
+        #                         visualize=False)
 
     def test_binarize_threshold(self):
         '''
@@ -56,7 +56,7 @@ class DataDrivenBinarizerTester(unittest.TestCase):
         '''
         threshold, _ = self.binarizer.binarize_withthreshold(
             self.image, visualize=False)
-        # assert threshold ==  self.threshold_true
+        assert threshold == self.threshold_true
 
 
 class ThresholdBinarizerTester(unittest.TestCase):

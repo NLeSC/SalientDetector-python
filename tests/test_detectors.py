@@ -63,17 +63,19 @@ class SalientRegionDetectorTester(unittest.TestCase):
         loads images and create detector objects
         '''
         SE_size_factor = 0.02
-        area_factor_very_large = 0.01
-        area_factor_large = 0.001
         lam_factor = 3
-        stepsize = 1
-        offset = 80
+        area_factor = 0.001
         connectivity = 8
+
+        area_factor_large = 0.001
+        area_factor_very_large = 0.01
         weight_all = 0.33
         weight_large = 0.33
         weight_very_large = 0.33
+        offset = 80
+        stepsize = 1
         self.lam_gray = 24
-        self.lam_color = 24
+        self.lam_color = 27
 
         binarizer_gray = sr.DatadrivenBinarizer(lam=self.lam_gray,
                                                 area_factor_large=area_factor_large,
@@ -104,6 +106,7 @@ class SalientRegionDetectorTester(unittest.TestCase):
         self.det_color = sr.SalientDetector(
             binarizer=binarizer_color,
             SE_size_factor=SE_size_factor,
+            area_factor = area_factor,
             lam_factor=lam_factor,
             connectivity=connectivity)
 
@@ -224,29 +227,34 @@ class MSSRDetectorTester(unittest.TestCase):
                 'color.png'))
 
         SE_size_factor = 0.02
+        lam_factor = 5
         area_factor = 0.03
-        num_levels = 20
-        lam_factor = 3
+        connectivity = 4
+        min_thres = 1
+        max_thres = 255
+        stepsize = 10
         perc = 0.6
-        connectivity = 8
-        self.lam = 24
+        self.lam = 45
 
         self.det = sr.MSSRDetector(
-            min_thres=0, max_thres=255, step=int(254 / num_levels), perc=perc, SE_size_factor=SE_size_factor,
+            min_thres=min_thres, max_thres=max_thres, step=stepsize,
+            perc=perc, SE_size_factor=SE_size_factor,
             lam_factor=lam_factor,
             area_factor=area_factor,
             connectivity=connectivity)
 
-    def test_gray(self):
-        regions = self.det.detect(self.img_gray,
-                                  visualize=False)
-        assert self.det.lam == self.lam
-        assert 'holes' in regions
-        assert 'islands' in regions
-        assert 'indentations' in regions
-        assert 'protrusions' in regions
+    # def test_gray(self):
+    #     # TODO: compare with known regions
+    #     regions = self.det.detect(self.img_gray,
+    #                               visualize=False)
+    #     assert self.det.lam == self.lam
+    #     assert 'holes' in regions
+    #     assert 'islands' in regions
+    #     assert 'indentations' in regions
+    #     assert 'protrusions' in regions
 
     def test_color(self):
+        # TODO: compare with known regions
         regions = self.det.detect(self.img_color,
                                   visualize=False)
         assert 'holes' in regions
