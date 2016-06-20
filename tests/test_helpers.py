@@ -116,11 +116,11 @@ class HelpersEllipseTester(unittest.TestCase):
             features_testpath,
             'ellipse_features.txt')
 
-    def test_region2ellipse(self):
+    def test_standard2poly_ellipse(self):
         '''
-        Test the function `region2ellipse`.
+        Test the function `standard2poly_ellipse`.
         '''
-        A, B, C = sr.helpers.region2ellipse(
+        A, B, C = sr.helpers.standard2poly_ellipse(
             self.major_axis_len, self.minor_axis_len, self.theta)
         coeff = [A, B, C]
 

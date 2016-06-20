@@ -208,7 +208,7 @@ def array_diff(arr1, arr2, rtol=1e-05, atol=1e-08):
     return np.allclose(arr1, arr2, rtol, atol)
 
 
-def region2ellipse(half_major_axis, half_minor_axis, theta):
+def standard2poly_ellipse(half_major_axis, half_minor_axis, theta):
     """ Conversion of elliptic parameters to polynomial coefficients.
 
     Parameters
@@ -330,7 +330,7 @@ def binary_mask2ellipse_features_single(binary_mask, connectivity=4, saliency_ty
             angle_rad = angle * math.pi / 180
 
             # compute the elliptic polynomial coefficients, aka features
-            [A, B, C] = region2ellipse(a, b, -angle_rad)               
+            [A, B, C] = standard2poly_ellipse(a, b, -angle_rad)               
             features_poly[i, ] = ([x0, y0, A, B, C, saliency_type])
         else:
             # We still output the ellipse as NaN 
