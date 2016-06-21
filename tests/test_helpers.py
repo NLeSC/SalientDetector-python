@@ -27,7 +27,7 @@ class HelpersEllipseTester(unittest.TestCase):
         self.major_axis_len = 15
         self.minor_axis_len = 9
         self.theta = 0.52
-        self.coeff = [0.006395179230685, -0.003407029045900, 0.010394944226105]
+        self.standard_coeff = [0.006395179230685, -0.003407029045900, 0.010394944226105]
 
         # testing elliptic features
         testdata_path = os.path.normpath(
@@ -124,7 +124,7 @@ class HelpersEllipseTester(unittest.TestCase):
             self.major_axis_len, self.minor_axis_len, self.theta)
         coeff = [A, B, C]
 
-        assert sr.helpers.array_diff(self.coeff, coeff)
+        assert sr.helpers.array_diff(self.standard_coeff, coeff)
 
     def test_mask2features_poly_ellipse1(self):
         '''
