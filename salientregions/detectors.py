@@ -271,8 +271,12 @@ class MSSRDetector(Detector):
         # Remember image from previous theshold
         previmg = np.zeros_like(self.gray, dtype='uint8')
         regions = result.copy()
-        for t in range(self.min_thres, self.max_thres, self.step):
+        for t in range(self.min_thres, self.max_thres+1, self.step):
+            #print('threshold', t)
             _, bint = cv2.threshold(self.gray, t, 255, cv2.THRESH_BINARY)
+            helpers.show_image(bint, 'binary image' )
+             # for DEBUGGING
+            self.bint = bint.copy()    
             # Only search for regions if the thresholded image is not
             # different:
             if not helpers.image_diff(bint, previmg, visualize=False):
@@ -287,7 +291,7 @@ class MSSRDetector(Detector):
                 result[regtype] += np.array(1 *
                                             (regions[regtype] > 0), dtype='uint8')
             previmg = bint
-
+        # for DEBUGGING   
         self.regions_sum = result.copy()
         for regtype in result.keys():
             if visualize:
@@ -316,7 +320,7 @@ class MSSRDetector(Detector):
             Thresholded image
         """
         # If the data is already binary, don't do the percentile
-        if len(np.unique(data)) == 2:
+        if len(np.unique(data)) <= 2:
             thres = np.min(data)
         else:
             data_values = data[data > 0]
