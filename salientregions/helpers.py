@@ -248,7 +248,7 @@ def standard2poly_ellipse(half_major_axis, half_minor_axis, theta):
 
     return A, B, C
 
-def poly2standard2_ellipse(A, B, C):
+def poly2standard_ellipse(A, B, C):
     """ Conversion of elliptic polynomial coefficients to standard parameters.
 
     Parameters

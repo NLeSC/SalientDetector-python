@@ -130,7 +130,7 @@ class HelpersEllipseTester(unittest.TestCase):
         '''
         Test the function `poly2standard_ellipse`.
         '''
-        params = sr.helpers.poly2standard2_ellipse(
+        params = sr.helpers.poly2standard_ellipse(
             self.standard_coeff[0], self.standard_coeff[1], self.standard_coeff[2])
         print("Parameters:", params)    
        # params = [half_major_axis_len, half_minor_axis_len, theta]
