@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from __future__ import absolute_import
+from numpy import linalg as LA
 import cv2
 import numpy as np
 import scipy.io as sio
@@ -247,7 +248,55 @@ def standard2poly_ellipse(half_major_axis, half_minor_axis, theta):
 
     return A, B, C
 
+def poly2standard2_ellipse(A, B, C):
+    """ Conversion of elliptic polynomial coefficients to standard parameters.
 
+    Parameters
+    ----------
+    A, B, C: floats
+        The coefficients of the polynomial equation of an ellipse :math:`Ax^2 + Bxy + Cy^2 = 1`    
+
+    Returns
+    ----------
+    half_major_axis: float
+        Half of the length of the ellipse's major axis
+    half_minor_axis: float
+        Half of the length of the ellipse's minor axis
+    theta: float
+        The ellipse orientation angle (radians) between the major and the x axis    
+        
+     NOTE
+     ------
+     WARNING: The conversion might be correct only if the resulting angle is between 0 and pi/2!
+    """
+    # construct a matrix from the polynomial coefficients
+    M = np.array([[A,B],[B,C]])
+    
+    # find the eigenvalues 
+    evals = LA.eigh(M)[0]
+    order = evals.argsort()[::-1]
+    evals = evals[order]
+    e_min = evals[-1]
+    e_max = evals[0]
+    
+    # derive the angle directly from the coefficients
+    if B == 0:
+        if A < C:
+            theta = 0
+        else:
+            theta = np.pi/2
+    else:
+        if A < C:
+            theta =  0.5*np.arctan(2*B/(A-C))    
+        else:
+            theta = np.pi/2 + 0.5*np.arctan(2*B/(A-C))  
+     
+    # axis lengths
+    half_major_axis = 1/np.sqrt(e_min)
+    half_minor_axis = 1/np.sqrt(e_max)
+
+    return half_major_axis, half_minor_axis, theta
+    
 def binary_mask2ellipse_features_single(binary_mask, connectivity=4, saliency_type=1, min_square=False):
     """ Conversion of a single saliency type of binary regions to ellipse features.
 
