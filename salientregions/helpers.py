@@ -358,28 +358,32 @@ def binary_mask2ellipse_features_single(binary_mask, connectivity=4, saliency_ty
            # (x, y), (ma, MA), angle = cv2.fitEllipse(cnt)
             ellipse = cv2.fitEllipse(cnt)
             # center, axis_length and orientation of ellipse
-            (center,axes,angle) = ellipse
+            (center,axes,angle_deg) = ellipse
             # center of the ellipse
             (x,y) = center
             # length of MAJOR and minor axis
             MA = max(axes)
             ma = min(axes)
         else:
-            (x, y), (ma, MA), angle = cv2.minAreaRect(cnt)
+            (x, y), (ma, MA), angle_deg = cv2.minAreaRect(cnt)
+            #(center, axes, angle_deg) = cv2.minAreaRect(cnt)
+            
         # ellipse parameters
+        
+            
         a = np.fix(MA / 2)
         b = np.fix(ma / 2)
-       # standard parameters
-        features_standard[i, ] = ([x, y, a, b, angle, saliency_type])
+      
         if ((a > 0) and (b > 0)):
             x0 = x
             y0 = y
-            if (angle == 0):
-                angle = 180
-            angle_rad = angle * math.pi / 180
-
+            if (angle_deg == 0):
+                angle_deg = 180
+            #angle_rad_manual = angle_deg * math.pi / 180
+            angle_rad = math.radians(angle_deg)    
             # compute the elliptic polynomial coefficients, aka features
             [A, B, C] = standard2poly_ellipse(a, b, -angle_rad)               
+            #[A, B, C] = standard2poly_ellipse(a, b, angle_rad)               
             features_poly[i, ] = ([x0, y0, A, B, C, saliency_type])
         else:
             # We still output the ellipse as NaN 
@@ -390,6 +394,10 @@ def binary_mask2ellipse_features_single(binary_mask, connectivity=4, saliency_ty
                            np.nan,
                            np.nan,
                            saliency_type]) 
+        # standard parameters
+        features_standard[i, ] = ([x, y, a, b, angle_rad, saliency_type])
+        #features_standard[i, ] = ([x, y, a, b, angle_deg, saliency_type])
+                   
         i += 1
     return num_regions, features_standard, features_poly
 
@@ -419,8 +427,11 @@ def visualize_ellipses(img, features, color=(0, 0, 255), visualize=True):
     else:
         img_to_show = img.copy()
         
-    for (x, y, a, b, angle, _) in features:
-        img_to_show = cv2.ellipse(img_to_show, (int(x), int(y)), (int(b), int(a)), int(angle), 0, 360, color, 2)
+    for (x, y, a, b, angle_rad, _) in features:
+    #for (x, y, a, b, angle_deg, _) in features:
+        angle_deg = math.degrees(angle_rad)
+        img_to_show = cv2.ellipse(img_to_show, (int(x), int(y)), (int(b), int(a)), int(angle_deg), 0, 360, color, 2)
+       # img_to_show = cv2.ellipse(img_to_show, (int(x), int(y)), (int(a), int(b)), int(angle_deg), 0, 360, color, 2)
     if visualize:
         show_image(img_to_show)
     return img_to_show
