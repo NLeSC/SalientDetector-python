@@ -271,11 +271,11 @@ class MSSRDetector(Detector):
         # Remember image from previous theshold
         previmg = np.zeros_like(self.gray, dtype='uint8')
         regions = result.copy()
-        for t in range(self.min_thres, self.max_thres+1, self.step):
-            #print('threshold', t)
+        for t in range(self.min_thres, self.max_thres + 1, self.step):
+            # print('threshold', t)
             _, bint = cv2.threshold(self.gray, t, 255, cv2.THRESH_BINARY)
             if visualize:
-                helpers.show_image(bint, 'binary image for threshold %i'% t )
+                helpers.show_image(bint, 'binary image for threshold %i' % t)
              # for DEBUGGING
             self.bint = bint.copy()
             # Only search for regions if the thresholded image is not

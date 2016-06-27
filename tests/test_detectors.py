@@ -99,7 +99,7 @@ class SalientRegionDetectorTester(unittest.TestCase):
                     os.path.abspath(__file__)),
                 'features/'))
         self.holes_true_gray, self.islands_true_gray, _, _ = sr.read_matfile(
-            os.path.join(self.testdata_features_path,  'Gray/Gray_scale_dmsrallregions.mat'), visualize=False)
+            os.path.join(self.testdata_features_path, 'Gray/Gray_scale_dmsrallregions.mat'), visualize=False)
 
         binarizer_color = sr.DatadrivenBinarizer(lam=self.lam_color,
                                                  area_factor_large=area_factor_large,
@@ -114,13 +114,12 @@ class SalientRegionDetectorTester(unittest.TestCase):
         self.det_color = sr.SalientDetector(
             binarizer=binarizer_color,
             SE_size_factor=SE_size_factor,
-            area_factor = area_factor,
+            area_factor=area_factor,
             lam_factor=lam_factor,
             connectivity=connectivity)
 
         self.holes_true_color, self.islands_true_color, _, _ = sr.read_matfile(
-            os.path.join(self.testdata_features_path,  'Color/color_dmsrallregions.mat'), visualize=False)
-
+            os.path.join(self.testdata_features_path, 'Color/color_dmsrallregions.mat'), visualize=False)
 
         self.det_default = sr.SalientDetector()
 
@@ -159,8 +158,14 @@ class SalientRegionDetectorTester(unittest.TestCase):
         assert 'indentations' in regions
         assert 'protrusions' in regions
         assert self.det_gray.lam == self.lam_gray
-        assert sr.image_diff(regions['holes'], self.holes_true_gray, visualize=False)
-        assert sr.image_diff(regions['islands'], self.islands_true_gray, visualize=False)
+        assert sr.image_diff(
+            regions['holes'],
+            self.holes_true_gray,
+            visualize=False)
+        assert sr.image_diff(
+            regions['islands'],
+            self.islands_true_gray,
+            visualize=False)
 
     def test_color_image(self):
         '''
@@ -178,10 +183,14 @@ class SalientRegionDetectorTester(unittest.TestCase):
         assert 'indentations' in regions
         assert 'protrusions' in regions
         assert self.det_color.lam == self.lam_color
-        assert sr.image_diff(regions['holes'], self.holes_true_color, visualize=False)
-        assert sr.image_diff(regions['islands'], self.islands_true_color, visualize=False)
-
-
+        assert sr.image_diff(
+            regions['holes'],
+            self.holes_true_color,
+            visualize=False)
+        assert sr.image_diff(
+            regions['islands'],
+            self.islands_true_color,
+            visualize=False)
 
 
 class MSSRDetectorTester(unittest.TestCase):
@@ -219,7 +228,7 @@ class MSSRDetectorTester(unittest.TestCase):
                     os.path.abspath(__file__)),
                 'features/Color/'))
         self.holes_true, self.islands_true, _, _ = sr.read_matfile(
-            os.path.join(testdata_features_path,  'color_allregions.mat'), visualize=False)
+            os.path.join(testdata_features_path, 'color_allregions.mat'), visualize=False)
 
         SE_size_factor = 0.02
         lam_factor = 5
@@ -239,7 +248,7 @@ class MSSRDetectorTester(unittest.TestCase):
             connectivity=connectivity)
 
     # def test_gray(self):
-    #     # TODO: compare with known regions
+    # TODO: compare with known regions
     #     regions = self.det.detect(self.img_gray,
     #                               visualize=False)
     #     assert self.det.lam == self.lam
@@ -256,5 +265,11 @@ class MSSRDetectorTester(unittest.TestCase):
         assert 'islands' in regions
         assert 'indentations' in regions
         assert 'protrusions' in regions
-        assert sr.image_diff(regions['holes'], self.holes_true, visualize=False)
-        assert sr.image_diff(regions['islands'], self.islands_true, visualize=False)
+        assert sr.image_diff(
+            regions['holes'],
+            self.holes_true,
+            visualize=False)
+        assert sr.image_diff(
+            regions['islands'],
+            self.islands_true,
+            visualize=False)

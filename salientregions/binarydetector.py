@@ -309,11 +309,11 @@ def _fill_image(img):
     """
     # Copy the image with an extra border
     h, w = img.shape[:2]
-    img_border = np.zeros((h+2, w+2), np.uint8)
+    img_border = np.zeros((h + 2, w + 2), np.uint8)
     img_border[1:-1, 1:-1] = img
 
     floodfilled = img_border.copy()
-    mask = np.zeros((h+4, w+4), np.uint8)
+    mask = np.zeros((h + 4, w + 4), np.uint8)
     cv2.floodFill(floodfilled, mask, (0, 0), 255, flags=8)
     floodfill_inv = cv2.bitwise_not(floodfilled)
     filled = img_border | floodfill_inv

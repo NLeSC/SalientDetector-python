@@ -27,7 +27,10 @@ class HelpersEllipseTester(unittest.TestCase):
         self.half_major_axis_len = 15
         self.half_minor_axis_len = 9
         self.theta = 0.52
-        self.standard_coeff = [0.006395179230685, -0.003407029045900, 0.010394944226105]
+        self.standard_coeff = [
+            0.006395179230685,
+            -0.003407029045900,
+            0.010394944226105]
 
         # testing elliptic features
         testdata_path = os.path.normpath(
@@ -132,13 +135,16 @@ class HelpersEllipseTester(unittest.TestCase):
         '''
         params = sr.helpers.poly2standard_ellipse(
             self.standard_coeff[0], self.standard_coeff[1], self.standard_coeff[2])
-        print("Parameters:", params)    
+        print("Parameters:", params)
        # params = [half_major_axis_len, half_minor_axis_len, theta]
-        true_params = [self.half_major_axis_len, self.half_minor_axis_len, self.theta]
-        print("True parameters:", true_params)    
-        
+        true_params = [
+            self.half_major_axis_len,
+            self.half_minor_axis_len,
+            self.theta]
+        print("True parameters:", true_params)
+
         assert sr.helpers.array_diff(params, true_params, 1e-5, 1e-8)
-        
+
     def test_mask2features_poly_ellipse1(self):
         '''
         Test the function `binary_mask2ellipse_features_single` for test image 1.
@@ -149,7 +155,9 @@ class HelpersEllipseTester(unittest.TestCase):
         print("MATLAB features:", self.features_poly_ellipse1)
         print("Python features:", features)
         print('Difference: ', features - self.features_poly_ellipse1)
-        print('Max abs. difference: ', np.max(np.max(np.abs(features - self.features_poly_ellipse1))))
+        print(
+            'Max abs. difference: ',
+            np.max(np.max(np.abs(features - self.features_poly_ellipse1))))
 
         assert sr.helpers.array_diff(
             self.features_poly_ellipse1,
@@ -167,7 +175,9 @@ class HelpersEllipseTester(unittest.TestCase):
         print("MATLAB features:", self.features_poly_ellipse2)
         print("Python features:", features)
         print('Difference: ', features - self.features_poly_ellipse2)
-        print('Max abs.difference: ', np.max(np.max(np.abs(features - self.features_poly_ellipse2))))
+        print(
+            'Max abs.difference: ',
+            np.max(np.max(np.abs(features - self.features_poly_ellipse2))))
 
         assert sr.helpers.array_diff(
             self.features_poly_ellipse2,

@@ -182,7 +182,8 @@ class DatadrivenBinarizer(Binarizer):
         # Normalize
         a_nccs_norm = a_nccs / float(a_nccs.max())
         a_nccs_large_norm = a_nccs_large / float(a_nccs_large.max())
-        a_nccs_verylarge_norm = a_nccs_verylarge / float(a_nccs_verylarge.max())
+        a_nccs_verylarge_norm = a_nccs_verylarge / \
+            float(a_nccs_verylarge.max())
         scores = self.weights[0] * a_nccs_norm + \
             self.weights[1] * a_nccs_large_norm + \
             self.weights[2] * a_nccs_verylarge_norm
@@ -210,13 +211,13 @@ class DatadrivenBinarizer(Binarizer):
                     t_opt))
 
         if output_scores:
-            all_levels = {'level':np.arange(256),
-                                'a_nccs': a_nccs, 'a_nccs_large': a_nccs_large,
-                                'a_nccs_verylarge': a_nccs_verylarge,
-                                'a_nccs_norm': a_nccs_norm,
-                                'a_nccs_large_norm': a_nccs_large_norm,
-                                'a_nccs_verylarge_norm': a_nccs_verylarge_norm,
-                                'scores': scores}
+            all_levels = {'level': np.arange(256),
+                          'a_nccs': a_nccs, 'a_nccs_large': a_nccs_large,
+                          'a_nccs_verylarge': a_nccs_verylarge,
+                          'a_nccs_norm': a_nccs_norm,
+                          'a_nccs_large_norm': a_nccs_large_norm,
+                          'a_nccs_verylarge_norm': a_nccs_verylarge_norm,
+                          'scores': scores}
             return t_opt, binarized, all_levels
         else:
             return t_opt, binarized

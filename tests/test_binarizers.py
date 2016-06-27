@@ -51,8 +51,8 @@ class DataDrivenBinarizerTester(unittest.TestCase):
         '''
         binarized = self.binarizer.binarize(self.image, visualize=False)
         assert sr.image_diff(self.binarized_true,
-                                binarized,
-                                visualize=False)
+                             binarized,
+                             visualize=False)
 
     def test_binarize_threshold(self):
         '''
