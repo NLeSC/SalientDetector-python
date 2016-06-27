@@ -92,7 +92,7 @@ class SalientRegionDetectorTester(unittest.TestCase):
             SE_size_factor=SE_size_factor,
             lam_factor=lam_factor,
             connectivity=connectivity)
-        
+
         self.testdata_features_path = os.path.normpath(
             os.path.join(
                 os.path.dirname(
@@ -100,7 +100,7 @@ class SalientRegionDetectorTester(unittest.TestCase):
                 'features/'))
         self.holes_true_gray, self.islands_true_gray, _, _ = sr.read_matfile(
             os.path.join(self.testdata_features_path,  'Gray/Gray_scale_dmsrallregions.mat'), visualize=False)
-            
+
         binarizer_color = sr.DatadrivenBinarizer(lam=self.lam_color,
                                                  area_factor_large=area_factor_large,
                                                  area_factor_verylarge=area_factor_very_large,
@@ -117,10 +117,10 @@ class SalientRegionDetectorTester(unittest.TestCase):
             area_factor = area_factor,
             lam_factor=lam_factor,
             connectivity=connectivity)
-        
+
         self.holes_true_color, self.islands_true_color, _, _ = sr.read_matfile(
             os.path.join(self.testdata_features_path,  'Color/color_dmsrallregions.mat'), visualize=False)
-         
+
 
         self.det_default = sr.SalientDetector()
 
@@ -213,6 +213,14 @@ class MSSRDetectorTester(unittest.TestCase):
                 testdata_path,
                 'color.png'))
 
+        testdata_features_path = os.path.normpath(
+            os.path.join(
+                os.path.dirname(
+                    os.path.abspath(__file__)),
+                'features/Color/'))
+        self.holes_true, self.islands_true, _, _ = sr.read_matfile(
+            os.path.join(testdata_features_path,  'color_allregions.mat'), visualize=False)
+
         SE_size_factor = 0.02
         lam_factor = 5
         area_factor = 0.03
@@ -248,3 +256,5 @@ class MSSRDetectorTester(unittest.TestCase):
         assert 'islands' in regions
         assert 'indentations' in regions
         assert 'protrusions' in regions
+        assert sr.image_diff(regions['holes'], self.holes_true, visualize=False)
+        assert sr.image_diff(regions['islands'], self.islands_true, visualize=False)
