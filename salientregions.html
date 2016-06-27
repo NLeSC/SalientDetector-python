@@ -146,7 +146,7 @@
 
 <dl class="class">
 <dt id="salientregions.binarization.DatadrivenBinarizer">
-<em class="property">class </em><code class="descclassname">salientregions.binarization.</code><code class="descname">DatadrivenBinarizer</code><span class="sig-paren">(</span><em>lam</em>, <em>area_factor_large=0.001</em>, <em>area_factor_verylarge=0.1</em>, <em>weights=(0.33</em>, <em>0.33</em>, <em>0.33)</em>, <em>offset=80</em>, <em>num_levels=256</em>, <em>connectivity=4</em><span class="sig-paren">)</span><a class="headerlink" href="#salientregions.binarization.DatadrivenBinarizer" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">salientregions.binarization.</code><code class="descname">DatadrivenBinarizer</code><span class="sig-paren">(</span><em>lam</em>, <em>area_factor_large=0.001</em>, <em>area_factor_verylarge=0.1</em>, <em>weights=(0.33</em>, <em>0.33</em>, <em>0.33)</em>, <em>offset=80</em>, <em>stepsize=1</em>, <em>connectivity=4</em><span class="sig-paren">)</span><a class="headerlink" href="#salientregions.binarization.DatadrivenBinarizer" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#salientregions.binarization.Binarizer" title="salientregions.binarization.Binarizer"><code class="xref py py-class docutils literal"><span class="pre">salientregions.binarization.Binarizer</span></code></a></p>
 <p>Binarizes the image such that the desired number of (large) connected
 components is maximized.</p>
@@ -161,8 +161,7 @@ components is maximized.</p>
 <li><strong>weights</strong> (<em>(float, float, float)</em>) &#8211; weights for number of CC, number of large CC
 and number of very large CC respectively.</li>
 <li><strong>offset</strong> (<em>int, optional</em>) &#8211; The offset (number of gray levels) to search for around the Otsu level</li>
-<li><strong>num_levels</strong> (<em>int, optional</em>) &#8211; number of gray levels to be considered [1..255],
-the default number 256 gives a stepsize of 1.</li>
+<li><strong>stepsize</strong> (<em>int, optional</em>) &#8211; the size of the step between consequtive gray levels to process</li>
 <li><strong>connectivity</strong> (<em>int, optional</em>) &#8211; What connectivity to use to define CCs</li>
 </ul>
 </td>
@@ -196,7 +195,7 @@ components is maximized.</p>
 
 <dl class="method">
 <dt id="salientregions.binarization.DatadrivenBinarizer.binarize_withthreshold">
-<code class="descname">binarize_withthreshold</code><span class="sig-paren">(</span><em>img</em>, <em>visualize=True</em><span class="sig-paren">)</span><a class="headerlink" href="#salientregions.binarization.DatadrivenBinarizer.binarize_withthreshold" title="Permalink to this definition">¶</a></dt>
+<code class="descname">binarize_withthreshold</code><span class="sig-paren">(</span><em>img</em>, <em>visualize=True</em>, <em>output_scores=False</em><span class="sig-paren">)</span><a class="headerlink" href="#salientregions.binarization.DatadrivenBinarizer.binarize_withthreshold" title="Permalink to this definition">¶</a></dt>
 <dd><p>Binarizes the image  such that the desired number of (large) connected
 components is maximized. Also returns the optimal threshold.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -781,6 +780,31 @@ Useful for testing purposes.</p>
 </dd></dl>
 
 <dl class="function">
+<dt id="salientregions.helpers.poly2standard_ellipse">
+<code class="descclassname">salientregions.helpers.</code><code class="descname">poly2standard_ellipse</code><span class="sig-paren">(</span><em>A</em>, <em>B</em>, <em>C</em><span class="sig-paren">)</span><a class="headerlink" href="#salientregions.helpers.poly2standard_ellipse" title="Permalink to this definition">¶</a></dt>
+<dd><p>Conversion of elliptic polynomial coefficients to standard parameters.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>B, C</strong> (<em>A,</em>) &#8211; The coefficients of the polynomial equation of an ellipse <img class="math" src="_images/math/f95a6cdca86017eca71d2c11c6c20f704c52c02a.png" alt="Ax^2 + Bxy + Cy^2 = 1"/></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><ul>
+<li><strong>half_major_axis</strong> (<em>float</em>) &#8211; Half of the length of the ellipse&#8217;s major axis</li>
+<li><strong>half_minor_axis</strong> (<em>float</em>) &#8211; Half of the length of the ellipse&#8217;s minor axis</li>
+<li><strong>theta</strong> (<em>float</em>) &#8211;    The ellipse orientation angle (radians) between the major and the x axis<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">WARNING: The conversion might be correct only if the resulting angle is between 0 and pi/2!</p>
+</div>
+</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
 <dt id="salientregions.helpers.read_matfile">
 <code class="descclassname">salientregions.helpers.</code><code class="descname">read_matfile</code><span class="sig-paren">(</span><em>filename</em>, <em>visualize=True</em><span class="sig-paren">)</span><a class="headerlink" href="#salientregions.helpers.read_matfile" title="Permalink to this definition">¶</a></dt>
 <dd><p>Read a matfile with the binary masks for the salient regions.
@@ -802,31 +826,6 @@ Returns the masks with 0/255 values for the 4 salient types</p>
 <li><strong>indentations</strong> (<em>numpy array</em>) &#8211; Binary image with indentations as foreground</li>
 </ul>
 </p>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="function">
-<dt id="salientregions.helpers.region2ellipse">
-<code class="descclassname">salientregions.helpers.</code><code class="descname">region2ellipse</code><span class="sig-paren">(</span><em>half_major_axis</em>, <em>half_minor_axis</em>, <em>theta</em><span class="sig-paren">)</span><a class="headerlink" href="#salientregions.helpers.region2ellipse" title="Permalink to this definition">¶</a></dt>
-<dd><p>Conversion of elliptic parameters to polynomial coefficients.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>half_major_axis</strong> (<em>float</em>) &#8211; Half of the length of the ellipse&#8217;s major axis</li>
-<li><strong>half_minor_axis</strong> (<em>float</em>) &#8211; Half of the length of the ellipse&#8217;s minor axis</li>
-<li><strong>theta</strong> (<em>float</em>) &#8211; The ellipse orientation angle (radians) between the major and the x axis</li>
-</ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>A, B, C</strong> &#8211; The coefficients of the polynomial equation of an ellipse <img class="math" src="_images/math/f95a6cdca86017eca71d2c11c6c20f704c52c02a.png" alt="Ax^2 + Bxy + Cy^2 = 1"/></p>
-</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">floats</p>
 </td>
 </tr>
 </tbody>
@@ -873,6 +872,31 @@ When a key is pressed, the window is closed</p>
 <li><strong>img</strong> (<em>numpy array</em>) &#8211; image</li>
 <li><strong>title</strong> (<em>str, optional</em>) &#8211; Title of the image</li>
 </ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="salientregions.helpers.standard2poly_ellipse">
+<code class="descclassname">salientregions.helpers.</code><code class="descname">standard2poly_ellipse</code><span class="sig-paren">(</span><em>half_major_axis</em>, <em>half_minor_axis</em>, <em>theta</em><span class="sig-paren">)</span><a class="headerlink" href="#salientregions.helpers.standard2poly_ellipse" title="Permalink to this definition">¶</a></dt>
+<dd><p>Conversion of elliptic parameters to polynomial coefficients.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>half_major_axis</strong> (<em>float</em>) &#8211; Half of the length of the ellipse&#8217;s major axis</li>
+<li><strong>half_minor_axis</strong> (<em>float</em>) &#8211; Half of the length of the ellipse&#8217;s minor axis</li>
+<li><strong>theta</strong> (<em>float</em>) &#8211; The ellipse orientation angle (radians) between the major and the x axis</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>A, B, C</strong> &#8211; The coefficients of the polynomial equation of an ellipse <img class="math" src="_images/math/f95a6cdca86017eca71d2c11c6c20f704c52c02a.png" alt="Ax^2 + Bxy + Cy^2 = 1"/></p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">floats</p>
 </td>
 </tr>
 </tbody>
@@ -962,9 +986,9 @@ When a key is pressed, the window is closed</p>
 </dd></dl>
 
 </div>
-<div class="section" id="module-contents">
-<h2>Module contents<a class="headerlink" href="#module-contents" title="Permalink to this headline">¶</a></h2>
-<span class="target" id="module-salientregions"></span></div>
+<div class="section" id="module-salientregions">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-salientregions" title="Permalink to this headline">¶</a></h2>
+</div>
 </div>
 
 

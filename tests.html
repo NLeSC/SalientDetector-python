@@ -231,7 +231,14 @@ Compare the binarized image.</p>
 <dl class="method">
 <dt id="tests.test_binary_detector.BinaryDetectorTester.setUp">
 <code class="descname">setUp</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tests.test_binary_detector.BinaryDetectorTester.setUp" title="Permalink to this definition">¶</a></dt>
-<dd><p>Load the binary image and the binary masks for the true regions.</p>
+<dd><p>Load the image and features for both the noise image and the nested image.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tests.test_binary_detector.BinaryDetectorTester.setUpImage">
+<code class="descname">setUpImage</code><span class="sig-paren">(</span><em>image_file</em>, <em>filled_image_file</em>, <em>features_file</em>, <em>SE_file</em>, <em>lam</em>, <em>area_factor</em>, <em>connectivity</em><span class="sig-paren">)</span><a class="headerlink" href="#tests.test_binary_detector.BinaryDetectorTester.setUpImage" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set up a specific image: load the image, the filled image,
+the features, the SE and create a binary detector.</p>
 </dd></dl>
 
 <dl class="method">
@@ -241,14 +248,8 @@ Compare the binarized image.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="tests.test_binary_detector.BinaryDetectorTester.test_fill_image_nested">
-<code class="descname">test_fill_image_nested</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tests.test_binary_detector.BinaryDetectorTester.test_fill_image_nested" title="Permalink to this definition">¶</a></dt>
-<dd><p>Test the helper method <cite>fill_image</cite> for an image with nested regions..</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="tests.test_binary_detector.BinaryDetectorTester.test_fill_image_noise">
-<code class="descname">test_fill_image_noise</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tests.test_binary_detector.BinaryDetectorTester.test_fill_image_noise" title="Permalink to this definition">¶</a></dt>
+<dt id="tests.test_binary_detector.BinaryDetectorTester.test_fill_image">
+<code class="descname">test_fill_image</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tests.test_binary_detector.BinaryDetectorTester.test_fill_image" title="Permalink to this definition">¶</a></dt>
 <dd><p>Test the helper method <cite>fill_image</cite>.</p>
 </dd></dl>
 
@@ -294,6 +295,25 @@ Compare the binarized image.</p>
 <div class="section" id="module-tests.test_detectors">
 <span id="tests-test-detectors-module"></span><h2>tests.test_detectors module<a class="headerlink" href="#module-tests.test_detectors" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
+<dt id="tests.test_detectors.MSSRDetectorTester">
+<em class="property">class </em><code class="descclassname">tests.test_detectors.</code><code class="descname">MSSRDetectorTester</code><span class="sig-paren">(</span><em>methodName='runTest'</em><span class="sig-paren">)</span><a class="headerlink" href="#tests.test_detectors.MSSRDetectorTester" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">unittest.case.TestCase</span></code></p>
+<p>Test class for the SalientRegionDetector</p>
+<dl class="method">
+<dt id="tests.test_detectors.MSSRDetectorTester.setUp">
+<code class="descname">setUp</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tests.test_detectors.MSSRDetectorTester.setUp" title="Permalink to this definition">¶</a></dt>
+<dd><p>loads images and create detector objects</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tests.test_detectors.MSSRDetectorTester.test_color">
+<code class="descname">test_color</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tests.test_detectors.MSSRDetectorTester.test_color" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test the MSSRA detector on a color image</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
 <dt id="tests.test_detectors.SETester">
 <em class="property">class </em><code class="descclassname">tests.test_detectors.</code><code class="descname">SETester</code><span class="sig-paren">(</span><em>methodName='runTest'</em><span class="sig-paren">)</span><a class="headerlink" href="#tests.test_detectors.SETester" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">unittest.case.TestCase</span></code></p>
@@ -313,6 +333,31 @@ Compare the binarized image.</p>
 <dt id="tests.test_detectors.SETester.test_getlam">
 <code class="descname">test_getlam</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tests.test_detectors.SETester.test_getlam" title="Permalink to this definition">¶</a></dt>
 <dd><p>Test the method <cite>getSE</cite> and assert that the value of lamda is correct.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="tests.test_detectors.SalientRegionDetectorTester">
+<em class="property">class </em><code class="descclassname">tests.test_detectors.</code><code class="descname">SalientRegionDetectorTester</code><span class="sig-paren">(</span><em>methodName='runTest'</em><span class="sig-paren">)</span><a class="headerlink" href="#tests.test_detectors.SalientRegionDetectorTester" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">unittest.case.TestCase</span></code></p>
+<p>Test class for the SalientRegionDetector</p>
+<dl class="method">
+<dt id="tests.test_detectors.SalientRegionDetectorTester.setUp">
+<code class="descname">setUp</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tests.test_detectors.SalientRegionDetectorTester.setUp" title="Permalink to this definition">¶</a></dt>
+<dd><p>loads images and create detector objects</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tests.test_detectors.SalientRegionDetectorTester.test_color_image">
+<code class="descname">test_color_image</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tests.test_detectors.SalientRegionDetectorTester.test_color_image" title="Permalink to this definition">¶</a></dt>
+<dd><p>Tests the salient detector on a gray scale image with specific settings</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tests.test_detectors.SalientRegionDetectorTester.test_gray_image">
+<code class="descname">test_gray_image</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tests.test_detectors.SalientRegionDetectorTester.test_gray_image" title="Permalink to this definition">¶</a></dt>
+<dd><p>Tests the salient detector on a gray scale image with specific settings</p>
 </dd></dl>
 
 </dd></dl>
@@ -358,9 +403,15 @@ Compare the binarized image.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="tests.test_helpers.HelpersEllipseTester.test_region2ellipse">
-<code class="descname">test_region2ellipse</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tests.test_helpers.HelpersEllipseTester.test_region2ellipse" title="Permalink to this definition">¶</a></dt>
-<dd><p>Test the function <cite>region2ellipse</cite>.</p>
+<dt id="tests.test_helpers.HelpersEllipseTester.test_poly2standard_ellipse">
+<code class="descname">test_poly2standard_ellipse</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tests.test_helpers.HelpersEllipseTester.test_poly2standard_ellipse" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test the function <cite>poly2standard_ellipse</cite>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tests.test_helpers.HelpersEllipseTester.test_standard2poly_ellipse">
+<code class="descname">test_standard2poly_ellipse</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tests.test_helpers.HelpersEllipseTester.test_standard2poly_ellipse" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test the function <cite>standard2poly_ellipse</cite>.</p>
 </dd></dl>
 
 </dd></dl>
