@@ -307,15 +307,15 @@ def _fill_image(img):
     filled : numpy array
         The filled image
     """
+    # Copy the image with an extra border
+    h, w = img.shape[:2]
+    img_border = np.zeros((h+2, w+2), np.uint8)
+    img_border[1:-1, 1:-1] = img
 
-    filled = img.copy()
-    _, contours, _ = cv2.findContours(filled,
-                                              cv2.RETR_CCOMP,
-                                              cv2.CHAIN_APPROX_SIMPLE)
-    for cnt in contours:
-        # Fill the original image for all the contours
-        cv2.drawContours(filled, [cnt], 0, 255, -1)
-
-    filled = cv2.bitwise_or(filled, img)
-
+    floodfilled = img_border.copy()
+    mask = np.zeros((h+4, w+4), np.uint8)
+    cv2.floodFill(floodfilled, mask, (0, 0), 255, flags=8)
+    floodfill_inv = cv2.bitwise_not(floodfilled)
+    filled = img_border | floodfill_inv
+    filled = filled[1:-1, 1:-1]
     return filled
