@@ -248,7 +248,7 @@ class MSSRDetectorTester(unittest.TestCase):
             connectivity=connectivity)
 
     # def test_gray(self):
-    # TODO: compare with known regions
+    # 
     #     regions = self.det.detect(self.img_gray,
     #                               visualize=False)
     #     assert self.det.lam == self.lam
@@ -258,7 +258,9 @@ class MSSRDetectorTester(unittest.TestCase):
     #     assert 'protrusions' in regions
 
     def test_color(self):
-        # TODO: compare with known regions
+        '''
+        Test the MSSRA detector on a color image
+        '''
         regions = self.det.detect(self.img_color,
                                   visualize=False)
         assert 'holes' in regions
