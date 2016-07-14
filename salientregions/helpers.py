@@ -1,3 +1,6 @@
+'''
+Module for helper functions, e.g. image and regions visualization, region to ellipse conversion, loading MAT files, array/vector difference etc.
+'''
 # -*- coding: utf-8 -*-
 from __future__ import absolute_import
 from numpy import linalg as LA
