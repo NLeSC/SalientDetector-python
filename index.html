@@ -1,203 +1,147 @@
-
-
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
-<head>
-  <meta charset="utf-8">
-  
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
-  <title>Welcome to Salient Region Detectors’s documentation! &mdash; Salient Region Detectors 0.1 documentation</title>
-  
+<html>
 
-  
-  
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="description" content="Salientdetector-python : Python package for Large Scale Imaging research @ NLeSC">
 
-  
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
 
-  
-  
+    <title>Salientdetector-python</title>
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/NLeSC/SalientDetector-python">View on GitHub</a>
+
+          <h1 id="project_title">Salientdetector-python</h1>
+          <h2 id="project_tagline">Python package for Large Scale Imaging research @ NLeSC</h2>
+
+            <section id="downloads">
+              <a class="zip_download_link" href="https://github.com/NLeSC/SalientDetector-python/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/NLeSC/SalientDetector-python/tarball/master">Download this project as a tar.gz file</a>
+            </section>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <h1>
+<a id="python-software-for-image-processing" class="anchor" href="#python-software-for-image-processing" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Python software for image processing</h1>
+
+<p><a href="https://travis-ci.org/NLeSC/SalientDetector-python"><img src="https://travis-ci.org/NLeSC/SalientDetector-python.svg?branch=master" alt="Build Status"></a> <a href="https://www.codacy.com/app/d-vankuppevelt/SalientDetector-python?utm_source=github.com&amp;amp;utm_medium=referral&amp;amp;utm_content=NLeSC/SalientDetector-python&amp;amp;utm_campaign=Badge_Grade"><img src="https://api.codacy.com/project/badge/Grade/1c9f59fcbc6d48bbb35addc7d51e0bf1" alt="Codacy Badge"></a> <a href="https://www.codacy.com/app/d-vankuppevelt/SalientDetector-python?utm_source=github.com&amp;amp;utm_medium=referral&amp;amp;utm_content=NLeSC/SalientDetector-python&amp;amp;utm_campaign=Badge_Coverage"><img src="https://api.codacy.com/project/badge/Coverage/1c9f59fcbc6d48bbb35addc7d51e0bf1" alt="Codacy Badge"></a></p>
+
+<p>This folder contains a Python  implementation of the Salient Region Detector code as part of the <a href="https://www.esciencecenter.nl/technology/expertise/computer-vision">image processing part of eStep</a>. The software conforms with the <a href="https://github.com/NLeSC/estep-checklist">eStep standards</a>.</p>
+
+<p>The original MATLAB implementation can be found at <a href="https://github.com/NLeSC/SalientDetector-matlab">this repository</a></p>
+
+<p>The repository contains the following sub-folders:</p>
+
+<h2>
+<a id="notebooks" class="anchor" href="#notebooks" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Notebooks</h2>
+
+<p>Several iPython notebooks testing and illustrating major functionality.</p>
+
+<h2>
+<a id="salientregions" class="anchor" href="#salientregions" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>salientregions</h2>
+
+<p>The module for salient region detection functionality.</p>
+
+<h2>
+<a id="tests" class="anchor" href="#tests" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>tests</h2>
+
+<p>Unit tests for the code in salientregions.</p>
+
+<h1>
+<a id="installation" class="anchor" href="#installation" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Installation</h1>
+
+<h2>
+<a id="prerequisites" class="anchor" href="#prerequisites" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Prerequisites</h2>
+
+<ul>
+<li>Python 2.7 or 3.5</li>
+<li>pip</li>
+<li>The python packages in <code>requirements.txt</code>.</li>
+<li>
+<p>OpenCV 3.1. There is two ways to install OpenCV:</p>
+
+<ul>
+<li>If you're using Conda, you can install OpenCV with the following command:</li>
+</ul>
+
+<p><code>conda install -c https://conda.anaconda.org/menpo opencv3</code></p>
+
+<ul>
+<li>Otherwise, follow the instructions to <a href="http://opencv-python-tutroals.readthedocs.org/en/latest/py_tutorials/py_setup/py_table_of_contents_setup/py_table_of_contents_setup.html#py-table-of-content-setup">install OpenCV 3.1.0 manually</a>
+</li>
+</ul>
+</li>
+</ul>
+
+<h2>
+<a id="installing-the-package" class="anchor" href="#installing-the-package" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Installing the package</h2>
+
+<p>To install the package <code>salientregions</code>  in your environment:</p>
+
+<p><code>pip install .</code></p>
+
+<p>To perform tests:</p>
+
+<p><code>nosetests test</code></p>
+
+<h1>
+<a id="getting-started" class="anchor" href="#getting-started" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Getting started</h1>
+
+<p>The source code documentation can be found <a href="http://nlesc.github.io/SalientDetector-python/">here</a></p>
+
+<p>This code makes heavily use of the OpenCV library, so in order to understand how the code works, it helps to have a look at the <a href="http://docs.opencv.org/3.1.0/">OpenCV Documentation</a>.</p>
+
+<h2>
+<a id="images" class="anchor" href="#images" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Images</h2>
+
+<p>In OpenCV, images are represented as numpy arrays. Grayscale images are represented by a 2-dimensional array. Color images have a third dimension for the color channel. The Salient Region Detector has a few simplifying assumptions:</p>
+
+<ul>
+<li>Color images have BGR channels</li>
+<li>Images are assumed to be 8-bit. This is also the case for binary images, so they only have values of 0 and 255.</li>
+</ul>
+
+<h2>
+<a id="detector-object" class="anchor" href="#detector-object" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Detector object</h2>
+
+<p>The complete functionality of the salient region detectors are found in the Detector object. The SalientDetector implements DMSR detection, and MSSRDetector implements MSSR detection (see referred papers for more information about these algorithms).
+An example of how to use the Detector can be found in <a href="https://github.com/NLeSC/SalientDetector-python/blob/master/Notebooks/DetectorExample.ipynb">this iPython Notebook</a>.</p>
+
+<h1>
+<a id="contributing" class="anchor" href="#contributing" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Contributing</h1>
+
+<p>If you want to contribute to the code, please have a look at the <a href="https://github.com/NLeSC/estep-checklist">eStep standarts</a>.</p>
+
+<p>We use numpy-style code documentation.</p>
+
+<h1>
+<a id="references" class="anchor" href="#references" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>References</h1>
+
+<p>Ranguelova, E.B. - Pauwels, E.J.
+Morphology-based Stable Salient Regions Detector
+Proceedings of International Conference on Image and Vision Computing New Zealand 2006 , Great Barrier Island, New Zealand, p.97–102 </p>
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">Salientdetector-python maintained by <a href="https://github.com/NLeSC">NLeSC</a></p>
+        <p>Published with <a href="https://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
     
 
-  
-
-  
-  
-    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-  
-
-  
-
-  
-    <link rel="top" title="Salient Region Detectors 0.1 documentation" href="#"/> 
-
-  
-  <script src="_static/js/modernizr.min.js"></script>
-
-</head>
-
-<body class="wy-body-for-nav" role="document">
-
-  <div class="wy-grid-for-nav">
-
-    
-    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
-      <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
-          
-
-          
-            <a href="#" class="icon icon-home"> Salient Region Detectors
-          
-
-          
-          </a>
-
-          
-            
-            
-              <div class="version">
-                0.1
-              </div>
-            
-          
-
-          
-<div role="search">
-  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
-    <input type="hidden" name="check_keywords" value="yes" />
-    <input type="hidden" name="area" value="default" />
-  </form>
-</div>
-
-          
-        </div>
-
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-                <ul class="simple">
-</ul>
-
-            
-          
-        </div>
-      </div>
-    </nav>
-
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
-        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="#">Salient Region Detectors</a>
-      </nav>
-
-
-      
-      <div class="wy-nav-content">
-        <div class="rst-content">
-          
-
- 
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-  <ul class="wy-breadcrumbs">
-    <li><a href="#">Docs</a> &raquo;</li>
-      
-    <li>Welcome to Salient Region Detectors&#8217;s documentation!</li>
-      <li class="wy-breadcrumbs-aside">
-        
-          
-            <a href="_sources/index.txt" rel="nofollow"> View page source</a>
-          
-        
-      </li>
-  </ul>
-  <hr/>
-</div>
-          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
-           <div itemprop="articleBody">
-            
-  <div class="section" id="welcome-to-salient-region-detectors-s-documentation">
-<h1>Welcome to Salient Region Detectors&#8217;s documentation!<a class="headerlink" href="#welcome-to-salient-region-detectors-s-documentation" title="Permalink to this headline">¶</a></h1>
-<p>Contents:</p>
-<div class="toctree-wrapper compound">
-<ul class="simple">
-</ul>
-</div>
-</div>
-<div class="section" id="indices-and-tables">
-<h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline">¶</a></h1>
-<ul class="simple">
-<li><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></li>
-<li><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></li>
-<li><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></li>
-</ul>
-</div>
-
-
-           </div>
-          </div>
-          <footer>
-  
-
-  <hr/>
-
-  <div role="contentinfo">
-    <p>
-        &copy; Copyright 2016, Netherlands eScience Center.
-
-    </p>
-  </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
-
-</footer>
-
-        </div>
-      </div>
-
-    </section>
-
-  </div>
-  
-
-
-  
-
-    <script type="text/javascript">
-        var DOCUMENTATION_OPTIONS = {
-            URL_ROOT:'./',
-            VERSION:'0.1',
-            COLLAPSE_INDEX:false,
-            FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true
-        };
-    </script>
-      <script type="text/javascript" src="_static/jquery.js"></script>
-      <script type="text/javascript" src="_static/underscore.js"></script>
-      <script type="text/javascript" src="_static/doctools.js"></script>
-
-  
-
-  
-  
-    <script type="text/javascript" src="_static/js/theme.js"></script>
-  
-
-  
-  
-  <script type="text/javascript">
-      jQuery(function () {
-          SphinxRtdTheme.StickyNav.enable();
-      });
-  </script>
-   
-
-</body>
+  </body>
 </html>
