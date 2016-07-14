@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
-
+'''
+Setting up the Salient region detection in images package.
+'''
 from setuptools import setup, find_packages
 
 with open('README.md') as f:
