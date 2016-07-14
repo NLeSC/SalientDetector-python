@@ -215,7 +215,7 @@ class BinaryDetectorTester(unittest.TestCase):
         '''
         for tup in [self.binary_noise, self.binary_nested]:
             image, filled_true, holes_true, islands_true, indents_true, prots_true, binarydetector = tup
-            filled = salientregions_binarydetector._fill_image(image)
+            filled = salientregions_binarydetector._fill_image(image, 4)
             assert sr.image_diff(
                 filled_true,
                 filled,

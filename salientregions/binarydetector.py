@@ -123,7 +123,7 @@ class BinaryDetector(object):
         """
         if self.holes is None:
             # Fill the image
-            self._filled = _fill_image(self._img)
+            self._filled = _fill_image(self._img, self.connectivity)
 
             # Detect the holes
             self.holes = self._detect_holelike(
@@ -137,7 +137,7 @@ class BinaryDetector(object):
             # Get the inverse image
             self._invimg = cv2.bitwise_not(self._img)
             # Fill the inverse image
-            self._invfilled = _fill_image(self._invimg)
+            self._invfilled = _fill_image(self._invimg, self.connectivity)
             self.islands = self._detect_holelike(
                 img=self._invimg, filled=self._invfilled)
         return self.islands
@@ -227,7 +227,7 @@ class BinaryDetector(object):
         for i in range(1, nccs2):
             area = stats2[i, cv2.CC_STAT_AREA]
             ccimage = np.array(255 * (labels2 == i), dtype='uint8')
-            ccimage_filled = _fill_image(ccimage)
+            ccimage_filled = _fill_image(ccimage, self.connectivity)
             # For the significant CCs, perform tophat
             if area > min_area:
                 bth = cv2.morphologyEx(
@@ -294,7 +294,7 @@ class BinaryDetector(object):
         return result
 
 
-def _fill_image(img):
+def _fill_image(img, connectivity):
     """Fills all holes in connected components in a binary image.
 
     Parameters
@@ -314,7 +314,7 @@ def _fill_image(img):
 
     floodfilled = img_border.copy()
     mask = np.zeros((h + 4, w + 4), np.uint8)
-    cv2.floodFill(floodfilled, mask, (0, 0), 255, flags=8)
+    cv2.floodFill(floodfilled, mask, (0, 0), 255, flags=connectivity)
     floodfill_inv = cv2.bitwise_not(floodfilled)
     filled = img_border | floodfill_inv
     filled = filled[1:-1, 1:-1]
