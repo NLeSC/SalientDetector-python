@@ -1,8 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-Created on Wed Mar 23 16:10:57 2016
-
-@author: elena
+Testing the helper functions.
 """
 from __future__ import absolute_import
 from __future__ import print_function
