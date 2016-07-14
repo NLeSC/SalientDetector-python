@@ -2,5 +2,5 @@ nose
 numpy
 scipy
 matplotlib
-ipython
-ipython-notebook
+# ipython
+# ipython-notebook
