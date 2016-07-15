@@ -4,6 +4,9 @@
    contain the root `toctree` directive.
 
 Welcome to Salient Region Detectors's documentation!
+See the `project homepage`_ for more information about the package.
+
+.. _`project homepage`: http://nlesc.github.io/SalientDetector-python/
 ====================================================
 
 Contents:
@@ -19,4 +22,3 @@ Indices and tables
 * :ref:`genindex`
 * :ref:`modindex`
 * :ref:`search`
-
