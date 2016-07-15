@@ -5,6 +5,8 @@ This folder contains a Python  implementation of the Salient Region Detector cod
 
 The original MATLAB implementation can be found at [this repository](https://github.com/NLeSC/SalientDetector-matlab)
 
+Documentation can be found on [Read the Docs](http://salientdetector-python.readthedocs.io/).
+
 The repository contains the following sub-folders:
 
 ## Notebooks
@@ -39,7 +41,7 @@ To perform tests:
 `nosetests test`
 
 # Getting started
-The source code documentation can be found [here](http://nlesc.github.io/SalientDetector-python/)
+The source code documentation can be found [here](http://salientdetector-python.readthedocs.io/)
 
 This code makes heavily use of the OpenCV library, so in order to understand how the code works, it helps to have a look at the [OpenCV Documentation](http://docs.opencv.org/3.1.0/).
 
@@ -60,4 +62,4 @@ We use numpy-style code documentation.
 # References
 Ranguelova, E.B. - Pauwels, E.J.
 Morphology-based Stable Salient Regions Detector
-Proceedings of International Conference on Image and Vision Computing New Zealand 2006 , Great Barrier Island, New Zealand, p.97–102 
+Proceedings of International Conference on Image and Vision Computing New Zealand 2006 , Great Barrier Island, New Zealand, p.97–102
