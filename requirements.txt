@@ -4,3 +4,4 @@ scipy
 matplotlib
 # ipython
 # ipython-notebook
+opencv-python
