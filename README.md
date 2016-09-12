@@ -21,24 +21,39 @@ Unit tests for the code in salientregions.
 # Installation
 ## Prerequisites
 * Python 2.7 or 3.5
-* pip
-* The python packages in `requirements.txt`.
-* OpenCV 3.1. There is two ways to install OpenCV:
-  * If you're using Conda, you can install OpenCV with the following command:
+* pip (8.1.2)
 
-  `conda install -c https://conda.anaconda.org/menpo opencv3`
+## Installing the package (via pip)
 
-  * Otherwise, follow the instructions to [install OpenCV 3.1.0 manually](http://opencv-python-tutroals.readthedocs.org/en/latest/py_tutorials/py_setup/py_table_of_contents_setup/py_table_of_contents_setup.html#py-table-of-content-setup)
+`pip install -e git://github.com/c-martinez/SalientDetector-python.git@pip#egg=salientregions`
 
+Afterwards you can import it in Python:
 
-## Installing the package
-To install the package `salientregions`  in your environment:
+```python
+import salientregions as sr
+```
+
+## Installing the package manually
+Clone or download repo. Install requirements from requirements.txt file:
+
+`pip install -r requirements.txt`
+
+Install the package itself:
 
 `pip install .`
 
 To perform tests:
 
 `nosetests test`
+
+## Manually install OpenCV
+OpenCV should be installed via pip, but if you have an older version of pip, you might need to  install it manually. There is two ways to install OpenCV:
+  * If you're using Conda, you can install OpenCV with the following command:
+
+  `conda install -c https://conda.anaconda.org/menpo opencv3`
+
+  * Otherwise, follow the instructions to [install OpenCV 3.1.0 manually](http://opencv-python-tutroals.readthedocs.org/en/latest/py_tutorials/py_setup/py_table_of_contents_setup/py_table_of_contents_setup.html#py-table-of-content-setup)
+
 
 # Getting started
 The source code documentation can be found [here](http://salientdetector-python.readthedocs.io/)
