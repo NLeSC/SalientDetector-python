@@ -15,8 +15,9 @@ install:
   - conda info -a
 
   # Create conda environment and install requirements
-  - conda create -q -n test-environment python=$TRAVIS_PYTHON_VERSION --file requirements.txt
+  - conda create -q -n test-environment python=$TRAVIS_PYTHON_VERSION numpy scipy
   - source activate test-environment
+  - pip install -r requirements.txt
   - conda install -c https://conda.anaconda.org/menpo opencv3
   - pip install coverage
   - pip install codacy-coverage
