@@ -2,6 +2,10 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/). 
 
+## 1.0.2 - 2016-09-28
+## Changed
+- Fix setup.py for PyPi installation
+
 ## 1.0.1 - 2016-09-28
 ## Changed
 - Changed setup.py so that installation is completely possible through pip
