@@ -25,7 +25,7 @@ Unit tests for the code in salientregions.
 
 ## Installing the package (via pip)
 
-`pip install -e git://github.com/c-martinez/SalientDetector-python.git@pip#egg=salientregions`
+`pip install salientregions`
 
 Afterwards you can import it in Python:
 
